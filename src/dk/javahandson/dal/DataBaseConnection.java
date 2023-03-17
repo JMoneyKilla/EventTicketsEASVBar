@@ -13,10 +13,10 @@ public class DataBaseConnection {
     public Connection getConnection() {
         SQLServerDataSource ds;
         ds = new SQLServerDataSource();
-        ds.setDatabaseName("CSe2022B_e_ - NUMBER - Databasename");
-        ds.setUser("CSe2022B_e_NUMBER");
-        ds.setPassword("CSe2022BE NUMBER #");
-        ds.setServerName("10.176.111.31");
+        ds.setDatabaseName("CSe2022B_e_14_EASVEvents");
+        ds.setUser("CSe2022B_e_14");
+        ds.setPassword("CSe2022BE14#");
+        ds.setServerName("10.176.111.34");
         ds.setPortNumber(1433);
         ds.setTrustServerCertificate(true);
         try {
