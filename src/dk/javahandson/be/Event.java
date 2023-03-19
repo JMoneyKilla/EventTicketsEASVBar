@@ -6,7 +6,8 @@ import javafx.beans.property.StringProperty;
 public class Event {
     private IntegerProperty id;
     private StringProperty name;
-    private StringProperty time;
+    private StringProperty startTime;
+    private StringProperty endtime;
     private StringProperty location;
     private StringProperty notes;
     private IntegerProperty totalTickets;
@@ -14,10 +15,10 @@ public class Event {
     private IntegerProperty totalVouchers;
     private IntegerProperty voucherUsed;
 
-    public Event(int id,String name,String time, String location, String notes, int totalTickets, int ticketsSold, int totalVouchers, int voucherUsed){
+    public Event(int id,String name,String startTime, String endtime, String location, String notes, int totalTickets, int ticketsSold, int totalVouchers, int voucherUsed){
     setId(id);
     setName(name);
-    setTime(time);
+    setStartTime(startTime);
     setLocation(location);
     setNotes(notes);
     setTotalTickets(totalTickets);
@@ -50,16 +51,16 @@ public class Event {
         this.name.set(name);
     }
 
-    public String getTime() {
-        return time.get();
+    public String getStartTime() {
+        return startTime.get();
     }
 
-    public StringProperty timeProperty() {
-        return time;
+    public StringProperty startTimeProperty() {
+        return startTime;
     }
 
-    public void setTime(String time) {
-        this.time.set(time);
+    public void setStartTime(String startTime) {
+        this.startTime.set(startTime);
     }
 
     public String getLocation() {
@@ -132,5 +133,17 @@ public class Event {
 
     public void setVoucherUsed(int voucherUsed) {
         this.voucherUsed.set(voucherUsed);
+    }
+
+    public String getEndtime() {
+        return endtime.get();
+    }
+
+    public StringProperty endtimeProperty() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime.set(endtime);
     }
 }
