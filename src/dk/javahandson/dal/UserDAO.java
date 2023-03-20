@@ -1,13 +1,14 @@
 package dk.javahandson.dal;
 
 
+import dk.javahandson.be.Event;
 import dk.javahandson.be.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class UserDAO {
-    DataBaseConnection dbc = new DataBaseConnection();
+    DataBaseConnection dbc = DataBaseConnection.getInstance();
     private void createUser(User user) {
         String sql = "INSERT INTO Event (name, type, email) VALUES (?,?,?)";
         String name = user.getName();
@@ -45,7 +46,7 @@ public class UserDAO {
         String email = user.getEmail();
 
 
-        String sql = "UPDATE Songs SET name = ?, type = ?, email = ? WHERE id = ?;";
+        String sql = "UPDATE User SET name = ?, type = ?, email = ? WHERE id = ?;";
         try(Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,name);
@@ -56,6 +57,18 @@ public class UserDAO {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void addUserToEvent(Event event, User user) throws SQLException {
+        int eventId = event.getId();
+        int userId = user.getId();
+        String sql = "INSERT INTO UserEvent (event_id, user_id) VALUES (?,?)";
+        try(Connection con = dbc.getConnection()){
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, eventId);
+            ps.setInt(2, userId);
+            ps.execute();
         }
     }
 }

@@ -1,23 +1,77 @@
 package dk.javahandson.dal;
 
 import dk.javahandson.be.Event;
+import dk.javahandson.be.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventDAO {
-    DataBaseConnection dbc = new DataBaseConnection();
+    DataBaseConnection dbc = DataBaseConnection.getInstance();
+
+    private List<Event> getAllEvents(){
+        List<Event> allEvents = new ArrayList<>();
+        String sql = "SELECT * FROM Event";
+        try(Connection connection = dbc.getConnection()){
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String eventName = rs.getString("event_name");
+                String startTime = rs.getString("start_time");
+                String endTime = rs.getString("end_time");
+                String location = rs.getString("location");
+                String notes = rs.getString("notes");
+                int ticketsSold = rs.getInt("tickets_sold");
+                int vouchersUsed = rs.getInt("vouchers_used");
+                Event event = new Event(id, eventName, startTime, endTime, location, notes, ticketsSold, vouchersUsed);
+                allEvents.add(event);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return allEvents;
+    }
+    public List<Event> getCoordinatorEvents(User u) throws SQLException {
+        List<Event> coordinatorEvents = new ArrayList<>();
+        int userId = u.getId();
+        String sql = "SELECT Event.[id], [event_id], [user_id], [event_name], [start_time], [end_time], [location], [notes], [tickets_sold],[vouchers_used]\n" +
+                "    FROM Event\n" +
+                "    INNER JOIN UserEvent\n" +
+                "    ON Event.id = UserEvent.event_id\n" +
+                "    INNER JOIN [User]\n" +
+                "    ON UserEvent.user_id = [User].id\n" +
+                "    WHERE [user_id] = " + userId + ";";
+        try(Connection connection = dbc.getConnection()){
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String eventName = rs.getString("event_name");
+                String startTime = rs.getString("start_time");
+                String endTime = rs.getString("end_time");
+                String location = rs.getString("location");
+                String notes = rs.getString("notes");
+                int ticketsSold = rs.getInt("tickets_sold");
+                int vouchersUsed = rs.getInt("vouchers_used");
+                Event event = new Event(id, eventName, startTime, endTime, location, notes, ticketsSold, vouchersUsed);
+                coordinatorEvents.add(event);
+            }
+            return coordinatorEvents;
+        }
+    }
     private void createEvent(Event event) {
-        String sql = "INSERT INTO Ticket (event_name, start_time, end_time, location, notes, total_tickets, tickets_sold, total_vouchers, voucher_used) VALUES (?, ?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Event (event_name, start_time, end_time, location, notes, total_tickets, tickets_sold, total_vouchers, vouchers_used) VALUES (?,?,?,?,?,?,?)";
         String name = event.getName();
         String startTime = event.getStartTime();
         String endTime = event.getStartTime();
         String location = event.getLocation();
         String notes = event.getNotes();
-        int totalTickets = event.getTotalTickets();
         int ticketsSold = event.getTicketsSold();
-        int totalVouchers = event.getTotalVouchers();
         int voucherUsed = event.getVoucherUsed();
 
 
@@ -28,27 +82,27 @@ public class EventDAO {
             ps.setString(3,endTime);
             ps.setString(4,location);
             ps.setString(5,notes);
-            ps.setInt(6,totalTickets);
-            ps.setInt(7,ticketsSold);
-            ps.setInt(8,totalVouchers);
-            ps.setInt(9,voucherUsed);
+            ps.setInt(6,ticketsSold);
+            ps.setInt(7,voucherUsed);
             ps.execute();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
-    private void deleteEvent(Event event) {
-        int id = event.getId();
-        String sql ="DELETE FROM Event WHERE id=?";
-
-        try(Connection con = dbc.getConnection();) {
+    private boolean deleteEvent(Event event) {
+        try(Connection con = dbc.getConnection()) {
+            int id = event.getId();
+            String sql ="DELETE FROM Event WHERE (id=?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1,id);
+            ps.setInt(1, id);
+            int result =ps.executeUpdate();
+            if(result > 0)
+                return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return false;
     }
     public void updateEvent(Event event){
         int id = event.getId();
@@ -57,13 +111,11 @@ public class EventDAO {
         String endTime = event.getStartTime();
         String location = event.getLocation();
         String notes = event.getNotes();
-        int totalTickets = event.getTotalTickets();
         int ticketsSold = event.getTicketsSold();
-        int totalVouchers = event.getTotalVouchers();
         int voucherUsed = event.getVoucherUsed();
 
 
-        String sql = "UPDATE Event SET name = ?, start_time = ?, end_time = ?, location = ?, notes = ?, total_tickets = ?,tickets_sold = ?, total_vouchers = ?, voucers_used WHERE id = ?;";
+        String sql = "UPDATE Event SET name = ?, start_time = ?, end_time = ?, location = ?, notes = ?, tickets_sold = ?, voucers_used WHERE id = ?;";
         try(Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,name);
@@ -71,11 +123,9 @@ public class EventDAO {
             ps.setString(3,endTime);
             ps.setString(4,location);
             ps.setString(5,notes);
-            ps.setInt(6,totalTickets);
-            ps.setInt(7,ticketsSold);
-            ps.setInt(8,totalVouchers);
-            ps.setInt(9,voucherUsed);
-            ps.setInt(10,id);
+            ps.setInt(6,ticketsSold);
+            ps.setInt(7,voucherUsed);
+            ps.setInt(8,id);
             ps.execute();
 
         } catch (SQLException e) {
