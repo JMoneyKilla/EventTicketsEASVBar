@@ -1,13 +1,15 @@
 package dk.javahandson.be;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class User {
-    private IntegerProperty id;
-    private StringProperty name;
-    private StringProperty type;
-    private StringProperty email;
+    private IntegerProperty id =  new SimpleIntegerProperty();
+    private StringProperty name = new SimpleStringProperty();
+    private StringProperty type = new SimpleStringProperty();
+    private StringProperty email = new SimpleStringProperty();
 
     public User(int id, String name,String type, String email){
     setId(id);

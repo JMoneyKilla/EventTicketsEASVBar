@@ -1,19 +1,21 @@
 package dk.javahandson.be;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Event {
-    private IntegerProperty id;
-    private StringProperty name;
-    private StringProperty startTime;
-    private StringProperty endtime;
-    private StringProperty location;
-    private StringProperty notes;
-    private IntegerProperty totalTickets;
-    private IntegerProperty ticketsSold;
-    private IntegerProperty totalVouchers;
-    private IntegerProperty voucherUsed;
+    private IntegerProperty id =  new SimpleIntegerProperty();
+    private StringProperty name = new SimpleStringProperty();
+    private StringProperty startTime = new SimpleStringProperty();
+    private StringProperty endtime = new SimpleStringProperty();
+    private StringProperty location  = new SimpleStringProperty();
+    private StringProperty notes  = new SimpleStringProperty();
+    private IntegerProperty totalTickets =  new SimpleIntegerProperty();
+    private IntegerProperty ticketsSold =  new SimpleIntegerProperty();
+    private IntegerProperty totalVouchers =  new SimpleIntegerProperty();
+    private IntegerProperty voucherUsed =  new SimpleIntegerProperty();
 
     public Event(int id,String name,String startTime, String endtime, String location, String notes, int totalTickets, int ticketsSold, int totalVouchers, int voucherUsed){
     setId(id);

@@ -1,20 +1,40 @@
 package dk.javahandson.be;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Ticket {
-    private IntegerProperty id;
-    private IntegerProperty eventId;
-    private StringProperty customer;
-    private StringProperty customerEmail;
+    private IntegerProperty id =  new SimpleIntegerProperty();
+    private IntegerProperty eventId =  new SimpleIntegerProperty();
+    private StringProperty customer = new SimpleStringProperty();
+    private StringProperty customerEmail = new SimpleStringProperty();
+    private StringProperty type = new SimpleStringProperty();
 
-    public Ticket(int id, int eventId, String customer, String customerEmail){
+    public Ticket(int id, int eventId, String type, String customer, String customerEmail){
         setId(id);
         setEventId(eventId);
+        setType(type);
         setCustomer(customer);
         setCustomerEmail(customerEmail);
+    }
 
+    public void sellTicket(Ticket ticket, String customer, String customerEmail){
+        ticket.setCustomer(customer);
+        ticket.setCustomerEmail(customerEmail);
+    }
+
+    public String getType() {
+        return type.get();
+    }
+
+    public StringProperty typeProperty() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type.set(type);
     }
 
     public int getId() {

@@ -14,8 +14,8 @@ public class DataBaseConnection {
         SQLServerDataSource ds;
         ds = new SQLServerDataSource();
         ds.setDatabaseName("CSe2022B_e_14_EASVEvents");
-        ds.setUser("CSe2022B_e_14");
-        ds.setPassword("CSe2022BE14#");
+        ds.setUser("CSe2022B_e_15");
+        ds.setPassword("CSe2022BE15#");
         ds.setServerName("10.176.111.34");
         ds.setPortNumber(1433);
         ds.setTrustServerCertificate(true);
