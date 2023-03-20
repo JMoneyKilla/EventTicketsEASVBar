@@ -13,7 +13,7 @@ import java.util.List;
 public class EventDAO {
     DataBaseConnection dbc = DataBaseConnection.getInstance();
 
-    private List<Event> getAllEvents(){
+    public List<Event> getAllEvents() throws SQLException {
         List<Event> allEvents = new ArrayList<>();
         String sql = "SELECT * FROM Event";
         try(Connection connection = dbc.getConnection()){
@@ -31,8 +31,6 @@ public class EventDAO {
                 Event event = new Event(id, eventName, startTime, endTime, location, notes, ticketsSold, vouchersUsed);
                 allEvents.add(event);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
         return allEvents;
     }
@@ -64,7 +62,7 @@ public class EventDAO {
             return coordinatorEvents;
         }
     }
-    private void createEvent(Event event) {
+    public void createEvent(Event event) throws SQLException {
         String sql = "INSERT INTO Event (event_name, start_time, end_time, location, notes, total_tickets, tickets_sold, total_vouchers, vouchers_used) VALUES (?,?,?,?,?,?,?)";
         String name = event.getName();
         String startTime = event.getStartTime();
@@ -86,11 +84,9 @@ public class EventDAO {
             ps.setInt(7,voucherUsed);
             ps.execute();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
-    private boolean deleteEvent(Event event) {
+    public boolean deleteEvent(Event event) throws SQLException {
         try(Connection con = dbc.getConnection()) {
             int id = event.getId();
             String sql ="DELETE FROM Event WHERE (id=?)";
@@ -99,12 +95,10 @@ public class EventDAO {
             int result =ps.executeUpdate();
             if(result > 0)
                 return true;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
         return false;
     }
-    public void updateEvent(Event event){
+    public void updateEvent(Event event) throws SQLException {
         int id = event.getId();
         String name = event.getName();
         String startTime = event.getStartTime();
@@ -127,9 +121,6 @@ public class EventDAO {
             ps.setInt(7,voucherUsed);
             ps.setInt(8,id);
             ps.execute();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 }

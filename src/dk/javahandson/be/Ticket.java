@@ -6,14 +6,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Ticket {
-    private IntegerProperty id =  new SimpleIntegerProperty();
+    private StringProperty uuid =  new SimpleStringProperty();
     private IntegerProperty eventId =  new SimpleIntegerProperty();
     private StringProperty customer = new SimpleStringProperty();
     private StringProperty customerEmail = new SimpleStringProperty();
     private StringProperty type = new SimpleStringProperty();
 
-    public Ticket(int id, int eventId, String type, String customer, String customerEmail){
-        setId(id);
+    public Ticket(String uuid, int eventId, String type, String customer, String customerEmail){
+        setId(uuid);
         setEventId(eventId);
         setType(type);
         setCustomer(customer);
@@ -37,16 +37,16 @@ public class Ticket {
         this.type.set(type);
     }
 
-    public int getId() {
-        return id.get();
+    public String getUuid() {
+        return uuid.get();
     }
 
-    public IntegerProperty idProperty() {
-        return id;
+    public StringProperty uuidProperty() {
+        return uuid;
     }
 
-    public void setId(int id) {
-        this.id.set(id);
+    public void setUuid(String uuid) {
+        this.uuid.set(uuid);
     }
 
     public int getEventId() {
