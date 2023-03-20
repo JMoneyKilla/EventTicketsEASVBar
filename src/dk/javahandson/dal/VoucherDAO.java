@@ -1,5 +1,7 @@
 package dk.javahandson.dal;
 
+import dk.javahandson.be.Voucher;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,9 +31,9 @@ public class VoucherDAO {
     public boolean deleteVoucher(Voucher voucher) throws SQLException {
         try (Connection con = dbc.getConnection()) {
             String uuid = voucher.getUuid();
-            String sql = "DELETE FROM Voucher WHERE (id=?)";
+            String sql = "DELETE FROM Voucher WHERE (uuid=?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, uuid);
+            ps.setString(1, uuid);
             int result = ps.executeUpdate();
             if (result > 0)
                 return true;
@@ -39,7 +41,7 @@ public class VoucherDAO {
         return false;
     }
 
-    public void createVoucher (Voucher voucher){
+    public void createVoucher (Voucher voucher) throws SQLException {
         String sql = "INSERT INTO Voucher (uuid, event_id, type, redeemable) VALUES (?,?,?,?)";
         String uuid = voucher.getUuid();
         int eventId = voucher.getEventId();
