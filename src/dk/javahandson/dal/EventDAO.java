@@ -1,13 +1,15 @@
 package dk.javahandson.dal;
-
 import dk.javahandson.be.Event;
-
+import dk.javahandson.be.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class EventDAO {
-<<<<<<< Updated upstream
-=======
     DataBaseConnection dbc = DataBaseConnection.getInstance();
 
     public List<Event> getAllEvents() throws SQLException {
@@ -59,7 +61,8 @@ public class EventDAO {
             return coordinatorEvents;
         }
     }
-    public void createEvent(Event event) {
+
+    public void createEvent(Event event) throws SQLException {
         String sql = "INSERT INTO Event (event_name, start_time, end_time, location, notes, total_tickets, tickets_sold, total_vouchers, vouchers_used) VALUES (?,?,?,?,?,?,?)";
         String name = event.getName();
         String startTime = event.getStartTime();
@@ -81,10 +84,10 @@ public class EventDAO {
             ps.setInt(7,voucherUsed);
             ps.execute();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
         }
     }
+    
     public boolean deleteEvent(Event event) throws SQLException {
         try(Connection con = dbc.getConnection()) {
             int id = event.getId();
@@ -123,5 +126,3 @@ public class EventDAO {
 
         }
     }
->>>>>>> Stashed changes
-}
