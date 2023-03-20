@@ -14,9 +14,11 @@ public class DataAccessFacade {
     private UserDAO userDAO = new UserDAO();
     private VoucherDAO voucherDAO = new VoucherDAO();
 
+
     /*
     Methods used to access Event DAO
      */
+
     public List<Event> getAllEvents() throws SQLException {
         return eventDAO.getAllEvents();
     }
@@ -32,7 +34,7 @@ public class DataAccessFacade {
     public void updateEvent(Event event) throws SQLException {
         eventDAO.updateEvent(event);
     }
-
+    
     /*
     Methods used to access TicketDAO
      */
@@ -80,5 +82,6 @@ public class DataAccessFacade {
     public void createVoucher (Voucher voucher) throws SQLException {
         voucherDAO.createVoucher(voucher);
     }
+
 
     }

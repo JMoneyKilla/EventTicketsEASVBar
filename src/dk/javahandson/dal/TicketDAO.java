@@ -33,6 +33,7 @@ public class TicketDAO {
         }
     }
 
+
     public boolean deleteTicket(Ticket ticket) throws SQLException {
         String uuid = ticket.getUuid();
         String sql ="DELETE FROM Ticket WHERE uuid=?";
@@ -51,9 +52,7 @@ public class TicketDAO {
         String customer = ticket.getCustomer();
         String customerEmail = ticket.getCustomerEmail();
         int eventID = ticket.getEventId();
-
-
-        String sql = "UPDATE Ticket SET event_id = ?, customer_name = ?, customer_email = ? WHERE uuid = ?;";
+        String sql = "UPDATE Ticket SET event_id = ?, customer_name = ?, customer_email = ? WHERE uuid = ?;";    
         try(Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,eventID);
@@ -64,6 +63,7 @@ public class TicketDAO {
 
         }
     }
+    
     public void redeemTicket(Ticket ticket) throws SQLException {
         String uuid = ticket.getUuid();
 
@@ -76,4 +76,6 @@ public class TicketDAO {
 
         }
     }
+
+   
 }

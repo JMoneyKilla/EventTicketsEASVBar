@@ -2,7 +2,6 @@ package dk.javahandson.dal;
 
 import dk.javahandson.be.Ticket;
 import dk.javahandson.be.Voucher;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -69,3 +68,4 @@ public class VoucherDAO {
         }
     }
     }
+
