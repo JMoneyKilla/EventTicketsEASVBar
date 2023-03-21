@@ -11,9 +11,9 @@
 
 <AnchorPane fx:id="createEventAnchorPane" prefHeight="450.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.CreateEventController">
    <children>
-      <ScrollPane prefHeight="454.0" prefWidth="450.0">
+      <ScrollPane prefHeight="451.0" prefWidth="450.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="555.0" prefWidth="432.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="607.0" prefWidth="432.0">
                <children>
                   <Label layoutX="17.0" layoutY="43.0" text="Event Title:" />
                   <TextField fx:id="txtFieldEventTitle" layoutX="18.0" layoutY="61.0" prefHeight="25.0" prefWidth="309.0" />
@@ -55,6 +55,8 @@
                      </children>
                   </HBox>
                   <ListView fx:id="tableViewTickets" layoutX="21.0" layoutY="403.0" prefHeight="120.0" prefWidth="362.0" />
+                  <Button layoutX="288.0" layoutY="555.0" mnemonicParsing="false" onAction="#clickSave" text="Save" />
+                  <Button layoutX="332.0" layoutY="555.0" mnemonicParsing="false" onAction="#clickCancel" text="Cancel" />
                </children>
             </AnchorPane>
         </content>

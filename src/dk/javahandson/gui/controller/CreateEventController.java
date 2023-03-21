@@ -30,4 +30,10 @@ public class CreateEventController {
             txtFieldAmount.clear();
         }
     }
+
+    public void clickSave(ActionEvent actionEvent) {
+    }
+
+    public void clickCancel(ActionEvent actionEvent) {
+    }
 }
