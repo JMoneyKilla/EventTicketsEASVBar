@@ -57,6 +57,7 @@
                   <ListView fx:id="tableViewTickets" layoutX="21.0" layoutY="403.0" prefHeight="120.0" prefWidth="362.0" />
                   <Button layoutX="288.0" layoutY="555.0" mnemonicParsing="false" onAction="#clickSave" text="Save" />
                   <Button layoutX="332.0" layoutY="555.0" mnemonicParsing="false" onAction="#clickCancel" text="Cancel" />
+                  <Label fx:id="lblWarning" layoutX="260.0" layoutY="295.0" prefHeight="17.0" prefWidth="217.0" />
                </children>
             </AnchorPane>
         </content>

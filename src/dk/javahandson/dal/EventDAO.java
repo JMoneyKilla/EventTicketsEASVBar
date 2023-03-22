@@ -128,4 +128,17 @@ public class EventDAO {
 
         }
     }
+    public int  getEventId(Event event) throws SQLException {
+        String sql = "SELECT id FROM Event WHERE event_name = ?";
+        try (Connection connection = dbc.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, event.getName());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                return id;
+            }
+        }
+        return 0;
+    }
 }
