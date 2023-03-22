@@ -13,7 +13,7 @@ public class Ticket {
     private StringProperty type = new SimpleStringProperty();
 
     public Ticket(String uuid, int eventId, String type, String customer, String customerEmail){
-        setId(uuid);
+        setUuid(uuid);
         setEventId(eventId);
         setType(type);
         setCustomer(customer);
@@ -49,7 +49,7 @@ public class Ticket {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setId(String uuid) {
         this.uuid.set(uuid);
     }
 

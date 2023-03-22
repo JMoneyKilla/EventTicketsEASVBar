@@ -1,90 +1,89 @@
-package dk.javahandson.dal;
+package dk.javahandson.bll;
 
 import dk.javahandson.be.Event;
 import dk.javahandson.be.Ticket;
 import dk.javahandson.be.User;
 import dk.javahandson.be.Voucher;
+import dk.javahandson.bll.managers.*;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class DataAccessFacade {
-    private EventDAO eventDAO = new EventDAO();
-    private TicketDAO ticketDAO = new TicketDAO();
-    private UserDAO userDAO = new UserDAO();
-    private VoucherDAO voucherDAO = new VoucherDAO();
-
+public class ManagerFacade {
+    private EventManager eventManager = new EventManager();
+    private TicketManager ticketManager = new TicketManager();
+    private UserManager userManager = new UserManager();
+    private VoucherManager voucherManager = new VoucherManager();
 
     /*
-    Methods used to access Event DAO
+    Methods used to access EventManager
      */
 
     public List<Event> getAllEvents() throws SQLException {
-        return eventDAO.getAllEvents();
+        return eventManager.getAllEvents();
     }
     public List<Event> getCoordinatorEvents(User u) throws SQLException {
-        return eventDAO.getCoordinatorEvents(u);
+        return eventManager.getCoordinatorEvents(u);
     }
     public void createEvent(Event event) throws SQLException {
-        eventDAO.createEvent(event);
+        eventManager.createEvent(event);
     }
     public boolean deleteEvent(Event event) throws SQLException {
-        return eventDAO.deleteEvent(event);
+        return eventManager.deleteEvent(event);
     }
     public void updateEvent(Event event) throws SQLException {
-        eventDAO.updateEvent(event);
+        eventManager.updateEvent(event);
     }
-    
+
     /*
-    Methods used to access TicketDAO
+    Methods used to access TicketManager
      */
 
     public void createTicket(Ticket ticket) throws SQLException {
-        ticketDAO.createTicket(ticket);
+        ticketManager.createTicket(ticket);
     }
     public boolean deleteTicket(Ticket ticket) throws SQLException {
-        return ticketDAO.deleteTicket(ticket);
+        return ticketManager.deleteTicket(ticket);
     }
     public void updateTicket(Ticket ticket) throws SQLException {
-        ticketDAO.updateTicket(ticket);
+        ticketManager.updateTicket(ticket);
     }
     public void redeemTicket(Ticket ticket) throws SQLException {
-        ticketDAO.redeemTicket(ticket);
+        ticketManager.redeemTicket(ticket);
     }
     public List<Ticket> getAllTickets() throws SQLException {
-        return ticketDAO.getAllTickets();
+        return ticketManager.getAllTickets();
     }
 
     /*
-    Methods used to access UserDAO
+    Methods used to access UserManager
      */
 
     public void createUser(User user) throws SQLException {
-        userDAO.createUser(user);
+        userManager.createUser(user);
     }
     public boolean deleteUser(User user) throws SQLException {
-        return userDAO.deleteUser(user);
+        return userManager.deleteUser(user);
     }
     public void updateUser(User user) throws SQLException {
-        userDAO.updateUser(user);
+        userManager.updateUser(user);
     }
     public void addUserToEvent(Event event, User user) throws SQLException {
-        userDAO.addUserToEvent(event, user);
+        userManager.addUserToEvent(event, user);
     }
 
+
     /*
-    Methods used to access VoucherDAO
+    Methods used to access VoucherManager
      */
 
     public List<Voucher> getAllVouchers() throws SQLException {
-        return voucherDAO.getAllVouchers();
+        return voucherManager.getAllVouchers();
     }
     public boolean deleteVoucher(Voucher voucher) throws SQLException {
-        return voucherDAO.deleteVoucher(voucher);
+        return voucherManager.deleteVoucher(voucher);
     }
     public void createVoucher (Voucher voucher) throws SQLException {
-        voucherDAO.createVoucher(voucher);
+        voucherManager.createVoucher(voucher);
     }
-
-
-    }
+}
