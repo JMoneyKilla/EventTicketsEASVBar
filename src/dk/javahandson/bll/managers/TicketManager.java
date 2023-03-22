@@ -4,6 +4,7 @@ import dk.javahandson.be.Ticket;
 import dk.javahandson.dal.DataAccessFacade;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class TicketManager {
     private DataAccessFacade ticketDAO = new DataAccessFacade();
@@ -19,5 +20,8 @@ public class TicketManager {
     }
     public void redeemTicket(Ticket ticket) throws SQLException {
         ticketDAO.redeemTicket(ticket);
+    }
+    public List<Ticket> getAllTickets() throws SQLException {
+        return ticketDAO.getAllTickets();
     }
 }

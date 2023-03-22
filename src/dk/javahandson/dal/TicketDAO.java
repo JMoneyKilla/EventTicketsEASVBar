@@ -3,7 +3,9 @@ package dk.javahandson.dal;
 import dk.javahandson.be.Ticket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TicketDAO {
@@ -64,7 +66,7 @@ public class TicketDAO {
         }
     }
     
-    public void redeemTicket(Ticket ticket) throws SQLException {
+    public boolean redeemTicket(Ticket ticket) throws SQLException {
         String uuid = ticket.getUuid();
 
         String sql = "UPDATE Ticket SET redeemable = ? WHERE uuid = ?;";
@@ -73,8 +75,32 @@ public class TicketDAO {
             ps.setBoolean(1,false);
             ps.setString(2,uuid);
             ps.execute();
+            return true;
 
         }
+
+    }
+    public List<Ticket> getAllTickets(){
+        Ticket ticket;
+        List<Ticket> allTickets = new ArrayList<>();
+
+        String sql = "SELECT * FROM Ticket";
+        try(Connection connection = dbc.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                String uuid = rs.getString("uuid");
+                int eventId = rs.getInt("event_id");
+                String type = rs.getString("type");
+                String customer = rs.getString("customer_name");
+                String customerEmail = rs.getString("customer_email");
+                ticket = new Ticket(uuid, eventId, type, customer, customerEmail);
+                allTickets.add(ticket);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return allTickets;
     }
 
    
