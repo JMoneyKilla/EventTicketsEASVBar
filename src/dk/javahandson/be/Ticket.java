@@ -45,7 +45,7 @@ public class Ticket {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setId(String uuid) {
         this.uuid.set(uuid);
     }
 

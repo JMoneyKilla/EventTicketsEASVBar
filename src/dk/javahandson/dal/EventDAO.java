@@ -64,7 +64,7 @@ public class EventDAO {
     }
 
     public void createEvent(Event event) throws SQLException {
-        String sql = "INSERT INTO Event (event_name, start_time, end_time, location, notes, total_tickets, tickets_sold, total_vouchers, vouchers_used) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Event (event_name, start_time, end_time, location, notes, tickets_sold, vouchers_used) VALUES (?,?,?,?,?,?,?)";
         String name = event.getName();
         String startTime = event.getStartTime();
         String endTime = event.getStartTime();

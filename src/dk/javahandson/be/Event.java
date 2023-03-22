@@ -9,20 +9,29 @@ public class Event {
     private IntegerProperty id = new SimpleIntegerProperty();
     private StringProperty name = new SimpleStringProperty();
     private StringProperty startTime = new SimpleStringProperty();
-    private StringProperty endtime = new SimpleStringProperty();
+    private StringProperty endTime = new SimpleStringProperty();
     private StringProperty location = new SimpleStringProperty();
     private StringProperty notes = new SimpleStringProperty();
     private IntegerProperty ticketsSold = new SimpleIntegerProperty();
     private IntegerProperty voucherUsed = new SimpleIntegerProperty();
 
-    public Event(int id,String name,String startTime, String endtime, String location, String notes, int ticketsSold, int voucherUsed){
+    public Event(int id,String name,String startTime, String endTime, String location, String notes, int ticketsSold, int voucherUsed){
     setId(id);
     setName(name);
     setStartTime(startTime);
+    setEndTime(endTime);
     setLocation(location);
     setNotes(notes);
     setTicketsSold(ticketsSold);
     setVoucherUsed(voucherUsed);
+    }
+
+    public Event(String name, String location, String dateStart, String dateEnd, String notes) {
+        setName(name);
+        setLocation(location);
+        setStartTime(dateStart);
+        setEndTime(dateEnd);
+        setNotes(notes);
     }
 
     public int getId() {
@@ -111,14 +120,14 @@ public class Event {
     }
 
     public String getEndtime() {
-        return endtime.get();
+        return endTime.get();
     }
 
-    public StringProperty endtimeProperty() {
-        return endtime;
+    public StringProperty endTimeProperty() {
+        return endTime;
     }
 
-    public void setEndtime(String endtime) {
-        this.endtime.set(endtime);
+    public void setEndTime(String endTime) {
+        this.endTime.set(endTime);
     }
 }
