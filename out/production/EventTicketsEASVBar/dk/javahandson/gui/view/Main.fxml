@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.MainController">
+   <left>
+      <VBox prefHeight="450.0" prefWidth="169.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="51.0" prefWidth="135.0" />
+            <VBox prefHeight="31.0" prefWidth="135.0">
+               <children>
+                  <Label text="Home" translateX="20.0" />
+               </children>
+            </VBox>
+            <VBox prefHeight="361.0" prefWidth="135.0">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="80.0" onMouseClicked="#clickAllEvents" pickOnBounds="true" preserveRatio="true" translateX="20.0" />
+                  <ImageView fitHeight="30.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" translateX="20.0" translateY="10.0" />
+                  <ImageView fitHeight="30.0" fitWidth="80.0" onMouseClicked="#clickCreateEvent" pickOnBounds="true" preserveRatio="true" translateX="20.0" translateY="20.0" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>
