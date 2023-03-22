@@ -23,7 +23,7 @@ public class MainController {
     @FXML
     private void clickAllEvents(MouseEvent mouseEvent) {
         FXMLLoader fxmlLoader =
-                new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/EventsMenu.fxml"));
+                new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/AdminEventsMenu.fxml"));
         System.out.println(fxmlLoader);
         borderPane.getChildren().remove(borderPane.getCenter()); //remove existing fxml from center.
         try {
@@ -37,6 +37,18 @@ public class MainController {
     private void clickCreateEvent(MouseEvent mouseEvent) {
         FXMLLoader fxmlLoader =
                 new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/CreateEventMenu.fxml"));
+        System.out.println(fxmlLoader);
+        borderPane.getChildren().remove(borderPane.getCenter()); //remove existing fxml from center.
+        try {
+            borderPane.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickMyEvents(MouseEvent mouseEvent) {
+        FXMLLoader fxmlLoader =
+                new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/EventsMenu.fxml"));
         System.out.println(fxmlLoader);
         borderPane.getChildren().remove(borderPane.getCenter()); //remove existing fxml from center.
         try {
