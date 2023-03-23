@@ -1,12 +1,13 @@
 package dk.javahandson.dal;
 
+import dk.javahandson.be.Ticket;
 import dk.javahandson.be.Voucher;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VoucherDAO {
     DataBaseConnection dbc = DataBaseConnection.getInstance();
@@ -41,7 +42,7 @@ public class VoucherDAO {
         return false;
     }
 
-    public void createVoucher (Voucher voucher) throws SQLException {
+    public void createVoucher(Voucher voucher) throws SQLException {
         String sql = "INSERT INTO Voucher (uuid, event_id, type, redeemable) VALUES (?,?,?,?)";
         String uuid = voucher.getUuid();
         int eventId = voucher.getEventId();
@@ -52,6 +53,19 @@ public class VoucherDAO {
             ps.setInt(2, eventId);
             ps.setString(3, type);
             ps.setBoolean(4, true);
-            }
         }
     }
+    public void redeemVoucher(Voucher voucher) throws SQLException {
+        String uuid = voucher.getUuid();
+
+        String sql = "UPDATE Voucher SET redeemable = ? WHERE id = ?;";
+        try(Connection con = dbc.getConnection();) {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setBoolean(1,false);
+            ps.setString(2,uuid);
+            ps.execute();
+
+        }
+    }
+    }
+

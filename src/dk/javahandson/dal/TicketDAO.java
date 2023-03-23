@@ -3,19 +3,16 @@ package dk.javahandson.dal;
 import dk.javahandson.be.Ticket;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TicketDAO {
-    DataBaseConnection dbc = new DataBaseConnection();
+    DataBaseConnection dbc = DataBaseConnection.getInstance();
 
-    public static void main(String[] args) {
-        Ticket ticket = new Ticket(2,2, "VIP","" ,"");
-        TicketDAO dao = new TicketDAO();
-        dao.deleteTicket(ticket);
-    }
     //might need more params for price, type and redeemable
-    private void createTicket(Ticket ticket) {
+    public void createTicket(Ticket ticket) throws SQLException {
 
         try(Connection con = dbc.getConnection();) {
             String sql = "INSERT INTO Ticket (uuid, event_id, type, customer_name, customer_email, redeemable) VALUES (?,?,?,?,?,?)";
@@ -35,54 +32,76 @@ public class TicketDAO {
 
             ps.execute();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    private void deleteTicket(Ticket ticket) {
-        int id = ticket.getId();
-        String sql ="DELETE FROM Ticket WHERE event_id=?";
+
+    public boolean deleteTicket(Ticket ticket) throws SQLException {
+        String uuid = ticket.getUuid();
+        String sql ="DELETE FROM Ticket WHERE uuid=?";
 
         try(Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1,id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ps.setString(1,uuid);
+            int result =ps.executeUpdate();
+            if(result > 0)
+                return true;
         }
+        return false;
     }
-    public void updateTicket(Ticket ticket){
-        int id = ticket.getId();
+    public void updateTicket(Ticket ticket) throws SQLException {
+        String uuid = ticket.getUuid();
         String customer = ticket.getCustomer();
         String customerEmail = ticket.getCustomerEmail();
         int eventID = ticket.getEventId();
-
-
-        String sql = "UPDATE Ticket SET event_id = ?, customer_name = ?, customer_email = ? WHERE id = ?;";
+        String sql = "UPDATE Ticket SET event_id = ?, customer_name = ?, customer_email = ? WHERE uuid = ?;";    
         try(Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,eventID);
             ps.setString(2,customer);
             ps.setString(3,customerEmail);
-            ps.setInt(4,id);
+            ps.setString(4,uuid);
             ps.execute();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
-    public void redemtionArcTicket(Ticket ticket){
-        int id = ticket.getId();
+    
+    public boolean redeemTicket(Ticket ticket) throws SQLException {
+        String uuid = ticket.getUuid();
 
-        String sql = "UPDATE Ticket SET redeemable = ? WHERE id = ?;";
+        String sql = "UPDATE Ticket SET redeemable = ? WHERE uuid = ?;";
         try(Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setBoolean(1,false);
-            ps.setInt(2,id);
+            ps.setString(2,uuid);
             ps.execute();
+            return true;
 
+        }
+
+    }
+    public List<Ticket> getAllTickets(){
+        Ticket ticket;
+        List<Ticket> allTickets = new ArrayList<>();
+
+        String sql = "SELECT * FROM Ticket";
+        try(Connection connection = dbc.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                String uuid = rs.getString("uuid");
+                int eventId = rs.getInt("event_id");
+                String type = rs.getString("type");
+                String customer = rs.getString("customer_name");
+                String customerEmail = rs.getString("customer_email");
+                ticket = new Ticket(uuid, eventId, type, customer, customerEmail);
+                allTickets.add(ticket);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return allTickets;
     }
+
+   
 }

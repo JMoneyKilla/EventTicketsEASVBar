@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
     DataBaseConnection dbc = DataBaseConnection.getInstance();
-    private void createUser(User user) {
+    public void createUser(User user) throws SQLException {
         String sql = "INSERT INTO Event (name, type, email) VALUES (?,?,?)";
         String name = user.getName();
         String type = user.getType();
@@ -23,23 +23,23 @@ public class UserDAO {
 
             ps.execute();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    private void deleteUser(User user) {
+    public boolean deleteUser(User user) throws SQLException {
         int id = user.getId();
         String sql ="DELETE FROM Songs WHERE id=?";
 
         try(Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1,id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            int result = ps.executeUpdate();
+            if(result > 0)
+                return true;
         }
+        return false;
     }
-    public void updateUser(User user){
+    public void updateUser(User user) throws SQLException {
         int id = user.getId();
         String name = user.getName();
         String type = user.getType();
@@ -55,8 +55,6 @@ public class UserDAO {
             ps.setInt(4,id);
             ps.execute();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 

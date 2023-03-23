@@ -8,8 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="dk.javahandson.gui.controller.MainController"
+            fx:controller="dk.javahandson.gui.view.SellTicket"
             prefHeight="400.0" prefWidth="600.0">
-<Label fx:id="lbl" layoutX = "200" layoutY = "200">Hejsa</Label>
-    <Button onAction="#clickBtn" layoutX="200" layoutY="300">Click Me!</Button>
+
 </AnchorPane>
