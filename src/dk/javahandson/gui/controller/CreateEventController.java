@@ -4,6 +4,7 @@ import dk.javahandson.gui.model.EventModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
@@ -15,6 +16,10 @@ import java.util.ResourceBundle;
 public class CreateEventController implements Initializable {
 
     @FXML
+    private ListView tableViewTickets;
+    @FXML
+    private javafx.scene.control.Label lblWarning;
+    @FXML
     private AnchorPane createEventAnchorPane;
     @FXML
     private VBox ticketsVBox;
@@ -25,9 +30,6 @@ public class CreateEventController implements Initializable {
             txtFieldDateStart, txtFieldTimeStart, txtFieldDateEnd,
             txtFieldTimeEnd, txtFieldNotes,
             txtFieldTicketType, txtFieldPrice, txtFieldAmount;
-
-    @FXML
-    private Label lblWarning;
 
     EventModel model = new EventModel();
 

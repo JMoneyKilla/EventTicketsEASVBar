@@ -18,7 +18,7 @@ public class AdminEventsMenuController implements Initializable {
     @FXML
     private TextField txtFieldSearch;
 
-    EventModel model = new EventModel();
+    EventModel model = EventModel.getInstance();
 
     @FXML
     private TableColumn<dk.javahandson.be.Event, String> columnEventTitle, columnLocation,
@@ -49,6 +49,8 @@ public class AdminEventsMenuController implements Initializable {
             if (alert.getResult() == ButtonType.YES) {
                 {
                     model.deleteEvent(event);
+                    model.fetchAllEvents();
+                    tableViewEvents.setItems(model.getEvents());
                 }
             }
         }

@@ -3,13 +3,20 @@ package dk.javahandson.gui.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
+    @FXML
+    private ImageView imgMyEvents, imgCreateEvent, imgSellTicket;
     @FXML
     private Label lbl;
     @FXML
@@ -47,8 +54,7 @@ public class MainController {
     }
 
     public void clickMyEvents(MouseEvent mouseEvent) {
-        FXMLLoader fxmlLoader =
-                new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/EventsMenu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/AdminEventsMenu.fxml"));
         System.out.println(fxmlLoader);
         borderPane.getChildren().remove(borderPane.getCenter()); //remove existing fxml from center.
         try {
@@ -57,4 +63,16 @@ public class MainController {
             e.printStackTrace();
         }
     }
+    public void clickSellTicket(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        imgMyEvents.setImage(new Image("/Pictures/myEvents.png"));
+        imgCreateEvent.setImage(new Image("/Pictures/createEvent.png"));
+        imgSellTicket.setImage(new Image("/Pictures/sellTicket.png"));
+    }
+
+
 }
