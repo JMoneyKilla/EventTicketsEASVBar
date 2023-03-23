@@ -102,6 +102,30 @@ public class TicketDAO {
         }
         return allTickets;
     }
+    public List<Ticket> getTicketsByEventId(int id){
+        Ticket ticket;
+        List<Ticket> allTickets = new ArrayList<>();
+
+        String sql = "SELECT * FROM Ticket WHERE event_id = ? AND customer_name = null";
+        try(Connection connection = dbc.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                String uuid = rs.getString("uuid");
+                int eventId = rs.getInt("event_id");
+                String type = rs.getString("type");
+                String customer = rs.getString("customer_name");
+                String customerEmail = rs.getString("customer_email");
+                ticket = new Ticket(uuid, eventId, type, customer, customerEmail);
+                allTickets.add(ticket);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return allTickets;
+    }
+
 
    
 }

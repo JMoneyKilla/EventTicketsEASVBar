@@ -24,4 +24,7 @@ public class TicketManager {
     public List<Ticket> getAllTickets() throws SQLException {
         return ticketDAO.getAllTickets();
     }
+    public List<Ticket> getTicketsByEventId(int id){
+        return ticketDAO.getTicketsByEventId(id);
+    }
 }

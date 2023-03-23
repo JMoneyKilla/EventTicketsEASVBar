@@ -49,10 +49,6 @@ public class Ticket {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid.set(uuid);
-    }
-
     public int getEventId() {
         return eventId.get();
     }

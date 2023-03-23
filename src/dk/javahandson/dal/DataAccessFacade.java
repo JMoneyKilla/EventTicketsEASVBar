@@ -58,6 +58,10 @@ public class DataAccessFacade {
         return ticketDAO.getAllTickets();
     }
 
+    public List<Ticket> getTicketsByEventId(int id){
+        return ticketDAO.getTicketsByEventId(id);
+    }
+
     /*
     Methods used to access UserDAO
      */

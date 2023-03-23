@@ -64,7 +64,14 @@ public class MainController implements Initializable {
         }
     }
     public void clickSellTicket(MouseEvent mouseEvent) {
-
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/SellTicket.fxml"));
+        System.out.println(fxmlLoader);
+        borderPane.getChildren().remove(borderPane.getCenter()); //remove existing fxml from center.
+        try {
+            borderPane.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -57,6 +57,9 @@ public class ManagerFacade {
     public List<Ticket> getAllTickets() throws SQLException {
         return ticketManager.getAllTickets();
     }
+    public List<Ticket> getTicketsByEventId(int id){
+        return ticketManager.getTicketsByEventId(id);
+    }
 
     /*
     Methods used to access UserManager
