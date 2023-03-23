@@ -21,4 +21,12 @@ public class TicketModel {
         tickets.clear();
 
     }
+    public void createTicket(Ticket ticket)
+    {
+        try {
+            bll.createTicket(ticket);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

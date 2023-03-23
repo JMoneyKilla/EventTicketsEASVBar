@@ -56,4 +56,12 @@ public class EventModel {
             throw new RuntimeException(e);
         }
     }
+    public int getEventId(String title)
+    {
+        try {
+           return bll.getEventId(title);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+    }
+}
 }

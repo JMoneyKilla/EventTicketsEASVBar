@@ -34,6 +34,9 @@ public class ManagerFacade {
     public void updateEvent(Event event) throws SQLException {
         eventManager.updateEvent(event);
     }
+    public int  getEventId(String title) throws SQLException {
+        return eventManager.getEventId(title);
+    }
 
     /*
     Methods used to access TicketManager

@@ -34,6 +34,9 @@ public class DataAccessFacade {
     public void updateEvent(Event event) throws SQLException {
         eventDAO.updateEvent(event);
     }
+    public int getEventId(String title) throws SQLException {
+        return eventDAO.getEventId(title);
+    }
     
     /*
     Methods used to access TicketDAO
@@ -87,4 +90,4 @@ public class DataAccessFacade {
     }
 
 
-    }
+}

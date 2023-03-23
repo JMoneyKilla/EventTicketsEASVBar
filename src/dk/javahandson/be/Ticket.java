@@ -25,6 +25,10 @@ public class Ticket {
         ticket.setCustomerEmail(customerEmail);
     }
 
+    public void setUuid(String uuid) {
+        this.uuid.set(uuid);
+    }
+
     public String getType() {
         return type.get();
     }
