@@ -24,7 +24,7 @@ public class EventManager {
     public void updateEvent(Event event) throws SQLException {
         eventDAO.updateEvent(event);
     }
-    public void getEventId(Event event) throws SQLException {
-        eventDAO.getEventId(event);
+    public int getEventId(String title) throws SQLException {
+        return  eventDAO.getEventId(title);
     }
 }

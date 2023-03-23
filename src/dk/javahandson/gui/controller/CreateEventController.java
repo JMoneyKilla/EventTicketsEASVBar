@@ -1,6 +1,8 @@
 package dk.javahandson.gui.controller;
 
+import dk.javahandson.be.Ticket;
 import dk.javahandson.gui.model.EventModel;
+import dk.javahandson.gui.model.TicketModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,7 +31,8 @@ public class CreateEventController implements Initializable {
     @FXML
     private Label lblWarning;
 
-    EventModel model = new EventModel();
+    EventModel eventModel = new EventModel();
+    TicketModel ticketModel = new TicketModel();
 
     public void clickAddTicket(ActionEvent actionEvent) {
         if(txtFieldTicketType !=null && txtFieldPrice !=null && txtFieldAmount !=null)
@@ -50,7 +53,11 @@ public class CreateEventController implements Initializable {
                 || !txtFieldLocation.getText().isBlank() || !txtFieldLocation.getText().isEmpty()
                 || !txtFieldDateStart.getText().isEmpty() || !txtFieldDateStart.getText().isBlank())
         {
-            model.addEvent(title, location, dateStart, dateEnd, notes);
+
+            eventModel.addEvent(title, location, dateStart, dateEnd, notes);
+            int eventId = eventModel.getEventId(title);
+            Ticket ticket = new Ticket("0124-145r1-1gt4-gvr2",eventId,"normal",null,null);
+            ticketModel.createTicket(ticket);
             System.out.println("It worked!");
         }
         System.out.println("It didnt work :(");
