@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     @FXML
-    private ImageView imgMyEvents, imgCreateEvent, imgSellTicket;
+    private ImageView imgMyEvents, imgCreateEvent, imgSellTicket, imgCreateMoreTickets, imageEASV;
     @FXML
     private Label lbl;
     @FXML
@@ -82,4 +82,14 @@ public class MainController implements Initializable {
     }
 
 
+    public void clickCreateMoreTickets(MouseEvent mouseEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/CreateMoreTickets.fxml"));
+        System.out.println(fxmlLoader);
+        borderPane.getChildren().remove(borderPane.getCenter()); //remove existing fxml from center.
+        try {
+            borderPane.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
