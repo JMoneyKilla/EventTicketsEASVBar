@@ -27,4 +27,7 @@ public class TicketManager {
     public List<Ticket> getTicketsByEventId(int id){
         return ticketDAO.getTicketsByEventId(id);
     }
+    public void batchCreateTickets(int records, int eventId, String type) throws SQLException {
+        ticketDAO.batchCreateTickets(records, eventId, type);
+    }
 }

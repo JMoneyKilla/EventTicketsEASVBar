@@ -60,6 +60,10 @@ public class ManagerFacade {
     public List<Ticket> getTicketsByEventId(int id){
         return ticketManager.getTicketsByEventId(id);
     }
+    public void batchCreateTickets(int records, int eventId, String type) throws SQLException {
+        ticketManager.batchCreateTickets(records, eventId, type);
+    }
+
 
     /*
     Methods used to access UserManager
