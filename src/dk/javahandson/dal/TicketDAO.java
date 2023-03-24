@@ -1,12 +1,15 @@
 package dk.javahandson.dal;
 
 import dk.javahandson.be.Ticket;
+import dk.javahandson.bll.ManagerFacade;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TicketDAO {
     DataBaseConnection dbc = DataBaseConnection.getInstance();
@@ -106,7 +109,7 @@ public class TicketDAO {
         Ticket ticket;
         List<Ticket> allTickets = new ArrayList<>();
 
-        String sql = "SELECT * FROM Ticket WHERE event_id = ? AND customer_name = null";
+        String sql = "SELECT * FROM Ticket WHERE event_id = ? AND customer_email IS NULL AND customer_name IS NULL";
         try(Connection connection = dbc.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
@@ -125,7 +128,43 @@ public class TicketDAO {
         }
         return allTickets;
     }
+    private String generateTicketUUID(){
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
+    }
+    public void batchCreateTickets(int records, int eventId, String type){
 
+        PreparedStatement preparedStatement;
+        try {
+            Connection connection = dbc.getConnection();
+            connection.setAutoCommit(true);
+
+            String compliedQuery = "INSERT INTO Ticket (uuid, event_id, type, customer_name, customer_email, redeemable) VALUES (?,?,?,?,?,?)";
+
+            preparedStatement = connection.prepareStatement(compliedQuery);
+            for (int index = 1; index <= records; index++) {
+                preparedStatement.setString(1, generateTicketUUID());
+                preparedStatement.setInt(2, eventId);
+                preparedStatement.setString(3, type);
+                preparedStatement.setString(4, null);
+                preparedStatement.setString(5, null);
+                preparedStatement.setBoolean(6, true);
+                preparedStatement.addBatch();
+            }
+            long start = System.currentTimeMillis();
+            preparedStatement.executeBatch();
+            long end = System.currentTimeMillis();
+
+            System.out.println("total time taken to insert the batch = " + (end - start) + " ms");
+            System.out.println("total time taken = " + (end - start) / records + " s");
+
+
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
    
 }
