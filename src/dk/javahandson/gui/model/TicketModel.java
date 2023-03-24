@@ -6,6 +6,7 @@ import dk.javahandson.bll.ManagerFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class TicketModel {
@@ -44,6 +45,15 @@ public class TicketModel {
         try {
             bll.createTicket(ticket);
         } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateCustomerToTicket(Ticket ticket, String customerName, String customerEmail){
+        Ticket updatedTicket = new Ticket(ticket.getUuid(), ticket.getEventId(), ticket.getType(), customerName, customerEmail);
+        try {
+            bll.updateTicket(updatedTicket);
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

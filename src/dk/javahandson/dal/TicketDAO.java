@@ -106,7 +106,7 @@ public class TicketDAO {
         Ticket ticket;
         List<Ticket> allTickets = new ArrayList<>();
 
-        String sql = "SELECT * FROM Ticket WHERE event_id = ? AND customer_name = null";
+        String sql = "SELECT * FROM Ticket WHERE event_id = ? AND customer_email IS NULL AND customer_name IS NULL";
         try(Connection connection = dbc.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
