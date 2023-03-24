@@ -43,7 +43,7 @@ public class CreateTicketController implements Initializable {
     }
 
     public void clickCreate(ActionEvent actionEvent) {
-        //ticketModel.batchCreateTickets(Integer.parseInt(textFieldAmount.getText()), selectedTicket.getEventId(), selectedTicket.getType());
+        ticketModel.batchCreateTickets(Integer.parseInt(textFieldAmount.getText()), selectedTicket.getEventId(), selectedTicket.getType());
     }
 
     public void clickEvent(MouseEvent mouseEvent) {
