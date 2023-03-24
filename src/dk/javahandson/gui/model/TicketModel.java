@@ -47,4 +47,12 @@ public class TicketModel {
             throw new RuntimeException(e);
         }
     }
+    public void batchCreateTickets(int records, int eventId, String type)
+    {
+        try {
+            bll.batchCreateTickets(records, eventId, type);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

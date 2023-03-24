@@ -1,10 +1,13 @@
 package dk.javahandson.gui.controller;
 
 import dk.javahandson.gui.model.EventModel;
+import dk.javahandson.gui.model.TicketModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
@@ -14,9 +17,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CreateEventController implements Initializable {
-
     @FXML
-    private ListView tableViewTickets;
+    private ListView listViewTickets;
     @FXML
     private javafx.scene.control.Label lblWarning;
     @FXML
@@ -25,21 +27,38 @@ public class CreateEventController implements Initializable {
     private VBox ticketsVBox;
     @FXML
     private Label label1, label2, label3, label4, label5;
+
     @FXML
     private TextField txtFieldEventTitle, txtFieldLocation,
             txtFieldDateStart, txtFieldTimeStart, txtFieldDateEnd,
             txtFieldTimeEnd, txtFieldNotes,
-            txtFieldTicketType, txtFieldPrice, txtFieldAmount;
+            txtFieldTicketType, txtFieldAmount;
 
-    EventModel model = new EventModel();
+    EventModel modelEvent = new EventModel();
+    TicketModel modelTicket = new TicketModel();
 
     public void clickAddTicket(ActionEvent actionEvent) {
-        if(txtFieldTicketType !=null && txtFieldPrice !=null && txtFieldAmount !=null)
+        try{
+        if(txtFieldTicketType !=null && txtFieldAmount !=null && !txtFieldTicketType.getText().isBlank() && !txtFieldAmount.getText().isBlank() && txtFieldAmount.getText().equals(Integer.toString(Integer.parseInt(txtFieldAmount.getText()))));
         {
+            listViewTickets.getItems().add(txtFieldTicketType.getText() + " , " + txtFieldAmount.getText());
             txtFieldTicketType.clear();
-            txtFieldPrice.clear();
             txtFieldAmount.clear();
         }
+        }catch (NumberFormatException e){
+        lblWarning.setText("Amount must be a number");
+        }
+    }
+    private void generateTickets(String title){
+        int eventId = modelEvent.getEventId(title);
+
+        listViewTickets.getItems().forEach(ticket -> {
+            String[] ticketInfo = ticket.toString().split(" , ");
+            String type = ticketInfo[0];
+            int amount = Integer.parseInt(ticketInfo[1]);
+            modelTicket.batchCreateTickets(amount,eventId,type);
+        });
+
     }
 
     public void clickSave(ActionEvent actionEvent) {
@@ -52,10 +71,10 @@ public class CreateEventController implements Initializable {
                 || !txtFieldLocation.getText().isBlank() || !txtFieldLocation.getText().isEmpty()
                 || !txtFieldDateStart.getText().isEmpty() || !txtFieldDateStart.getText().isBlank())
         {
-            model.addEvent(title, location, dateStart, dateEnd, notes);
-            System.out.println("It worked!");
+            modelEvent.addEvent(title, location, dateStart, dateEnd, notes);
+            generateTickets(title);
         }
-        System.out.println("It didnt work :(");
+
     }
 
     public void clickCancel(ActionEvent actionEvent) {
