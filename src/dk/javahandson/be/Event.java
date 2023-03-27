@@ -143,7 +143,7 @@ public class Event {
         this.voucherUsed.set(voucherUsed);
     }
 
-    public String getEndtime() {
+    public String getEndTime() {
         return endTime.get();
     }
 
