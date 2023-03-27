@@ -36,7 +36,6 @@ public class Event {
     }
     public Event(String name,String startTime, String endTime, String location, String notes,
                  int ticketsSold, int voucherUsed, int totalTickets, int totalVouchers, String startDate, String endDate){
-        setId(0);
         setName(name);
         setStartTime(startTime);
         setEndTime(endTime);
@@ -51,30 +50,38 @@ public class Event {
     }
 
 
-    public int getTotalTickets(){
+    public int getTotalTickets() {
         return totalTickets.get();
     }
-    public void setTotalTickets(int totalTickets){
+
+    public void setTotalTickets(int totalTickets) {
         this.totalTickets.set(totalTickets);
     }
-    public int getTotalVouchers(){
+
+    public int getTotalVouchers() {
         return totalVouchers.get();
     }
-    public void setTotalVouchers(int totalVouchers){
+
+    public void setTotalVouchers(int totalVouchers) {
         this.totalVouchers.set(totalVouchers);
     }
-    public String getStartDate(){
+
+    public String getStartDate() {
         return startDate.get();
     }
-    public void setStartDate(String startDate){
+
+    public void setStartDate(String startDate) {
         this.startDate.set(startDate);
     }
-    public String getEndDate(){
+
+    public String getEndDate() {
         return endDate.get();
     }
-    public void setEndDate(String endDate){
+
+    public void setEndDate(String endDate) {
         this.endDate.set(endDate);
     }
+
     public int getId() {
         return id.get();
     }
