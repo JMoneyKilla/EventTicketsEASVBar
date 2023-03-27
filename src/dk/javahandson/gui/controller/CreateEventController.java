@@ -33,8 +33,7 @@ public class CreateEventController implements Initializable {
     @FXML
     private TextField txtFieldEventTitle, txtFieldLocation,
             txtFieldDateStart, txtFieldTimeStart, txtFieldDateEnd,
-            txtFieldTimeEnd, txtFieldNotes, txtFieldMaxVouchers, txtFieldMaxTickets;
-            txtFieldTimeStart, txtFieldDateStart, txtFieldTimeEnd, txtFieldDateEnd,  txtFieldNotes,
+            txtFieldTimeEnd, txtFieldNotes, txtFieldMaxVouchers, txtFieldMaxTickets,
             txtFieldTicketType, txtFieldPrice, txtFieldAmount;
     @FXML
     private DatePicker datePickerStart, datePickerEnd;
@@ -72,8 +71,8 @@ public class CreateEventController implements Initializable {
                 !getFormattedDateFromDatePicker(datePickerStart).isEmpty() ||
                 !getFormattedDateFromDatePicker(datePickerStart).isBlank())
         {
-            modelEvent.addEvent(title, location, dateStart, dateEnd, notes);
-            generateTickets(title);
+           // modelEvent.addEvent(title, location, dateStart, dateEnd, notes);
+           // generateTickets(title);
             System.out.println("It worked!");
             lblWarning.setText("Event has been successfully created!");
             //TODO dateEnd returns same value as dateStart. Needs to be fixed.

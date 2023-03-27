@@ -109,7 +109,7 @@ public class EventDAO {
     }
 
     public static void main(String[] args) throws SQLException {
-        Event event = new Event("Pool Party Fiesta", "14:00", "19:00", "Svømmestadion Esbjerg",
+        Event event = new Event("", "14:00", "19:00", "Svømmestadion Esbjerg",
                 "Bring swimming clothes and a towel. Pizza provided!", 0, 0, 30, 0,
                 "01-04-2023", "01-04-2023");
         DataAccessFacade dataAccessFacade = new DataAccessFacade();
