@@ -56,12 +56,19 @@ public class EventModel {
             throw new RuntimeException(e);
         }
     }
-    public int getEventId(String title)
-    {
+    public int getEventId(String title) {
         try {
-           return bll.getEventId(title);
+            return bll.getEventId(title);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
     }
-}
+    public void updateTicketsSold(Event event){
+        event.setTicketsSold(event.getTicketsSold()+1);
+        try {
+            bll.updateEvent(event);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

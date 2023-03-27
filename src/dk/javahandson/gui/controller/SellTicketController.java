@@ -36,6 +36,7 @@ public class SellTicketController implements Initializable {
         if(!textFieldEmail.getText().equals("") && textFieldEmail.getText() != null &&
                 !textFieldName.getText().equals("") && textFieldName.getText() != null){
             ticketModel.updateCustomerToTicket(selectedTicket, textFieldName.getText(), textFieldEmail.getText());
+            eventModel.updateTicketsSold(selectedEvent);
             textFieldName.clear();
             textFieldEmail.clear();
             //send email to customer
