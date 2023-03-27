@@ -61,24 +61,6 @@ public class CreateEventController implements Initializable {
         }catch (NumberFormatException e){
             lblWarning.setText("Amount must be a number");
         }
-        String title = txtFieldEventTitle.getText();
-        String location = txtFieldLocation.getText();
-        String dateStart = getFormattedDateFromDatePicker(datePickerStart);
-        String dateEnd = getFormattedDateFromDatePicker(datePickerEnd);
-        String notes = txtFieldNotes.getText();
-        if(!txtFieldEventTitle.getText().isBlank() || !txtFieldEventTitle.getText().isEmpty()
-                || !txtFieldLocation.getText().isBlank() || !txtFieldLocation.getText().isEmpty() ||
-                !getFormattedDateFromDatePicker(datePickerStart).isEmpty() ||
-                !getFormattedDateFromDatePicker(datePickerStart).isBlank())
-        {
-           // modelEvent.addEvent(title, location, dateStart, dateEnd, notes);
-           // generateTickets(title);
-            System.out.println("It worked!");
-            lblWarning.setText("Event has been successfully created!");
-            //TODO dateEnd returns same value as dateStart. Needs to be fixed.
-        }
-        System.out.println("It didnt work :(");
-        lblWarning.setText("Please input valid information.");
     }
 
     public void clickCancel(ActionEvent actionEvent) {
