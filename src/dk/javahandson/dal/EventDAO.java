@@ -109,9 +109,9 @@ public class EventDAO {
     }
 
     public static void main(String[] args) throws SQLException {
-        Event event = new Event("", "14:00", "19:00", "Svømmestadion Esbjerg",
-                "Bring swimming clothes and a towel. Pizza provided!", 0, 0, 30, 0,
-                "01-04-2023", "01-04-2023");
+        Event event = new Event("Movies Under the Stars", "19:00", "00:00", "Stormegade 78, Esbjerg",
+                "Watch Dumb and Dumber 1 & 2 outside on a projector screen", 0, 0, 0, 0,
+                "07-04-2023", "08-04-2023");
         DataAccessFacade dataAccessFacade = new DataAccessFacade();
         dataAccessFacade.createEvent(event);
     }
@@ -135,7 +135,7 @@ public class EventDAO {
         String startDate = event.getStartDate();
         String startTime = event.getStartTime();
         String endDate = event.getEndDate();
-        String endTime = event.getEndtime();
+        String endTime = event.getEndTime();
         String location = event.getLocation();
         String notes = event.getNotes();
         int ticketsSold = event.getTicketsSold();
