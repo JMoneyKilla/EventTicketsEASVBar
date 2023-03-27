@@ -14,24 +14,92 @@ public class Event {
     private StringProperty notes = new SimpleStringProperty();
     private IntegerProperty ticketsSold = new SimpleIntegerProperty();
     private IntegerProperty voucherUsed = new SimpleIntegerProperty();
+    private IntegerProperty totalTickets = new SimpleIntegerProperty();
+    private IntegerProperty totalVouchers = new SimpleIntegerProperty();
+    private StringProperty startDate = new SimpleStringProperty();
+    private StringProperty endDate = new SimpleStringProperty();
 
-    public Event(int id,String name,String startTime, String endTime, String location, String notes, int ticketsSold, int voucherUsed){
-    setId(id);
-    setName(name);
-    setStartTime(startTime);
-    setEndTime(endTime);
-    setLocation(location);
-    setNotes(notes);
-    setTicketsSold(ticketsSold);
-    setVoucherUsed(voucherUsed);
+    public Event(int id,String name,String startTime, String endTime, String location, String notes,
+                 int ticketsSold, int voucherUsed, int totalTickets, int totalVouchers, String startDate, String endDate){
+        setId(id);
+        setName(name);
+        setStartTime(startTime);
+        setEndTime(endTime);
+        setLocation(location);
+        setNotes(notes);
+        setTicketsSold(ticketsSold);
+        setVoucherUsed(voucherUsed);
+        setTotalTickets(totalTickets);
+        setTotalVouchers(totalVouchers);
+        setStartDate(startDate);
+        setEndDate(endDate);
+    }
+    public Event(String name,String startTime, String endTime, String location, String notes,
+                 int ticketsSold, int voucherUsed, int totalTickets, int totalVouchers, String startDate, String endDate){
+        setName(name);
+        setStartTime(startTime);
+        setEndTime(endTime);
+        setLocation(location);
+        setNotes(notes);
+        setTicketsSold(ticketsSold);
+        setVoucherUsed(voucherUsed);
+        setTotalTickets(totalTickets);
+        setTotalVouchers(totalVouchers);
+        setStartDate(startDate);
+        setEndDate(endDate);
     }
 
-    public Event(String name, String location, String dateStart, String dateEnd, String notes) {
-        setName(name);
-        setLocation(location);
-        setStartTime(dateStart);
-        setEndTime(dateEnd);
-        setNotes(notes);
+
+    public String getEndTime() {
+        return endTime.get();
+    }
+
+    public int getTotalTickets() {
+        return totalTickets.get();
+    }
+
+    public IntegerProperty totalTicketsProperty() {
+        return totalTickets;
+    }
+
+    public void setTotalTickets(int totalTickets) {
+        this.totalTickets.set(totalTickets);
+    }
+
+    public int getTotalVouchers() {
+        return totalVouchers.get();
+    }
+
+    public IntegerProperty totalVouchersProperty() {
+        return totalVouchers;
+    }
+
+    public void setTotalVouchers(int totalVouchers) {
+        this.totalVouchers.set(totalVouchers);
+    }
+
+    public String getStartDate() {
+        return startDate.get();
+    }
+
+    public StringProperty startDateProperty() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate.set(startDate);
+    }
+
+    public String getEndDate() {
+        return endDate.get();
+    }
+
+    public StringProperty endDateProperty() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate.set(endDate);
     }
 
     public int getId() {

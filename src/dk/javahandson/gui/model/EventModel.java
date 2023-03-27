@@ -39,10 +39,10 @@ public class EventModel {
         return events;
     }
 
-    public void addEvent(String name, String location, String dateStart, String dateEnd, String notes)
+    public void addEvent(Event event)
     {
         try {
-            bll.createEvent(new Event(name, location, dateStart, dateEnd, notes));
+            bll.createEvent(event);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

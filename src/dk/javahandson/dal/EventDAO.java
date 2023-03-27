@@ -27,8 +27,8 @@ public class EventDAO {
                 String notes = rs.getString("notes");
                 int ticketsSold = rs.getInt("tickets_sold");
                 int vouchersUsed = rs.getInt("vouchers_used");
-                Event event = new Event(id, eventName, startTime, endTime, location, notes, ticketsSold, vouchersUsed);
-                allEvents.add(event);
+                //Event event = new Event(id, eventName, startTime, endTime, location, notes, ticketsSold, vouchersUsed);
+                //allEvents.add(event);
             }
         }
         return allEvents;
@@ -56,8 +56,8 @@ public class EventDAO {
                 String notes = rs.getString("notes");
                 int ticketsSold = rs.getInt("tickets_sold");
                 int vouchersUsed = rs.getInt("vouchers_used");
-                Event event = new Event(id, eventName, startTime, endTime, location, notes, ticketsSold, vouchersUsed);
-                coordinatorEvents.add(event);
+                //Event event = new Event(id, eventName, startTime, endTime, location, notes, ticketsSold, vouchersUsed);
+                //coordinatorEvents.add(event);
             }
             return coordinatorEvents;
         }
