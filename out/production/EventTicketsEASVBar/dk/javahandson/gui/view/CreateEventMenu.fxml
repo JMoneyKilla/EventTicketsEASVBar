@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="createEventAnchorPane" prefHeight="450.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.CreateEventController">
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
@@ -31,9 +30,8 @@
                   <Label layoutX="29.0" layoutY="215.0" text="Notes:" />
                   <TextField fx:id="txtFieldNotes" layoutX="25.0" layoutY="233.0" prefHeight="79.0" prefWidth="217.0" />
                   <TextField fx:id="txtFieldDateEnd" layoutX="201.0" layoutY="175.0" prefHeight="25.0" prefWidth="90.0" promptText="YYYY-MM-DD" />
-                  <HBox alignment="TOP_CENTER" layoutX="23.0" layoutY="333.0" prefHeight="46.0" prefWidth="408.0">
+                  <HBox alignment="TOP_CENTER" layoutX="23.0" layoutY="333.0" prefHeight="46.0" prefWidth="408.0"/>
                   <Label layoutX="327.0" layoutY="357.0" text="Add ticket..." />
-                  <Button layoutX="296.0" layoutY="353.0" mnemonicParsing="false" onAction="#clickAddTicket" text="+" />
                   <HBox layoutX="23.0" layoutY="333.0" prefHeight="46.0" prefWidth="266.0">
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="46.0" prefWidth="200.0">
