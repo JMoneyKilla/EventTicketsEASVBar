@@ -10,6 +10,7 @@ public class Voucher {
     private StringProperty uuid = new SimpleStringProperty();
     private IntegerProperty eventId =  new SimpleIntegerProperty();
     private StringProperty type = new SimpleStringProperty();
+    private String eventName = "";
     public Voucher(String uuid, int eventId, String type){
         setUuid(uuid);
         setType(type);
@@ -50,5 +51,8 @@ public class Voucher {
 
     public void setType(String type) {
         this.type.set(type);
+    }
+    public void setEventName(String eventName){
+        this.eventName = eventName;
     }
 }
