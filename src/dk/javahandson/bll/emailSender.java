@@ -1,6 +1,9 @@
 package dk.javahandson.bll;
 
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -20,8 +23,8 @@ public class emailSender {
     //https://stackoverflow.com/questions/11434094/attachment-to-email-java
     public static void main(String[] args) {
         emailSender eS = new emailSender();
-        File file = new File("C:\\Users\\Mads\\Pictures\\easv.png");
-        eS.sendEmail("madsp@hotmail.dk",  "test", "test", file);
+        File file = new File("resources/Pictures/easv.png");
+        eS.sendEmail("madsp@hotmail.dk",  "very important subject", "big body of great test indeed yes", file);
 
     }
 
@@ -37,25 +40,26 @@ public class emailSender {
             content.setText(body);
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(content);
-            /*
-            // add attachments
+
+             //add attachments
             File file = attachmentFile;
-                MimeBodyPart attachment = new MimeBodyPart();
-                DataSource source = new FileDataSource(file);
-                attachment.setDataHandler(new DataHandler(source));
-                attachment.setFileName(file.getName());
-                multipart.addBodyPart(attachment);
-            */
+            MimeBodyPart attachment = new MimeBodyPart();
+            DataSource source = new FileDataSource(file);
+            attachment.setDataHandler(new DataHandler(source));
+            attachment.setFileName(file.getName());
+            multipart.addBodyPart(attachment);
+
+
             // integration
             message.setContent(multipart);
             // store file
 
 
             message.writeTo(System.out);
-            message.writeTo(new FileOutputStream("C:\\Users\\madsp\\Documents\\test.eml"));
+            message.writeTo(new FileOutputStream("resources\\test.eml"));
             Desktop desktop = Desktop.getDesktop();
-
-            desktop.mail(convertEmlToUri("C:\\Users\\madsp\\Documents\\test.eml"));
+            desktop.open(new File("resources\\test.eml"));
+            desktop.mail();
 
         } catch (AddressException e) {
             throw new RuntimeException(e);
@@ -67,19 +71,6 @@ public class emailSender {
             throw new RuntimeException(e);
         }
     }
-    public static URI convertEmlToUri(String filePath) throws Exception {
-        // Read the contents of the EML file
-        File file = new File(filePath);
-        FileInputStream fis = new FileInputStream(file);
-        byte[] data = new byte[(int) file.length()];
-        fis.read(data);
-        fis.close();
 
-        // Encode the contents as a URI
-        String encodedData = URLEncoder.encode(new String(data), "UTF-8");
-        URI uri = new URI("data", "message/rfc822;charset=utf-8," + encodedData, null);
-
-        return uri;
-    }
 }
 
