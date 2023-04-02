@@ -69,17 +69,40 @@ public class DataAccessFacade {
     Methods used to access UserDAO
      */
 
+    public List<User> getAllUsers() throws SQLException {
+        return userDAO.getAllUsers();
+    }
+
+    public void createLogin(String username, String password) throws SQLException {
+        userDAO.createLogin(username, password);
+    }
     public void createUser(User user) throws SQLException {
         userDAO.createUser(user);
     }
     public boolean deleteUser(User user) throws SQLException {
         return userDAO.deleteUser(user);
     }
+
+    public boolean deleteUserFromLogin(User user) throws SQLException {
+        return userDAO.deleteFromLoginUser(user);
+    }
+
+    public boolean deleteUserFromUserEvent(User user) throws SQLException {
+        return userDAO.deleteFromUserEvent(user);
+    }
     public void updateUser(User user) throws SQLException {
         userDAO.updateUser(user);
     }
     public void addUserToEvent(Event event, User user) throws SQLException {
         userDAO.addUserToEvent(event, user);
+    }
+
+    public String getPasswordFromUser(User user) throws SQLException {
+        return userDAO.getPasswordFromUser(user);
+    }
+
+    public void updatePassword(User user, String password) throws SQLException {
+        userDAO.updatePassword(user, password);
     }
 
     /*
@@ -95,6 +118,4 @@ public class DataAccessFacade {
     public void createVoucher (Voucher voucher) throws SQLException {
         voucherDAO.createVoucher(voucher);
     }
-
-
 }

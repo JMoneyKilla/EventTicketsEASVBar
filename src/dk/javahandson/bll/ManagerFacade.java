@@ -69,12 +69,28 @@ public class ManagerFacade {
     Methods used to access UserManager
      */
 
+    public List<User> getAllUsers() throws SQLException {
+        return userManager.getAllUsers();
+    }
+
+    public void createLogin(String username, String password) throws SQLException {
+        userManager.createLogin(username, password);
+    }
     public void createUser(User user) throws SQLException {
         userManager.createUser(user);
     }
     public boolean deleteUser(User user) throws SQLException {
         return userManager.deleteUser(user);
     }
+
+    public boolean deleteUserFromLogin(User user) throws SQLException {
+        return userManager.deleteUserFromLogin(user);
+    }
+
+    public boolean deleteUserFromUserEvent(User user) throws SQLException {
+        return userManager.deleteUserFromUserEvent(user);
+    }
+
     public void updateUser(User user) throws SQLException {
         userManager.updateUser(user);
     }
@@ -82,6 +98,13 @@ public class ManagerFacade {
         userManager.addUserToEvent(event, user);
     }
 
+    public String getPasswordFromUser(User user) throws SQLException {
+        return userManager.getPasswordFromUser(user);
+    }
+
+    public void updatePassword(User user, String password) throws SQLException {
+        userManager.updatePassword(user, password);
+    }
 
     /*
     Methods used to access VoucherManager

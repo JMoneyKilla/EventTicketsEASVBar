@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
     @FXML
-    private ImageView imgMyEvents, imgCreateEvent, imgSellTicket, imgCreateMoreTickets, imageEASV;
+    private ImageView imgMyEvents, imgCreateEvent, imgSellTicket, imgManageUsers, imgCreateMoreTickets, imageEASV;
     @FXML
     private Label lbl;
     @FXML
@@ -79,11 +79,23 @@ public class MainController implements Initializable {
         imgMyEvents.setImage(new Image("/Pictures/myEvents.png"));
         imgCreateEvent.setImage(new Image("/Pictures/createEvent.png"));
         imgSellTicket.setImage(new Image("/Pictures/sellTicket.png"));
+        imgManageUsers.setImage(new Image("Pictures/manageUsers.png"));
     }
 
 
     public void clickCreateMoreTickets(MouseEvent mouseEvent) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/CreateMoreTickets.fxml"));
+        System.out.println(fxmlLoader);
+        borderPane.getChildren().remove(borderPane.getCenter()); //remove existing fxml from center.
+        try {
+            borderPane.setCenter(fxmlLoader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clickManageUsers(MouseEvent mouseEvent) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/UserListMenu.fxml"));
         System.out.println(fxmlLoader);
         borderPane.getChildren().remove(borderPane.getCenter()); //remove existing fxml from center.
         try {
