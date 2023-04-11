@@ -34,51 +34,54 @@ public class NewUserMenuController implements Initializable {
     private boolean showPassword = false;
     private boolean isEditTrue;
 
-    UserModel model = new UserModel();
+    UserModel model = UserModel.getInstance();
 
     public void clickSave(ActionEvent actionEvent) {
-        if(isEditTrue == false){
-        if(isEmailValid(txtFieldEmail.getText())== true
-                && isInputValid() == true && showPassword == false &&
+        if(!isEditTrue){
+        if(isEmailValid(txtFieldEmail.getText())
+                && isInputValid() && !showPassword &&
                 !passwordField.getText().isEmpty() || !passwordField.getText().isBlank()
-                && isPasswordValid(passwordField.getText()) == true)
+                && isPasswordValid(passwordField.getText()))
         {
             model.createUser(txtFieldFullName.getText(), txtFieldEmail.getText(), passwordField.getText());
             clearEverything();
+            model.fetchAllUsers();
             lblWarning.setText("User successfully created");
         }
-        else if(isUserNameAvailable(txtFieldEmail.getText())==false
-                && showPassword == true && !txtFieldPassword.getText().isBlank()
+        else if(!isUserNameAvailable(txtFieldEmail.getText())
+                && showPassword && !txtFieldPassword.getText().isBlank()
                 || !txtFieldPassword.getText().isEmpty()
-                && isPasswordValid(txtFieldPassword.getText()) == true)
+                && isPasswordValid(txtFieldPassword.getText()))
         {
             model.createUser(txtFieldFullName.getText(), txtFieldEmail.getText(), txtFieldPassword.getText());
             clearEverything();
+            model.fetchAllUsers();
             lblWarning.setText("User successfully created");
         }
         }
-        if(isEditTrue == true){
-        if(isInputValid() == true && isEmailValid(txtFieldEmail.getText()) == true &&
-                showPassword == false && !passwordField.getText().isEmpty()
+        if(isEditTrue){
+        if(isInputValid() && isEmailValid(txtFieldEmail.getText()) &&
+                !showPassword && !passwordField.getText().isEmpty()
                 || !passwordField.getText().isBlank()
-                && isPasswordValid(passwordField.getText()) == true)
+                && isPasswordValid(passwordField.getText()))
         {
             model.getSelectedUser().setName(txtFieldFullName.getText());
             model.getSelectedUser().setEmail(txtFieldEmail.getText());
             model.updateUser(model.getSelectedUser());
             model.updatePassword(model.getSelectedUser(), passwordField.getText());
             clearEverything();
-            System.out.println(model.getSelectedUser().getId());
+            model.fetchAllUsers();
         }
-            else if(isInputValid() == true && isEmailValid(txtFieldEmail.getText()) == true &&
-                showPassword == true && !txtFieldPassword.getText().isBlank()
-                || !txtFieldPassword.getText().isEmpty() && isPasswordValid(txtFieldPassword.getText()) == true)
+            else if(isInputValid() && isEmailValid(txtFieldEmail.getText()) &&
+                showPassword && !txtFieldPassword.getText().isBlank()
+                || !txtFieldPassword.getText().isEmpty() && isPasswordValid(txtFieldPassword.getText()))
             {
                 model.getSelectedUser().setName(txtFieldFullName.getText());
                 model.getSelectedUser().setEmail(txtFieldEmail.getText());
                 model.updateUser(model.getSelectedUser());
                 model.updatePassword(model.getSelectedUser(), txtFieldPassword.getText());
                 clearEverything();
+                model.fetchAllUsers();
                 lblWarning.setText("User successfully updated");
             }
         }
@@ -122,7 +125,7 @@ public class NewUserMenuController implements Initializable {
 
     public void clickShowPassword(ActionEvent actionEvent) {
         String password = "";
-        if(showPassword == false)
+        if(!showPassword)
         {
             showPassword = true;
             btnShowPassword.setText("Hide Password");
@@ -132,7 +135,7 @@ public class NewUserMenuController implements Initializable {
             txtFieldPassword.setVisible(true);
 
         }
-        else if (showPassword == true)
+        else if (showPassword)
         {
             showPassword = false;
             btnShowPassword.setText("Show Password");
@@ -145,17 +148,17 @@ public class NewUserMenuController implements Initializable {
     }
 
     public void clickCheckAvailability(ActionEvent actionEvent) {
-        if(isEmailValid(txtFieldEmail.getText())==true){
-        if(isUserNameAvailable(txtFieldEmail.getText())==true)
+        if(isEmailValid(txtFieldEmail.getText())){
+        if(isUserNameAvailable(txtFieldEmail.getText()))
         {
             lblEmail.setText("Email is available");
         }
-        else if(isUserNameAvailable(txtFieldEmail.getText())==false)
+        else if(!isUserNameAvailable(txtFieldEmail.getText()))
         {
             lblEmail.setText("Email is already in use");
         }
         }
-        else if(isEmailValid(txtFieldEmail.getText())==false)
+        else if(!isEmailValid(txtFieldEmail.getText()))
         {
             lblEmail.setText("Invalid email");
         }
@@ -196,12 +199,8 @@ public class NewUserMenuController implements Initializable {
         {
             return true;
         }
-        else if(!txtFieldEmail.getText().isBlank() || !txtFieldEmail.getText().isEmpty() ||
-                !txtFieldFullName.getText().isBlank() || !txtFieldFullName.getText().isEmpty())
-        {
-            return true;
-        }
-        else return false;
+        else return !txtFieldEmail.getText().isBlank() || !txtFieldEmail.getText().isEmpty() ||
+                !txtFieldFullName.getText().isBlank() || !txtFieldFullName.getText().isEmpty();
     }
 
     public void clearEverything()

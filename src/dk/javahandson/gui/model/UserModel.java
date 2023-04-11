@@ -8,9 +8,16 @@ import javafx.collections.ObservableList;
 import java.sql.SQLException;
 
 public class UserModel {
+    private static UserModel instance;
     private final ObservableList<User> users;
     ManagerFacade bll = new ManagerFacade();
     private static User selectedUser;
+
+    public static UserModel getInstance(){
+        if(instance == null)
+            instance = new UserModel();
+        return instance;
+    }
 
     public UserModel() {
         users = FXCollections.observableArrayList();

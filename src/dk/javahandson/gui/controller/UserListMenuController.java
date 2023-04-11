@@ -28,13 +28,14 @@ public class UserListMenuController implements Initializable {
     private TableColumn<User, String> tableColumnName, tableColumnEmail;
     @FXML
     private Label lblWarning;
-    UserModel model = new UserModel();
+    UserModel model = UserModel.getInstance();
     public void clickDeleteUser(ActionEvent actionEvent) {
         if (tableViewUsers.getSelectionModel().getSelectedItem() != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to remove " + tableViewUsers.getSelectionModel().getSelectedItem().getName() + "?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
                 model.deleteUser(tableViewUsers.getSelectionModel().getSelectedItem());
+                model.fetchAllUsers();
             }
         }
     }
