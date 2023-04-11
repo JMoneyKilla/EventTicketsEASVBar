@@ -80,6 +80,8 @@ public class MainController implements Initializable {
         imgCreateEvent.setImage(new Image("/Pictures/createEvent.png"));
         imgSellTicket.setImage(new Image("/Pictures/sellTicket.png"));
         imgManageUsers.setImage(new Image("Pictures/manageUsers.png"));
+        imgCreateMoreTickets.setImage(new Image("/Pictures/createMoreTickets.png"));
+        imageEASV.setImage(new Image("/Pictures/easv.png"));
     }
 
 

@@ -39,10 +39,10 @@ public class EventModel {
         return events;
     }
 
-    public void addEvent(String name, String location, String dateStart, String dateEnd, String notes)
+    public void addEvent(Event event)
     {
         try {
-            bll.createEvent(new Event(name, location, dateStart, dateEnd, notes));
+            bll.createEvent(event);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -56,12 +56,19 @@ public class EventModel {
             throw new RuntimeException(e);
         }
     }
-    public int getEventId(String title)
-    {
+    public int getEventId(String title) {
         try {
-           return bll.getEventId(title);
+            return bll.getEventId(title);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
     }
-}
+    public void updateTicketsSold(Event event){
+        event.setTicketsSold(event.getTicketsSold()+1);
+        try {
+            bll.updateEvent(event);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
