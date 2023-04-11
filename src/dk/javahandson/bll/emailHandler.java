@@ -4,11 +4,10 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 
-public class emailSender {
+public class emailHandler {
 
-    public void sendEmail(String recipiente, String subject, String body){
+    public void openEmail(String recipiente, String subject, String body){
         try {
-
             Desktop desktop = Desktop.getDesktop();
             URI uri = URI.create("mailto:" + recipiente + "?subject=" + subject + "&body=" + body);
             desktop.mail(uri);
