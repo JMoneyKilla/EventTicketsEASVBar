@@ -13,12 +13,7 @@
                <children>
                   <ImageView fx:id="imageEASV" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickMyEvents" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imgMyEvents" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickMyEvents" pickOnBounds="true" preserveRatio="true" />
-<<<<<<< HEAD
-                  <ImageView fx:id="imgCreateEvent" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickCreateEvent" pickOnBounds="true" preserveRatio="true" translateY="10.0" />
-                  <ImageView fx:id="imgSellTicket" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickSellTicket" pickOnBounds="true" preserveRatio="true" translateY="20.0" />
-                  <ImageView fx:id="imgCreateMoreTickets" fitHeight="50.0" fitWidth="135.0" layoutX="10.0" layoutY="110.0" onMouseClicked="#clickCreateMoreTickets" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imgManageUsers" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickManageUsers" pickOnBounds="true" preserveRatio="true" />
-=======
                   <ImageView fx:id="imgCreateEvent" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickCreateEvent" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imgSellTicket" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickSellTicket" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imgCreateMoreTickets" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickCreateMoreTickets" pickOnBounds="true" preserveRatio="true">
@@ -26,7 +21,6 @@
                         <Insets />
                      </VBox.margin>
                   </ImageView>
->>>>>>> fb11d4ef4ceeb9788382ec6a7572a095523d1899
                </children>
             </VBox>
          </children>
