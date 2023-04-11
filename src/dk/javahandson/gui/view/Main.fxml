@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -11,15 +12,15 @@
             <VBox prefHeight="31.0" prefWidth="135.0">
                <children>
                   <ImageView fx:id="imageEASV" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickMyEvents" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </VBox>
-            <VBox fillWidth="false" prefHeight="361.0" prefWidth="88.0">
-               <children>
                   <ImageView fx:id="imgMyEvents" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickMyEvents" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imgCreateEvent" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickCreateEvent" pickOnBounds="true" preserveRatio="true" translateY="10.0" />
-                  <ImageView fx:id="imgSellTicket" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickSellTicket" pickOnBounds="true" preserveRatio="true" translateY="20.0" />
-                  <ImageView fx:id="imgCreateMoreTickets" fitHeight="50.0" fitWidth="135.0" layoutX="10.0" layoutY="110.0" onMouseClicked="#clickCreateMoreTickets" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imgManageUsers" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickManageUsers" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imgCreateEvent" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickCreateEvent" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imgSellTicket" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickSellTicket" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imgCreateMoreTickets" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickCreateMoreTickets" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ImageView>
                </children>
             </VBox>
          </children>
