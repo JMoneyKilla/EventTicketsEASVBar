@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.MainController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.MainController">
    <left>
       <VBox prefHeight="450.0" prefWidth="132.0" BorderPane.alignment="CENTER">
          <children>
@@ -13,6 +13,7 @@
                <children>
                   <ImageView fx:id="imageEASV" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickMyEvents" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imgMyEvents" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickMyEvents" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imgManageUsers" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickManageUsers" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imgCreateEvent" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickCreateEvent" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imgSellTicket" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickSellTicket" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="imgCreateMoreTickets" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickCreateMoreTickets" pickOnBounds="true" preserveRatio="true">

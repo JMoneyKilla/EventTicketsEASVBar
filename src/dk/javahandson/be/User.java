@@ -18,6 +18,12 @@ public class User {
     setEmail(email);
     }
 
+    public User(String name, String email)
+    {
+        setName(name);
+        setEmail(email);
+    }
+
     public int getId() {
         return id.get();
     }
