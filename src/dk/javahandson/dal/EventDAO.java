@@ -178,4 +178,30 @@ public class EventDAO {
         }
         return 0;
     }
+
+    public Event getEventByEventId(int id) throws SQLException {
+        String sql = "SELECT * FROM Event WHERE id = " + id + ";";
+        try (Connection connection = dbc.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int eventId = rs.getInt("id");
+                String eventName = rs.getString("event_name");
+                String startDate = rs.getString("start_date");
+                String startTime = rs.getString("start_time");
+                String endDate = rs.getString("end_date");
+                String endTime = rs.getString("end_time");
+                String location = rs.getString("location");
+                String notes = rs.getString("notes");
+                int ticketsSold = rs.getInt("tickets_sold");
+                int vouchersUsed = rs.getInt("vouchers_used");
+                int totalTickets = rs.getInt("total_tickets");
+                int totalVouchers = rs.getInt("total_vouchers");
+                Event event = new Event(eventId, eventName, startTime, endTime, location,
+                        notes, ticketsSold, vouchersUsed, totalTickets, totalVouchers, startDate, endDate);
+                return event;
+            }
+        }
+        return null;
+    }
 }
