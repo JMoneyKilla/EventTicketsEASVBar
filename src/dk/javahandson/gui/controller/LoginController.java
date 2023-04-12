@@ -36,20 +36,17 @@ public class LoginController implements Initializable {
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();
         if(userModel.validateLogin(email, password)) {
-            Parent root = null;
-            try {
-                userModel.setLoggedInUser(userModel.loginUser(email));
-                eventModel.setLoggedInUser(userModel.getLoggedInUser());
-                eventModel.fetchAllEvents();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/view/Main.fxml"));
+            Parent root;
+            eventModel.setLoggedInUser(userModel.loginUser(email));
+            eventModel.fetchAllEvents();
+            try { FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/Main.fxml"));
                 root = loader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-
             Node n = (Node) actionEvent.getSource();
             Stage stage2 = (Stage) n.getScene().getWindow();
             stage2.close();
