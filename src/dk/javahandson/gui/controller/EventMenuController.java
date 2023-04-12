@@ -33,6 +33,7 @@ public class EventMenuController implements Initializable {
         for (Event event : eventModel.getEvents()) {
             StackPane stackPane = generateEventPane(event);
             handleViewButton(stackPane);
+            handleEditButton(stackPane);
             eventPane.getChildren().add(stackPane);
             AnchorPane.setTopAnchor(stackPane, 25 + row * 160.0);
             AnchorPane.setLeftAnchor(stackPane, 50 + col * 205.0);
@@ -147,6 +148,83 @@ public class EventMenuController implements Initializable {
 
                 // Add the Labels to the popup VBox
                 popupVBox.getChildren().addAll(name, start, startTime, end, endTime, notes, tickets, sold);
+
+                // Create a Button to close the popup
+                Button closeButton = new Button("Close");
+                closeButton.setOnAction(event -> popupStage.close());
+
+                // Add the closeButton to the popup VBox
+                popupVBox.getChildren().add(closeButton);
+
+                // Create a Scene for the popup and set it on the popupStage
+                Scene popupScene = new Scene(popupVBox);
+                popupStage.setScene(popupScene);
+
+                // Show the popup
+                popupStage.showAndWait();
+            }
+        });
+    }
+    private void handleEditButton(StackPane eventPane) {
+        VBox vBox = (VBox) eventPane.lookup("#vbox");
+        HBox hBox = (HBox) vBox.lookup("#hbox");
+        MFXButton viewButton = (MFXButton) hBox.lookup("#editButton");
+        viewButton.setOnAction(e -> {
+            // Retrieve the eventName Label from the eventPane
+            Label eventNameLabel = (Label) vBox.lookup("#eventName");
+            String eventName = eventNameLabel.getText();
+
+            // Search the eventList for an event with a matching name
+            Event matchingEvent = null;
+            for (Event event : eventModel.getEvents()) {
+                if (event.getName().equals(eventName)) {
+                    matchingEvent = event;
+                    break;
+                }
+            }
+
+            // If a matching event is found, do something with it
+            if (matchingEvent != null) {
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+
+                // Create a VBox to hold the event information
+                VBox popupVBox = new VBox();
+                popupVBox.setSpacing(10);
+                popupVBox.setPadding(new Insets(10));
+
+                // Create Labels to display the event information
+                Label name = new Label("Event name: ");
+                TextField nameText = new TextField(matchingEvent.getName());
+                HBox nameBox = new HBox(name, nameText);
+
+                Label start = new Label("Start date: ");
+                TextField startText = new TextField(matchingEvent.getStartDate());
+                HBox startDateBox = new HBox(start, startText);
+
+                Label startTime = new Label("Start time: ");
+                TextField startTimeText = new TextField(matchingEvent.getStartTime());
+                HBox startTimeBox = new HBox(startTime, startTimeText);
+
+                Label end = new Label("End date: ");
+                TextField endText = new TextField(matchingEvent.getEndDate());
+                HBox endDateBox = new HBox(end, endText);
+
+                Label endTime = new Label("End time: ");
+                TextField endTimeText = new TextField(matchingEvent.getEndTime());
+                HBox endTimeBox = new HBox(endTime, endTimeText);
+
+                Label notes = new Label("Notes: ");
+                TextArea notesText = new TextArea(matchingEvent.getNotes());
+
+                Label tickets = new Label("Total tickets: ");
+                TextField ticketsText = new TextField();
+                ticketsText.setText("" + matchingEvent.getTotalTickets());
+                HBox ticketBox = new HBox(tickets, ticketsText);
+
+
+                // Add the Labels to the popup VBox
+                popupVBox.getChildren().addAll(nameBox, startDateBox, startTimeBox, endDateBox, endTimeBox, notes, notesText, ticketBox);
 
                 // Create a Button to close the popup
                 Button closeButton = new Button("Close");
