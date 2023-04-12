@@ -108,6 +108,12 @@ public class ManagerFacade {
     public void updatePassword(User user, String password) throws SQLException {
         userManager.updatePassword(user, password);
     }
+    public User loginUser(String email) throws SQLException{
+        return userManager.loginUser(email);
+    }
+    public boolean validateLogin(String email, String password) throws SQLException {
+        return userManager.validateLogin(email, password);
+    }
 
     /*
     Methods used to access VoucherManager

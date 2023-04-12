@@ -177,4 +177,34 @@ public class UserDAO {
 
         }
     }
+
+    public boolean validateLogin(String email, String password) throws SQLException {
+        String sql = "SELECT * FROM Login WHERE username = '" + email + "';";
+        try(Connection con = dbc.getConnection()){
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                if(rs.getString("password").equals(password))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public User loginUser(String email) throws SQLException{
+        String sql = "SELECT * FROM [User] WHERE email = '" + email + "';";
+        try(Connection con = dbc.getConnection()){
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String type = rs.getString("type");
+                String userEmail = rs.getString("email");
+                if(userEmail.equals(email))
+                    return new User(id, name, type, email);
+            }
+        }
+        return null;
+    }
 }

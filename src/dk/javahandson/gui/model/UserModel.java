@@ -12,6 +12,7 @@ public class UserModel {
     private final ObservableList<User> users;
     ManagerFacade bll = new ManagerFacade();
     private static User selectedUser;
+    User loggedInUser;
 
     public static UserModel getInstance(){
         if(instance == null)
@@ -19,7 +20,7 @@ public class UserModel {
         return instance;
     }
 
-    public UserModel() {
+    private UserModel() {
         users = FXCollections.observableArrayList();
         fetchAllUsers();
     }
@@ -70,6 +71,9 @@ public class UserModel {
             throw new RuntimeException(e);
         }
     }
+    public User getLoggedInUser(){
+        return loggedInUser;
+    }
 
     public void setSelectedUser(User user)
     {
@@ -102,6 +106,23 @@ public class UserModel {
     {
         try {
             bll.updatePassword(user, password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void setLoggedInUser(User user){
+        this.loggedInUser = user;
+    }
+    public boolean validateLogin(String email, String password){
+        try {
+            return bll.validateLogin(email, password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public User loginUser(String email){
+        try {
+            return bll.loginUser(email);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -1,5 +1,8 @@
 package dk.javahandson.gui.controller;
 
+import dk.javahandson.gui.model.EventModel;
+import dk.javahandson.gui.model.TicketModel;
+import dk.javahandson.gui.model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +24,9 @@ public class MainController implements Initializable {
     private Label lbl;
     @FXML
     private BorderPane borderPane;
+    EventModel eventModel;
+    TicketModel ticketModel;
+    UserModel userModel;
 
     @FXML
     private void clickBtn(ActionEvent actionEvent) {
@@ -82,6 +88,9 @@ public class MainController implements Initializable {
         imgManageUsers.setImage(new Image("Pictures/manageUsers.png"));
         imgCreateMoreTickets.setImage(new Image("/Pictures/createMoreTickets.png"));
         imageEASV.setImage(new Image("/Pictures/easv.png"));
+        setUserModel(UserModel.getInstance());
+        setEventModel(EventModel.getInstance());
+        setTicketModel(TicketModel.getInstance());
     }
 
 
@@ -105,5 +114,15 @@ public class MainController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setUserModel(UserModel model){
+        this.userModel = model;
+    }
+    public void setTicketModel(TicketModel model){
+        this.ticketModel = model;
+    }
+    public void setEventModel(EventModel model){
+        this.eventModel = model;
     }
 }
