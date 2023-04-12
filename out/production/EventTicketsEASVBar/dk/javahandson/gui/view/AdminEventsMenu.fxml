@@ -6,21 +6,25 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" styleClass="backgroundMenu" stylesheets="@Menu.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.AdminEventsMenuController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" styleClass="backgroundMenu" stylesheets="@Menu.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.AdminEventsMenuController">
    <children>
-      <TableView fx:id="tableViewEvents" layoutX="13.0" layoutY="53.0" prefHeight="298.0" prefWidth="475.0">
+      <TableView fx:id="tableViewEvents" layoutX="13.0" layoutY="53.0" prefHeight="298.0" prefWidth="475.0" styleClass="tableView" stylesheets="@Menu.css">
         <columns>
-          <TableColumn fx:id="columnEventTitle" prefWidth="100.66668319702148" text="Event Title" />
-          <TableColumn fx:id="columnLocation" minWidth="0.0" prefWidth="62.0" text="Location" />
-            <TableColumn fx:id="columnDateStart" prefWidth="67.33338928222656" text="Date Start" />
-            <TableColumn fx:id="columnDateEnd" minWidth="0.6666259765625" prefWidth="60.00006103515625" text="Date End" />
-            <TableColumn fx:id="columnTicketsSold" minWidth="6.6666259765625" prefWidth="85.33331298828125" text="Tickets Sold" />
-            <TableColumn fx:id="columnVouchersUsed" prefWidth="96.66664632161456" text="Vouchers Used" />
+          <TableColumn fx:id="columnEventTitle" prefWidth="71.0" text="Event Title" />
+          <TableColumn fx:id="columnLocation" minWidth="0.0" prefWidth="64.0" text="Location" />
+            <TableColumn fx:id="columnDateStart" prefWidth="74.0" text="Date Start" />
+            <TableColumn fx:id="columnDateEnd" minWidth="0.6666259765625" prefWidth="67.0" text="Date End" />
+            <TableColumn fx:id="columnTicketsSold" minWidth="6.6666259765625" prefWidth="86.0" text="Tickets Sold" />
+            <TableColumn fx:id="columnVouchersUsed" prefWidth="113.0" text="Vouchers Used" />
         </columns>
       </TableView>
-      <Button layoutX="421.0" layoutY="355.0" mnemonicParsing="false" onAction="#clickDelete" styleClass="buttonMenu" stylesheets="@Menu.css" text="Delete" />
+      <Button layoutX="421.0" layoutY="355.0" mnemonicParsing="false" onAction="#clickDelete" styleClass="buttonSmall" stylesheets="@Menu.css" text="Delete" />
       <TextField fx:id="txtFieldSearch" layoutX="277.0" layoutY="20.0" prefHeight="25.0" prefWidth="209.0" promptText="search" />
-      <Label layoutX="14.0" layoutY="24.0" text="All Events" textFill="WHITE" />
+      <Label layoutX="14.0" layoutY="20.0" prefHeight="26.0" prefWidth="98.0" text="All Events" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
    </children>
 </AnchorPane>
