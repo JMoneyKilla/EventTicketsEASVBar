@@ -38,8 +38,7 @@ public class CreateEventController implements Initializable {
     @FXML
     private DatePicker datePickerStart, datePickerEnd;
 
-    EventModel modelEvent = new EventModel();
-
+    EventModel modelEvent = EventModel.getInstance();
     public void clickSave(ActionEvent actionEvent) {
         try {
             String title = txtFieldEventTitle.getText();

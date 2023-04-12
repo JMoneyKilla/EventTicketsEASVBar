@@ -1,6 +1,7 @@
 package dk.javahandson.gui.model;
 
 import dk.javahandson.be.Event;
+import dk.javahandson.be.User;
 import dk.javahandson.bll.ManagerFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,9 @@ public class EventModel {
 
     private final ObservableList<Event> events;
     ManagerFacade bll = new ManagerFacade();
+    User loggedInUser;
+
+
 
     public static EventModel getInstance(){
         if(instance==null)
@@ -19,16 +23,17 @@ public class EventModel {
         return instance;
     }
 
-    public EventModel() {
+    private EventModel() {
         events = FXCollections.observableArrayList();
-        fetchAllEvents();
+        if(this.loggedInUser!=null)
+            fetchAllEvents();
     }
 
     public void fetchAllEvents()
     {
         events.clear();
         try {
-            events.addAll(bll.getAllEvents());
+            events.addAll(bll.getCoordinatorEvents(loggedInUser));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -70,5 +75,11 @@ public class EventModel {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void setLoggedInUser(User user){
+        this.loggedInUser = user;
+    }
+    public User getLoggedInUser(){
+        return loggedInUser;
     }
 }
