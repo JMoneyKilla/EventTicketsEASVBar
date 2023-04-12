@@ -13,15 +13,9 @@ public class EventModel {
 
     private final ObservableList<Event> events;
     ManagerFacade bll = new ManagerFacade();
-    private User loggedInUser;
+    User loggedInUser;
 
-    public User getLoggedInUser() {
-        return loggedInUser;
-    }
 
-    public void setLoggedInUser(User loggedInUser) {
-        this.loggedInUser = loggedInUser;
-    }
 
     public static EventModel getInstance(){
         if(instance==null)
@@ -29,16 +23,17 @@ public class EventModel {
         return instance;
     }
 
-    public EventModel() {
+    private EventModel() {
         events = FXCollections.observableArrayList();
-        fetchAllEvents();
+        if(this.loggedInUser!=null)
+            fetchAllEvents();
     }
 
     public void fetchAllEvents()
     {
         events.clear();
         try {
-            events.addAll(bll.getAllEvents());
+            events.addAll(bll.getCoordinatorEvents(loggedInUser));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -80,5 +75,11 @@ public class EventModel {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void setLoggedInUser(User user){
+        this.loggedInUser = user;
+    }
+    public User getLoggedInUser(){
+        return loggedInUser;
     }
 }

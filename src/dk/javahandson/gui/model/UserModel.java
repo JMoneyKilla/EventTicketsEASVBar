@@ -19,7 +19,7 @@ public class UserModel {
         return instance;
     }
 
-    public UserModel() {
+    private UserModel() {
         users = FXCollections.observableArrayList();
         fetchAllUsers();
     }
@@ -102,6 +102,20 @@ public class UserModel {
     {
         try {
             bll.updatePassword(user, password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public boolean validateLogin(String email, String password){
+        try {
+            return bll.validateLogin(email, password);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public User loginUser(String email){
+        try {
+            return bll.loginUser(email);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

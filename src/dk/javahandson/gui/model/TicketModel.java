@@ -26,7 +26,7 @@ public class TicketModel {
         return tickets;
     }
 
-    public TicketModel() {
+    private TicketModel() {
         tickets = FXCollections.observableArrayList();
     }
 
