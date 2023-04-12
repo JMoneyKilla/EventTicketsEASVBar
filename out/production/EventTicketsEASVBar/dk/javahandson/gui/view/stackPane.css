@@ -1,0 +1,38 @@
+.label-event{
+    -fx-pref-width: 175;
+    -fx-pref-height: 17;
+    -fx-font-size: 16pt;
+    -fx-font-family: Garamond, serif;
+}
+
+.label-date{
+    -fx-pref-width: 175;
+    -fx-pref-height: 15;
+    -fx-font-size: 14pt;
+    -fx-font-family: Garamond, serif;
+}
+.text-area{
+    -fx-pref-width: 175;
+    -fx-pref-height: 85;
+    -fx-font-size: 12pt;
+    -fx-font-family: Garamond, serif;
+    -fx-wrap-text: true;
+}
+
+.pane{
+    -fx-pref-width: 175;
+    -fx-pref-height: 140;
+}
+
+.vbox{
+    -fx-pref-width: 175;
+    -fx-pref-height: 140;
+}
+.hbox{
+    -fx-pref-width: 175;
+    -fx-pref-height: 25;
+}
+.mfx-button{
+    -fx-pref-width: 86;
+    -fx-pref-height: 25;
+}

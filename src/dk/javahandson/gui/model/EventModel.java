@@ -1,6 +1,7 @@
 package dk.javahandson.gui.model;
 
 import dk.javahandson.be.Event;
+import dk.javahandson.be.User;
 import dk.javahandson.bll.ManagerFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +13,15 @@ public class EventModel {
 
     private final ObservableList<Event> events;
     ManagerFacade bll = new ManagerFacade();
+    private User loggedInUser;
+
+    public User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
 
     public static EventModel getInstance(){
         if(instance==null)
