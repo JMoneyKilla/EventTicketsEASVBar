@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.AdminEventsMenuController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" styleClass="backgroundMenu" stylesheets="@Menu.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.AdminEventsMenuController">
    <children>
       <TableView fx:id="tableViewEvents" layoutX="13.0" layoutY="53.0" prefHeight="298.0" prefWidth="475.0">
         <columns>
@@ -19,8 +19,8 @@
             <TableColumn fx:id="columnVouchersUsed" prefWidth="96.66664632161456" text="Vouchers Used" />
         </columns>
       </TableView>
-      <Button layoutX="435.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickDelete" text="Delete" />
+      <Button layoutX="421.0" layoutY="355.0" mnemonicParsing="false" onAction="#clickDelete" styleClass="buttonMenu" stylesheets="@Menu.css" text="Delete" />
       <TextField fx:id="txtFieldSearch" layoutX="277.0" layoutY="20.0" prefHeight="25.0" prefWidth="209.0" promptText="search" />
-      <Label layoutX="14.0" layoutY="24.0" text="All Events" />
+      <Label layoutX="14.0" layoutY="24.0" text="All Events" textFill="WHITE" />
    </children>
 </AnchorPane>
