@@ -3,6 +3,7 @@ package dk.javahandson.gui.controller;
 import dk.javahandson.be.Event;
 import dk.javahandson.gui.model.EventModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -11,11 +12,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -37,6 +37,7 @@ public class EventMenuController implements Initializable {
             handleViewButton(stackPane);
             handleEditButton(stackPane);
             eventPane.getChildren().add(stackPane);
+            eventPane.setStyle("-fx-background-color: #145DA0;");
             AnchorPane.setTopAnchor(stackPane, 25 + row * 160.0);
             AnchorPane.setLeftAnchor(stackPane, 50 + col * 205.0);
             col++;
@@ -50,7 +51,8 @@ public class EventMenuController implements Initializable {
 
     public StackPane generateEventPane(Event event){
         StackPane stackPane = new StackPane();
-        stackPane.setPrefSize(175, 140);
+
+        stackPane.setPrefSize(175, 130);
         stackPane.setOnMouseEntered(e -> {
             stackPane.setScaleX(1.1);
             stackPane.setScaleY(1.1);
@@ -61,52 +63,63 @@ public class EventMenuController implements Initializable {
             stackPane.setScaleY(1.0);
         });
 
+
         VBox vBox = new VBox();
-        vBox.setPrefSize(175, 140);
+        vBox.setPrefSize(175, 130);
         vBox.setId("vbox");
 
         Label eventName = new Label();
         eventName.setPrefSize(175, 16);
         eventName.setFont(Font.font(16));
+        eventName.setStyle("-fx-text-fill: #0C2D48;");
         eventName.setText(event.getName());
+        eventName.setPadding(new Insets(5, 5, 5, 5));
         eventName.setId("eventName");
 
         Label eventDate = new Label();
         eventDate.setPrefSize(175, 14);
         eventDate.setFont(Font.font(14));
+        eventDate.setStyle("-fx-text-fill: #145DA0;");
         eventDate.setText(event.getStartDate());
+        eventDate.setPadding(new Insets(5, 5, 5, 5));
         eventDate.setId("eventDate");
 
-        TextArea textArea = new TextArea();
-        textArea.setPrefSize(175, 85);
-        textArea.setFont(Font.font(12));
-        textArea.setWrapText(true);
-        textArea.setText(event.getNotes());
-        textArea.setEditable(false);
-        textArea.setId("textArea");
+        Label ticketAvailability = new Label();
+        ticketAvailability.setPrefSize(175, 14);
+        ticketAvailability.setFont(Font.font(14));
+        ticketAvailability.setStyle("-fx-text-fill: #145DA0;");
+        ticketAvailability.setText("Tickets: " + event.getTicketsSold() + "/" + event.getTotalTickets());
+        ticketAvailability.setPadding(new Insets(5, 5, 5, 5));
+        ticketAvailability.setId("ticketAvailability");
 
         HBox hbox = new HBox();
         hbox.setPrefSize(175,25);
+        hbox.setPadding(new Insets(0, 0, 0, 5));
         hbox.setId("hbox");
 
         MFXButton button1 = new MFXButton();
-        button1.setPrefSize(86, 25);
+        button1.setPrefSize(83, 25);
+        button1.setStyle("-fx-background-color: #2E8BC0; -fx-text-fill: #B1D4E0;");
+        button1.setPadding(new Insets(0, 0, 0, 5));
         button1.setText("View");
         button1.setId("viewButton");
         MFXButton button2 = new MFXButton();
+        button2.setStyle("-fx-background-color: #2E8BC0; -fx-text-fill: #B1D4E0;");
         button2.setText("Edit");
         button2.setId("editButton");
-        button2.setPrefSize(86, 25);
+        button2.setPrefSize(83, 25);
 
         vBox.getChildren().add(eventName);
         vBox.getChildren().add(eventDate);
-        vBox.getChildren().add(textArea);
+        vBox.getChildren().add(ticketAvailability);
         hbox.getChildren().add(button1);
         hbox.getChildren().add(button2);
         vBox.getChildren().add(hbox);
 
 
+
         stackPane.getChildren().add(vBox);
+        stackPane.setStyle("-fx-background-radius: 10px; -fx-background-color: #B1D4E0;");
 
         return stackPane;
     }
