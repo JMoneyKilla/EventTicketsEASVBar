@@ -15,6 +15,8 @@ public class EventModel {
     ManagerFacade bll = new ManagerFacade();
     User loggedInUser;
 
+
+
     public static EventModel getInstance(){
         if(instance==null)
             instance = new EventModel();
