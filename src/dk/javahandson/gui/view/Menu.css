@@ -1,0 +1,24 @@
+.buttonMenu {
+    -fx-font-family: arial;
+    -fx-color: #ff0000;
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+    -fx-border-color: #000000;
+    -fx-background-color: #145DA0;
+}
+.buttonMenu:hover {
+    -fx-text-fill: #FFFF24;
+    -fx-background-color: #145DA0;
+}
+.buttonMenu:pressed {
+    -fx-text-fill: #000000;
+    -fx-background-color: #145DA0;
+}
+
+.backgroundMenu {
+    -fx-background-color: #0C2D48;
+}
+
+
+
