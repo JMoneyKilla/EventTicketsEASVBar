@@ -1,5 +1,6 @@
 package dk.javahandson.gui.model;
 
+import dk.javahandson.be.Event;
 import dk.javahandson.be.User;
 import dk.javahandson.bll.ManagerFacade;
 import javafx.collections.FXCollections;
@@ -84,6 +85,9 @@ public class UserModel {
         return selectedUser;
     }
 
+    public void resetSelectedUser(){
+        selectedUser=null;
+    }
     public String getPasswordFromUser(User user)
     {
         try {
@@ -102,10 +106,10 @@ public class UserModel {
         }
     }
 
-    public void updatePassword(User user, String password)
+    public void updateLogin(User user, String password)
     {
         try {
-            bll.updatePassword(user, password);
+            bll.updateLogin(user, password);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -113,6 +117,7 @@ public class UserModel {
     public void setLoggedInUser(User user){
         this.loggedInUser = user;
     }
+
     public boolean validateLogin(String email, String password){
         try {
             return bll.validateLogin(email, password);
@@ -123,6 +128,14 @@ public class UserModel {
     public User loginUser(String email){
         try {
             return bll.loginUser(email);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void addUserToEvent(Event event, User user){
+        try {
+            bll.addUserToEvent(event, user);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

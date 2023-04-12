@@ -82,7 +82,7 @@ public class EventDAO {
         String startDate = event.getStartDate();
         String startTime = event.getStartTime();
         String endDate = event.getEndDate();
-        String endTime = event.getStartTime();
+        String endTime = event.getEndTime();
         String location = event.getLocation();
         String notes = event.getNotes();
         int ticketsSold = event.getTicketsSold();
