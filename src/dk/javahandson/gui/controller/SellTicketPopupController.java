@@ -11,9 +11,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.InputMethodEvent;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -39,6 +42,12 @@ public class SellTicketPopupController implements Initializable {
                 (String) typeBox.getSelectionModel().getSelectedItem(), textFieldName.getText(), textFieldEmail.getText());
             ticketModel.createTicket(ticket);
             ticketGenerator.createCompleteTicket(ticket, ticketModel.getSelectedEvent());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Ticket has been sold!");
+            alert.showAndWait();
+            Node n = (Node) actionEvent.getSource();
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.close();
         //emailHandler.openEmail(textFieldEmail.getText(), ticketModel.getSelectedEvent().getName(), "Welcome to the Party");
         }
         if(isVoucher){
@@ -46,11 +55,20 @@ public class SellTicketPopupController implements Initializable {
                     (String) typeBox.getSelectionModel().getSelectedItem());
             ticketModel.createVoucher(voucher);
             ticketGenerator.createCompleteVoucher(voucher, ticketModel.getSelectedEvent());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Voucher er blevet soldt!");
+            alert.showAndWait();
+            Node n = (Node) actionEvent.getSource();
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.close();
         }
 
     }
 
     public void clickCancel(ActionEvent actionEvent) {
+        Node n = (Node) actionEvent.getSource();
+        Stage stage = (Stage) n.getScene().getWindow();
+        stage.close();
     }
 
     @Override
