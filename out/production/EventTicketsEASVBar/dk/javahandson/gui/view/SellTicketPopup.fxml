@@ -23,6 +23,6 @@
       <Label layoutX="14.0" layoutY="170.0" style="-fx-text-fill: #0C2D48;" text="Type:" />
       <ComboBox fx:id="typeBox" layoutX="116.0" layoutY="166.0" prefWidth="150.0" />
       <MFXButton fx:id="sellButton" layoutX="44.0" layoutY="213.0" onAction="#clickSell" prefHeight="25.0" prefWidth="223.0" styleClass="buttonSmall" text="Sell!" />
-      <MFXButton fx:id="cancelButton" layoutX="84.0" layoutY="251.0" onAction="#clickCancel" prefHeight="25.0" prefWidth="150.0" styleClass="buttonSmall" text="Cancel" />
+      <MFXButton fx:id="cancelButton" cancelButton="true" layoutX="84.0" layoutY="251.0" onAction="#clickCancel" prefHeight="25.0" prefWidth="150.0" styleClass="buttonSmall" text="Cancel" />
    </children>
 </AnchorPane>

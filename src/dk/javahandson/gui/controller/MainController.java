@@ -75,15 +75,4 @@ public class MainController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    public void clickAddMoreTickets(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/CreateMoreTickets.fxml"));
-        System.out.println(fxmlLoader);
-        borderPane.getChildren().remove(borderPane.getCenter()); //remove existing fxml from center.
-        try {
-            borderPane.setCenter(fxmlLoader.load());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

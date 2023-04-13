@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="350.0" prefWidth="575.0" styleClass="backgroundMenu" stylesheets="@Menu.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.LoginController">
+<AnchorPane prefHeight="350.0" prefWidth="575.0" styleClass="backgroundMenu" stylesheets="@Menu.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.LoginController">
    <children>
       <Label layoutX="273.0" layoutY="44.0" text="Login" textFill="WHITE">
          <font>
@@ -19,5 +19,6 @@
       <Label layoutX="152.0" layoutY="191.0" text="Password:" textFill="WHITE" />
       <MFXButton fx:id="buttonLogin" buttonType="RAISED" depthLevel="LEVEL1" layoutX="153.0" layoutY="292.0" onAction="#clickLogin" prefHeight="25.0" prefWidth="275.0" styleClass="buttonSmall" stylesheets="@Menu.css" text="Let's GO!!" />
       <Label fx:id="lblWarning" layoutX="253.0" layoutY="254.0" prefHeight="17.0" prefWidth="80.0" textFill="WHITE" />
+      <MFXButton fx:id="buttonLogin" buttonType="RAISED" defaultButton="true" depthLevel="LEVEL1" layoutX="153.0" layoutY="292.0" onAction="#clickLogin" prefHeight="25.0" prefWidth="275.0" styleClass="buttonSmall" stylesheets="@Menu.css" text="Let's GO!!" />
    </children>
 </AnchorPane>
