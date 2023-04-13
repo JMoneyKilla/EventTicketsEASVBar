@@ -3,12 +3,14 @@ package dk.javahandson.gui.model;
 
 import dk.javahandson.be.Event;
 import dk.javahandson.be.Ticket;
+import dk.javahandson.be.Voucher;
 import dk.javahandson.bll.ManagerFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 public class TicketModel {
 
@@ -83,5 +85,12 @@ public class TicketModel {
     public ObservableList getVoucherTypes(int id) {
         return bll.getVoucherTypes(id);
     }
+    public String generateTicketUUID() {
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
     }
+    public void createVoucher(Voucher voucher) throws SQLException {
+        bll.createVoucher(voucher);
+    }
+}
 
