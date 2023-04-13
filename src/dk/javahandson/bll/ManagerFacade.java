@@ -105,8 +105,8 @@ public class ManagerFacade {
         return userManager.getPasswordFromUser(user);
     }
 
-    public void updatePassword(User user, String password) throws SQLException {
-        userManager.updatePassword(user, password);
+    public void updateLogin(User user, String password) throws SQLException {
+        userManager.updateLogin(user, password);
     }
     public User loginUser(String email) throws SQLException{
         return userManager.loginUser(email);
