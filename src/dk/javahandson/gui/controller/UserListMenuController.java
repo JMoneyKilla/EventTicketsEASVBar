@@ -41,12 +41,7 @@ public class UserListMenuController implements Initializable {
     }
 
     public void clickCreateUser(ActionEvent actionEvent) {
-        if(tableViewUsers.getSelectionModel().getSelectedItem()!=null)
-        {
-            lblWarning.setText("Please deselect a user");
-        }
-        else{
-            lblWarning.setText("");
+        tableViewUsers.getSelectionModel().clearSelection();
         Node n = (Node) actionEvent.getSource();
         Window stage = n.getScene().getWindow();
         Parent root;
@@ -64,7 +59,7 @@ public class UserListMenuController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }}
-    }
+
 
     public void clickEditUser(ActionEvent actionEvent) {
         if(tableViewUsers.getSelectionModel().getSelectedItem()!=null){
@@ -99,9 +94,5 @@ public class UserListMenuController implements Initializable {
         tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         tableViewUsers.setItems(model.getUsers());
-    }
-
-    public void clickAnchorPane(MouseEvent mouseEvent) {
-        tableViewUsers.getSelectionModel().clearSelection();
     }
 }

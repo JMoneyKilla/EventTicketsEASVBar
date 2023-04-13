@@ -165,16 +165,15 @@ public class UserDAO {
         return password;
     }
 
-    public void updatePassword(User user, String password) throws SQLException {
-        int id = user.getId();
+    public void updateLogin(User user, String password) throws SQLException {
 
-        String sql = "UPDATE Login SET password = ? WHERE user_id = ?;";
+        String sql = "UPDATE Login SET username = ?, password = ? WHERE user_id = ?;";
         try(Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1,password);
-            ps.setInt(2,id);
+            ps.setString(1, user.getEmail());
+            ps.setString(2, password);
+            ps.setInt(3, user.getId());
             ps.execute();
-
         }
     }
 

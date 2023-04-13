@@ -57,6 +57,9 @@ public class NewUserMenuController implements Initializable {
             clearEverything();
             model.fetchAllUsers();
             lblWarning.setText("User successfully created");
+            Node n = (Node) actionEvent.getSource();
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.close();
         }
         }
         if(isEditTrue){
@@ -68,9 +71,13 @@ public class NewUserMenuController implements Initializable {
             model.getSelectedUser().setName(txtFieldFullName.getText());
             model.getSelectedUser().setEmail(txtFieldEmail.getText());
             model.updateUser(model.getSelectedUser());
-            model.updatePassword(model.getSelectedUser(), passwordField.getText());
+            model.updateLogin(model.getSelectedUser(), passwordField.getText());
             clearEverything();
             model.fetchAllUsers();
+            Node n = (Node) actionEvent.getSource();
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.close();
+            model.resetSelectedUser();
         }
             else if(isInputValid() && isEmailValid(txtFieldEmail.getText()) &&
                 showPassword && !txtFieldPassword.getText().isBlank()
@@ -79,10 +86,13 @@ public class NewUserMenuController implements Initializable {
                 model.getSelectedUser().setName(txtFieldFullName.getText());
                 model.getSelectedUser().setEmail(txtFieldEmail.getText());
                 model.updateUser(model.getSelectedUser());
-                model.updatePassword(model.getSelectedUser(), txtFieldPassword.getText());
+                model.updateLogin(model.getSelectedUser(), txtFieldPassword.getText());
                 clearEverything();
                 model.fetchAllUsers();
-                lblWarning.setText("User successfully updated");
+                Node n = (Node) actionEvent.getSource();
+                Stage stage = (Stage) n.getScene().getWindow();
+                stage.close();
+                model.resetSelectedUser();
             }
         }
     }
@@ -91,6 +101,7 @@ public class NewUserMenuController implements Initializable {
         Node n = (Node) actionEvent.getSource();
         Stage stage = (Stage) n.getScene().getWindow();
         stage.close();
+        model.resetSelectedUser();
     }
 
     @Override
