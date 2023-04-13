@@ -125,8 +125,20 @@ public class UserDAO {
         }
     }
 
+    private int getNextEventId() {
+        try (Connection con = dbc.getConnection()) {
+            ResultSet rs = con.createStatement().executeQuery("SELECT TOP 1 * FROM Event ORDER BY id DESC;");
+            rs.next();
+            int id = rs.getInt("id");
+            int nextID = id;
+            return nextID;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void addUserToEvent(Event event, User user) throws SQLException {
-        int eventId = event.getId();
+        int eventId = getNextEventId();
         int userId = user.getId();
         String sql = "INSERT INTO UserEvent (event_id, user_id) VALUES (?,?)";
         try(Connection con = dbc.getConnection()){
@@ -136,6 +148,8 @@ public class UserDAO {
             ps.execute();
         }
     }
+
+
     public int getUserId(String email) throws SQLException {
         String sql = "SELECT id FROM [User] WHERE email = ?";
         try (Connection connection = dbc.getConnection()) {

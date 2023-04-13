@@ -165,7 +165,7 @@ public class EventDAO {
 
         }
     }
-    public int  getEventId(String title) throws SQLException {
+    public int getEventId(String title) throws SQLException {
         String sql = "SELECT id FROM Event WHERE event_name = ?";
         try (Connection connection = dbc.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);

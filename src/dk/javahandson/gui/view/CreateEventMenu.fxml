@@ -26,8 +26,8 @@
             <Label layoutX="234.0" layoutY="160.0" text="Date End:" textFill="WHITE" />
             <Label layoutX="29.0" layoutY="215.0" text="Notes:" textFill="WHITE" />
 
-            <TextField fx:id="txtFieldNotes" layoutX="25.0" layoutY="233.0" prefHeight="79.0" prefWidth="217.0" />
-            <HBox alignment="TOP_CENTER" layoutX="23.0" layoutY="333.0" prefHeight="46.0" prefWidth="446.0" />
+            <TextField fx:id="txtFieldNotes" layoutX="25.0" layoutY="233.0" prefHeight="67.0" prefWidth="217.0" />
+            <HBox alignment="TOP_CENTER" layoutX="19.0" layoutY="344.0" prefHeight="46.0" prefWidth="446.0" />
             <HBox layoutX="23.0" layoutY="333.0" prefHeight="46.0" prefWidth="328.0">
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="46.0" prefWidth="200.0">
@@ -64,7 +64,7 @@
             </HBox>
             <Button layoutX="355.0" layoutY="390.0" mnemonicParsing="false" onAction="#clickSave" styleClass="buttonSmall" stylesheets="@Menu.css" text="Save" />
             <Button layoutX="416.0" layoutY="390.0" mnemonicParsing="false" onAction="#clickCancel" styleClass="buttonSmall" stylesheets="@Menu.css" text="Cancel" />
-            <Label fx:id="lblWarning" layoutX="260.0" layoutY="295.0" prefHeight="17.0" prefWidth="217.0" textFill="WHITE" />
+            <Label fx:id="lblWarning" layoutX="46.0" layoutY="307.0" prefHeight="17.0" prefWidth="217.0" textFill="WHITE" />
 
             <DatePicker fx:id="datePickerStart" editable="false" layoutX="24.0" layoutY="175.0" prefHeight="25.0" prefWidth="112.0" />
             <DatePicker fx:id="datePickerEnd" editable="false" layoutX="232.0" layoutY="175.0" prefHeight="25.0" prefWidth="112.0" />
@@ -72,6 +72,7 @@
             <TextField fx:id="txtFieldTimeStart" layoutX="145.0" layoutY="175.0" prefHeight="25.0" prefWidth="55.0" />
             <Label fx:id="lblTime" layoutX="251.0" layoutY="142.0" prefHeight="17.0" prefWidth="156.0" textFill="WHITE" />
             <Label fx:id="lblDate" layoutX="23.0" layoutY="142.0" prefHeight="17.0" prefWidth="210.0" textFill="WHITE" />
+            <Label fx:id="lblSuccess" layoutX="263.0" layoutY="283.0" prefHeight="17.0" prefWidth="232.0" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>

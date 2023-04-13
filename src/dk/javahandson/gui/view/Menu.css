@@ -42,7 +42,9 @@
     -fx-border-color: white;
     -fx-fill: #B1D4E0;
 }
-
+.table-view {
+    -fx-background-color: transparent;
+}
 
 
 

@@ -47,6 +47,9 @@ public class NewUserMenuController implements Initializable {
             clearEverything();
             model.fetchAllUsers();
             lblWarning.setText("User successfully created");
+            Node n = (Node) actionEvent.getSource();
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.close();
         }
         else if(!isUserNameAvailable(txtFieldEmail.getText())
                 && showPassword && !txtFieldPassword.getText().isBlank()

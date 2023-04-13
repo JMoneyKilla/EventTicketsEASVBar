@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class CreateEventController implements Initializable {
 
     @FXML
-    private javafx.scene.control.Label lblWarning, lblTime, lblDate;
+    private javafx.scene.control.Label lblWarning, lblTime, lblDate, lblSuccess;
     @FXML
     private AnchorPane createEventAnchorPane;
     @FXML
@@ -52,16 +52,20 @@ public class CreateEventController implements Initializable {
                 Event event = new Event(title, timeStart, timeEnd, location, notes, 0, 0, maxTickets, maxVouchers, dateStart, dateEnd);
                 modelEvent.addEvent(event);
                 modelEvent.addUserToEvent(event, modelEvent.getLoggedInUser());
-                lblWarning.setText("Event successfully created");
+                lblSuccess.setText("Event successfully created");
                 clearTextFields();
             }
         }catch (NumberFormatException e){
             lblWarning.setText("Amount must be a number");
+            System.out.println(isDateValid());
+            System.out.println(isTimeValid(txtFieldTimeStart.getText()));
+            System.out.println(isTimeValid(txtFieldTimeEnd.getText()));
         }
     }
 
     public void clickCancel(ActionEvent actionEvent) {
         clearTextFields();
+
     }
 
     private String getFormattedDateFromDatePicker(DatePicker datePicker) {
@@ -79,19 +83,16 @@ public class CreateEventController implements Initializable {
     }
 
     public boolean isDateValid() {
+        if(datePickerStart.getEditor().getText().isEmpty() || datePickerEnd.getEditor().getText().isBlank()
+        || datePickerEnd.getEditor().getText().isEmpty() || datePickerEnd.getEditor().getText().isBlank()){
+            lblDate.setText("Please input start and end date");
+            return false;
+        }
         if (datePickerStart.getValue() != null || datePickerEnd.getValue() != null) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate startDate = LocalDate.parse(datePickerStart.getValue().toString(), dateFormat);
         LocalDate endDate = LocalDate.parse(datePickerEnd.getValue().toString(), dateFormat);
         LocalDate current = LocalDate.now();
-            if (datePickerStart.getEditor().getText().isBlank() || datePickerStart.getEditor().getText().isEmpty()) {
-                lblDate.setText("Please input start date");
-                return false;
-            }
-            if (datePickerEnd.getEditor().getText().isBlank() || datePickerEnd.getEditor().getText().isBlank()) {
-                lblDate.setText("Please input end date");
-                return false;
-            }
             if (endDate.isBefore(startDate)) {
                 lblDate.setText("End date can't be before start date");
                 return false;
@@ -101,23 +102,22 @@ public class CreateEventController implements Initializable {
                 return false;
             }
         }
-        lblDate.setText("");
+        else lblDate.setText("");
         return true;
     }
 
     private boolean isTimeValid(String str){
-        //checks if time input looks like 00:00
-        if(!str.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")){
-            lblTime.setText("Please input valid time");
-            return false;
-
-        }
         if(txtFieldTimeStart.getText().isBlank() || txtFieldTimeStart.getText().isEmpty()){
             lblTime.setText("Please input time start");
             return false;
         }
         if(txtFieldTimeEnd.getText().isBlank() || txtFieldTimeEnd.getText().isEmpty()){
             lblTime.setText("Please input time end");
+            return false;
+        }
+        //checks if time input looks like 00:00
+        if(!str.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")){
+            lblTime.setText("Please input valid time");
             return false;
         }
         else {
@@ -135,6 +135,9 @@ public class CreateEventController implements Initializable {
         datePickerEnd.getEditor().clear();
         txtFieldMaxVouchers.clear();
         txtFieldMaxTickets.clear();
+        lblDate.setText("");
+        lblTime.setText("");
+        lblWarning.setText("");
     }
 
     @Override
