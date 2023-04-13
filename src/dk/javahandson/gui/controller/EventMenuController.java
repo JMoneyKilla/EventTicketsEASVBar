@@ -30,23 +30,7 @@ public class EventMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        int row = 0;
-        int col = 0;
-        for (Event event : eventModel.getEvents()) {
-            StackPane stackPane = generateEventPane(event);
-            handleViewButton(stackPane);
-            handleEditButton(stackPane);
-            eventPane.getChildren().add(stackPane);
-            eventPane.setStyle("-fx-background-color: #145DA0;");
-            AnchorPane.setTopAnchor(stackPane, 25 + row * 160.0);
-            AnchorPane.setLeftAnchor(stackPane, 50 + col * 205.0);
-            col++;
-            if (col == 2) {
-                col = 0;
-                row++;
-            }
-        }
-
+        loadData();
     }
 
     public StackPane generateEventPane(Event event){
@@ -190,13 +174,7 @@ public class EventMenuController implements Initializable {
             String eventName = eventNameLabel.getText();
 
             // Search the eventList for an event with a matching name
-            Event matchingEvent = null;
-            for (Event event : eventModel.getEvents()) {
-                if (event.getName().equals(eventName)) {
-                    matchingEvent = event;
-                    break;
-                }
-            }
+            Event matchingEvent = eventModel.getEvents().stream().filter(event -> event.getName().equals(eventName)).findFirst().orElse(null);
 
             // If a matching event is found, do something with it
             if (matchingEvent != null) {
@@ -212,6 +190,10 @@ public class EventMenuController implements Initializable {
                 Label name = new Label("Event name: ");
                 TextField nameText = new TextField(matchingEvent.getName());
                 HBox nameBox = new HBox(name, nameText);
+
+                Label location = new Label("Location: ");
+                TextField locationText = new TextField(matchingEvent.getLocation());
+                HBox locationBox = new HBox(location, locationText);
 
                 Label start = new Label("Start date: ");
                 TextField startText = new TextField(matchingEvent.getStartDate());
@@ -235,18 +217,28 @@ public class EventMenuController implements Initializable {
                 Label tickets = new Label("Total tickets: ");
                 TextField ticketsText = new TextField();
                 ticketsText.setText("" + matchingEvent.getTotalTickets());
+                Label vouchers = new Label("Total vouchers: ");
+                TextField vouchersText = new TextField();
+                vouchersText.setText("" + matchingEvent.getTotalVouchers());
                 HBox ticketBox = new HBox(tickets, ticketsText);
+                HBox voucherBox = new HBox(vouchers, vouchersText);
 
 
                 // Add the Labels to the popup VBox
-                popupVBox.getChildren().addAll(nameBox, startDateBox, startTimeBox, endDateBox, endTimeBox, notes, notesText, ticketBox);
+                popupVBox.getChildren().addAll(nameBox, locationBox, startDateBox, startTimeBox, endDateBox, endTimeBox, notes, notesText, ticketBox, voucherBox);
 
                 // Create a Button to close the popup
                 Button closeButton = new Button("Close");
+                Button saveButton = new Button("Save");
+                HBox buttonBox = new HBox(closeButton, saveButton);
+
                 closeButton.setOnAction(event -> popupStage.close());
+                saveButton.setOnAction(event -> handleSaveButton(new Event(matchingEvent.getId(), nameText.getText(), startTimeText.getText(),
+                        endTimeText.getText(), locationText.getText(), notesText.getText(), matchingEvent.getTicketsSold(), matchingEvent.getVoucherUsed(),
+                        Integer.parseInt(ticketsText.getText()), Integer.parseInt(vouchersText.getText()), startText.getText(), endText.getText())));
 
                 // Add the closeButton to the popup VBox
-                popupVBox.getChildren().add(closeButton);
+                popupVBox.getChildren().add(buttonBox);
 
                 // Create a Scene for the popup and set it on the popupStage
                 Scene popupScene = new Scene(popupVBox);
@@ -256,5 +248,51 @@ public class EventMenuController implements Initializable {
                 popupStage.showAndWait();
             }
         });
+    }
+
+    public boolean isValidEventEdit(Event event){
+        int check = 0;
+        if(!event.getName().isEmpty() && !event.getName().isBlank())
+            check++;
+        if(event.getId()>0)
+            check++;
+        if(!event.getStartDate().isEmpty() && !event.getStartDate().isBlank())
+            check++;
+        if(!event.getStartTime().isEmpty() && !event.getStartTime().isBlank())
+            check++;
+        if(!event.getEndDate().isEmpty() && !event.getEndDate().isBlank())
+            check++;
+        if(!event.getEndTime().isEmpty() && !event.getEndTime().isBlank())
+            check++;
+        if(!event.getName().isEmpty() && !event.getName().isBlank())
+            check++;
+        if(!event.getLocation().isEmpty() && !event.getLocation().isBlank())
+            check++;
+        return check == 8;
+    }
+
+    public void handleSaveButton(Event event){
+        if(isValidEventEdit(event))
+            eventModel.updateEditedEvent(event);
+        eventModel.fetchAllEvents();
+        loadData();
+    }
+    public void loadData(){
+        int row = 0;
+        int col = 0;
+        for (Event event : eventModel.getEvents()) {
+            StackPane stackPane = generateEventPane(event);
+            handleViewButton(stackPane);
+            handleEditButton(stackPane);
+            eventPane.getChildren().add(stackPane);
+            eventPane.setStyle("-fx-background-color: #0C2D48; -fx-border-color: #0C2D48");
+            AnchorPane.setTopAnchor(stackPane, 25 + row * 160.0);
+            AnchorPane.setLeftAnchor(stackPane, 50 + col * 205.0);
+            col++;
+            if (col == 2) {
+                col = 0;
+                row++;
+            }
+        }
     }
 }

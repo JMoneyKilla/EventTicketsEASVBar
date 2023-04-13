@@ -27,7 +27,7 @@ public class MainController implements Initializable {
     }
 
     public void clickMyEvents(ActionEvent actionEvent) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/AdminEventsMenu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/EventsMenu.fxml"));
         System.out.println(fxmlLoader);
         borderPane.getChildren().remove(borderPane.getCenter()); //remove existing fxml from center.
         try {

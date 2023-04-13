@@ -43,7 +43,7 @@ public class EventDAO {
         List<Event> coordinatorEvents = new ArrayList<>();
         int userId = u.getId();
         String sql = "SELECT Event.[id], [event_id], [user_id], [event_name], [start_date], [start_time], [end_date], [end_time], " +
-                "[location], [notes], [tickets_sold],[vouchers_used], [total_tickets], [total_vouchers]\n" +
+                "[location], [notes], [tickets_sold], [vouchers_used], [total_tickets], [total_vouchers]\n" +
                 "    FROM Event\n" +
                 "    INNER JOIN UserEvent\n" +
                 "    ON Event.id = UserEvent.event_id\n" +
@@ -109,11 +109,11 @@ public class EventDAO {
     }
 
     public static void main(String[] args) throws SQLException {
-        Event event = new Event("Movies Under the Stars", "19:00", "00:00", "Stormegade 78, Esbjerg",
+        Event event = new Event(145,"Movies Under the Stars", "19:00", "00:00", "Stormegade 78, Esbjerg",
                 "Watch Dumb and Dumber 1 & 2 outside on a projector screen", 0, 0, 0, 0,
                 "07-04-2023", "08-04-2023");
         DataAccessFacade dataAccessFacade = new DataAccessFacade();
-        dataAccessFacade.createEvent(event);
+        dataAccessFacade.updateEvent(event);
     }
 
     public boolean deleteEvent(Event event) throws SQLException {
@@ -144,9 +144,9 @@ public class EventDAO {
         int totalVouchers = event.getTotalVouchers();
 
 
-        String sql = "UPDATE Event SET event_name = ?, start_date = ?, start_time = ?, end_date = ?, end_time = ?, " +
-                "location = ?, notes = ?, tickets_sold = ?, vouchers_used = ? total_tickets = ?, " +
-                "total_vouchers = ? WHERE id = ?;";
+        String sql = "Update Event SET event_name = ?, start_date = ?, start_time = ?,\n" +
+                " end_date = ?, end_time = ?, location = ?, notes = ?, tickets_sold = ?,\n" +
+                "vouchers_used = ?, total_tickets = ?, total_vouchers = ? WHERE id = ?";
         try (Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, name);
