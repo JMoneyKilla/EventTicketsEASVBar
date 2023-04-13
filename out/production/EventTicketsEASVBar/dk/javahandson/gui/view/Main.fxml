@@ -1,27 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.MainController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="650.0" styleClass="backgroundMenu" stylesheets="@Menu.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.javahandson.gui.controller.MainController">
    <left>
-      <VBox prefHeight="450.0" prefWidth="132.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="450.0" prefWidth="142.0" styleClass="backgroundMenu" stylesheets="@Menu.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="31.0" prefWidth="135.0">
+            <VBox prefHeight="367.0" prefWidth="137.0" spacing="10.0">
                <children>
-                  <ImageView fx:id="imageEASV" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickMyEvents" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imgMyEvents" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickMyEvents" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imgManageUsers" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickManageUsers" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imgCreateEvent" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickCreateEvent" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imgSellTicket" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickSellTicket" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="imgCreateMoreTickets" fitHeight="50.0" fitWidth="135.0" onMouseClicked="#clickCreateMoreTickets" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageEASV" fitHeight="50.0" fitWidth="130.0" onMouseClicked="#clickMyEvents" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin></ImageView>
+                  <MFXButton buttonType="RAISED" onAction="#clickMyEvents" prefHeight="35.0" prefWidth="130.0" styleClass="buttonMenu" stylesheets="@Menu.css" text="My Events">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></MFXButton>
+                  <MFXButton buttonType="RAISED" onAction="#clickManageUsers" prefHeight="35.0" prefWidth="130.0" styleClass="buttonMenu" stylesheets="@Menu.css" text="Manage users">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></MFXButton>
+                  <MFXButton buttonType="RAISED" onAction="#clickNewEvent" prefHeight="35.0" prefWidth="130.0" styleClass="buttonMenu" stylesheets="@Menu.css" text="New Event">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></MFXButton>
+                  <MFXButton buttonType="RAISED" onAction="#clickSellTickets" prefHeight="35.0" prefWidth="130.0" styleClass="buttonMenu" stylesheets="@Menu.css" text="Sell Tickets">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></MFXButton>
+                  <MFXButton buttonType="RAISED" onAction="#clickAddMoreTickets" prefHeight="35.0" prefWidth="130.0" styleClass="buttonMenu" text="Add Tickets">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
-                  </ImageView>
+                     <stylesheets>
+                        <URL value="@Menu.css" />
+                        <URL value="@Menu.css" />
+                     </stylesheets></MFXButton>
                </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
             </VBox>
          </children>
       </VBox>

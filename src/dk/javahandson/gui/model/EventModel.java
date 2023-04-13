@@ -5,6 +5,7 @@ import dk.javahandson.be.User;
 import dk.javahandson.bll.ManagerFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.sql.SQLException;
 
@@ -73,6 +74,13 @@ public class EventModel {
         try {
             bll.updateEvent(event);
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void updateEditedEvent(Event event){
+        try{
+            bll.updateEvent(event);
+        }catch (SQLException e){
             throw new RuntimeException(e);
         }
     }
