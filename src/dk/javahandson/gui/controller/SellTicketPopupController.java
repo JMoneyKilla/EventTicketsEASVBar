@@ -2,7 +2,7 @@ package dk.javahandson.gui.controller;
 
 import dk.javahandson.be.Ticket;
 import dk.javahandson.be.Voucher;
-import dk.javahandson.bll.EmailHandler;
+import dk.javahandson.bll.helpers.EmailHandler;
 import dk.javahandson.bll.helpers.TicketGenerator;
 import dk.javahandson.gui.model.TicketModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
