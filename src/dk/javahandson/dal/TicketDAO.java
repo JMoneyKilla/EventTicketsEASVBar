@@ -2,6 +2,8 @@ package dk.javahandson.dal;
 
 import dk.javahandson.be.Ticket;
 import dk.javahandson.bll.ManagerFacade;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +19,7 @@ public class TicketDAO {
     //might need more params for price, type and redeemable
     public void createTicket(Ticket ticket) throws SQLException {
 
-        try(Connection con = dbc.getConnection();) {
+        try (Connection con = dbc.getConnection();) {
             String sql = "INSERT INTO Ticket (uuid, event_id, type, customer_name, customer_email, redeemable) VALUES (?,?,?,?,?,?)";
             String uuid = "0000-aaaa-1111-bbbb"; //this will be generated
             String customer = ticket.getCustomer();
@@ -26,12 +28,12 @@ public class TicketDAO {
             int eventID = ticket.getEventId();
             Boolean redeemable = true;
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1,uuid);
-            ps.setInt(2,eventID);
-            ps.setString(3,type);
-            ps.setString(4,customer);
-            ps.setString(5,customerEmail);
-            ps.setBoolean(6,redeemable);
+            ps.setString(1, uuid);
+            ps.setInt(2, eventID);
+            ps.setString(3, type);
+            ps.setString(4, customer);
+            ps.setString(5, customerEmail);
+            ps.setBoolean(6, redeemable);
 
             ps.execute();
 
@@ -41,57 +43,59 @@ public class TicketDAO {
 
     public boolean deleteTicket(Ticket ticket) throws SQLException {
         String uuid = ticket.getUuid();
-        String sql ="DELETE FROM Ticket WHERE uuid=?";
+        String sql = "DELETE FROM Ticket WHERE uuid=?";
 
-        try(Connection con = dbc.getConnection();) {
+        try (Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1,uuid);
-            int result =ps.executeUpdate();
-            if(result > 0)
+            ps.setString(1, uuid);
+            int result = ps.executeUpdate();
+            if (result > 0)
                 return true;
         }
         return false;
     }
+
     public void updateTicket(Ticket ticket) throws SQLException {
         String uuid = ticket.getUuid();
         String customer = ticket.getCustomer();
         String customerEmail = ticket.getCustomerEmail();
         int eventID = ticket.getEventId();
-        String sql = "UPDATE Ticket SET event_id = ?, customer_name = ?, customer_email = ? WHERE uuid = ?;";    
-        try(Connection con = dbc.getConnection();) {
+        String sql = "UPDATE Ticket SET event_id = ?, customer_name = ?, customer_email = ? WHERE uuid = ?;";
+        try (Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1,eventID);
-            ps.setString(2,customer);
-            ps.setString(3,customerEmail);
-            ps.setString(4,uuid);
+            ps.setInt(1, eventID);
+            ps.setString(2, customer);
+            ps.setString(3, customerEmail);
+            ps.setString(4, uuid);
             ps.execute();
 
         }
     }
-    
+
     public boolean redeemTicket(Ticket ticket) throws SQLException {
         String uuid = ticket.getUuid();
 
         String sql = "UPDATE Ticket SET redeemable = ? WHERE uuid = ?;";
-        try(Connection con = dbc.getConnection();) {
+        try (Connection con = dbc.getConnection();) {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setBoolean(1,false);
-            ps.setString(2,uuid);
+            ps.setBoolean(1, false);
+            ps.setString(2, uuid);
             ps.execute();
             return true;
 
         }
 
     }
-    public List<Ticket> getAllTickets(){
+
+    public List<Ticket> getAllTickets() {
         Ticket ticket;
         List<Ticket> allTickets = new ArrayList<>();
 
         String sql = "SELECT * FROM Ticket";
-        try(Connection connection = dbc.getConnection()) {
+        try (Connection connection = dbc.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 String uuid = rs.getString("uuid");
                 int eventId = rs.getInt("event_id");
                 String type = rs.getString("type");
@@ -105,16 +109,17 @@ public class TicketDAO {
         }
         return allTickets;
     }
-    public List<Ticket> getTicketsByEventId(int id){
+
+    public List<Ticket> getTicketsByEventId(int id) {
         Ticket ticket;
         List<Ticket> allTickets = new ArrayList<>();
 
         String sql = "SELECT * FROM Ticket WHERE event_id = ? AND customer_email IS NULL AND customer_name IS NULL";
-        try(Connection connection = dbc.getConnection()) {
+        try (Connection connection = dbc.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 String uuid = rs.getString("uuid");
                 int eventId = rs.getInt("event_id");
                 String type = rs.getString("type");
@@ -128,11 +133,13 @@ public class TicketDAO {
         }
         return allTickets;
     }
-    private String generateTicketUUID(){
+
+    private String generateTicketUUID() {
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
     }
-    public void batchCreateTickets(int records, int eventId, String type){
+
+    public void batchCreateTickets(int records, int eventId, String type) {
 
         PreparedStatement preparedStatement;
         try {
@@ -159,12 +166,24 @@ public class TicketDAO {
             System.out.println("total time taken = " + (end - start) / records + " s");
 
 
-
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-   
+    public ObservableList getTicketTypes(int id) {
+        ObservableList ticketTypes = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM TicketType WHERE event_id = " + id + ";";
+        try (Connection connection = dbc.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String ticketType = rs.getString("ticket_type");
+                ticketTypes.add(ticketType);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return ticketTypes;
+    }
 }

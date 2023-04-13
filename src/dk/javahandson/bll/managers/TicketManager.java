@@ -2,6 +2,7 @@ package dk.javahandson.bll.managers;
 
 import dk.javahandson.be.Ticket;
 import dk.javahandson.dal.DataAccessFacade;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -29,5 +30,8 @@ public class TicketManager {
     }
     public void batchCreateTickets(int records, int eventId, String type) throws SQLException {
         ticketDAO.batchCreateTickets(records, eventId, type);
+    }
+    public ObservableList getTicketTypes(int id) {
+        return ticketDAO.getTicketTypes(id);
     }
 }

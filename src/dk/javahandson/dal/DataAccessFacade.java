@@ -4,6 +4,7 @@ import dk.javahandson.be.Event;
 import dk.javahandson.be.Ticket;
 import dk.javahandson.be.User;
 import dk.javahandson.be.Voucher;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -67,6 +68,9 @@ public class DataAccessFacade {
     public void batchCreateTickets(int records, int eventId, String type) throws SQLException {
         ticketDAO.batchCreateTickets(records, eventId, type);
     }
+    public ObservableList getTicketTypes(int id) {
+        return ticketDAO.getTicketTypes(id);
+    }
 
     /*
     Methods used to access UserDAO
@@ -127,4 +131,7 @@ public class DataAccessFacade {
     public void createVoucher (Voucher voucher) throws SQLException {
         voucherDAO.createVoucher(voucher);
     }
-}
+    public ObservableList getVoucherTypes(int id) {
+        return voucherDAO.getVoucherTypes(id);
+    }
+    }

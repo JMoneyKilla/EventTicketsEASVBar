@@ -5,6 +5,7 @@ import dk.javahandson.be.Ticket;
 import dk.javahandson.be.User;
 import dk.javahandson.be.Voucher;
 import dk.javahandson.bll.managers.*;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -65,6 +66,9 @@ public class ManagerFacade {
     }
     public void batchCreateTickets(int records, int eventId, String type) throws SQLException {
         ticketManager.batchCreateTickets(records, eventId, type);
+    }
+    public ObservableList getTicketTypes(int id) {
+        return ticketManager.getTicketTypes(id);
     }
 
 
@@ -128,4 +132,7 @@ public class ManagerFacade {
     public void createVoucher (Voucher voucher) throws SQLException {
         voucherManager.createVoucher(voucher);
     }
-}
+    public ObservableList getVoucherTypes(int id) {
+        return voucherManager.getVoucherTypes(id);
+    }
+    }

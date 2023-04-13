@@ -1,6 +1,7 @@
 package dk.javahandson.gui.model;
 
 
+import dk.javahandson.be.Event;
 import dk.javahandson.be.Ticket;
 import dk.javahandson.bll.ManagerFacade;
 import javafx.collections.FXCollections;
@@ -15,11 +16,20 @@ public class TicketModel {
 
     private final ObservableList<Ticket> tickets;
     private ManagerFacade bll = new ManagerFacade();
+    private Event selectedEvent;
 
     public static TicketModel getInstance() {
         if (instance == null)
             instance = new TicketModel();
         return instance;
+    }
+
+    public Event getSelectedEvent() {
+        return selectedEvent;
+    }
+
+    public void setSelectedEvent(Event selectedEvent) {
+        this.selectedEvent = selectedEvent;
     }
 
     public ObservableList<Ticket> getTickets() {
@@ -67,5 +77,11 @@ public class TicketModel {
             throw new RuntimeException(e);
         }
     }
-}
+    public ObservableList getTicketTypes(int id) {
+        return bll.getTicketTypes(id);
+    }
+    public ObservableList getVoucherTypes(int id) {
+        return bll.getVoucherTypes(id);
+    }
+    }
 

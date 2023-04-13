@@ -30,8 +30,6 @@ public class LoginController implements Initializable {
     @FXML
     private MFXButton buttonLogin;
 
-    User loggedInUser;
-
     public void clickLogin(ActionEvent actionEvent) {
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();

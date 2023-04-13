@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -63,7 +60,7 @@ public class EventMenuController implements Initializable {
         Label eventDate = new Label();
         eventDate.setPrefSize(175, 14);
         eventDate.setFont(Font.font(14));
-        eventDate.setStyle("-fx-text-fill: #145DA0;");
+        eventDate.setStyle("-fx-text-fill: #0C2D48;");
         eventDate.setText(event.getStartDate());
         eventDate.setPadding(new Insets(5, 5, 5, 5));
         eventDate.setId("eventDate");
@@ -71,24 +68,34 @@ public class EventMenuController implements Initializable {
         Label ticketAvailability = new Label();
         ticketAvailability.setPrefSize(175, 14);
         ticketAvailability.setFont(Font.font(14));
-        ticketAvailability.setStyle("-fx-text-fill: #145DA0;");
+        ticketAvailability.setStyle("-fx-text-fill: #0C2D48;");
         ticketAvailability.setText("Tickets: " + event.getTicketsSold() + "/" + event.getTotalTickets());
         ticketAvailability.setPadding(new Insets(5, 5, 5, 5));
         ticketAvailability.setId("ticketAvailability");
 
         HBox hbox = new HBox();
         hbox.setPrefSize(175,25);
-        hbox.setPadding(new Insets(0, 0, 0, 5));
+        hbox.setPadding(new Insets(0, 0, 0, 3));
         hbox.setId("hbox");
 
         MFXButton button1 = new MFXButton();
         button1.setPrefSize(83, 25);
-        button1.setStyle("-fx-background-color: #2E8BC0; -fx-text-fill: #B1D4E0;");
+        button1.setStyle("-fx-font-family: arial;\n" +
+                "    -fx-font-size: 13px;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-border-radius: 5px;\n" +
+                "    -fx-border-color: #000000;\n" +
+                "    -fx-background-color: #145DA0;");
         button1.setPadding(new Insets(0, 0, 0, 5));
         button1.setText("View");
         button1.setId("viewButton");
         MFXButton button2 = new MFXButton();
-        button2.setStyle("-fx-background-color: #2E8BC0; -fx-text-fill: #B1D4E0;");
+        button2.setStyle("-fx-font-family: arial;\n" +
+                "    -fx-font-size: 13px;\n" +
+                "    -fx-text-fill: white;\n" +
+                "    -fx-border-radius: 5px;\n" +
+                "    -fx-border-color: #000000;\n" +
+                "    -fx-background-color: #145DA0;");
         button2.setText("Edit");
         button2.setId("editButton");
         button2.setPrefSize(83, 25);
@@ -97,6 +104,7 @@ public class EventMenuController implements Initializable {
         vBox.getChildren().add(eventDate);
         vBox.getChildren().add(ticketAvailability);
         hbox.getChildren().add(button1);
+        hbox.getChildren().add(new Label(" "));
         hbox.getChildren().add(button2);
         vBox.getChildren().add(hbox);
 
@@ -188,36 +196,45 @@ public class EventMenuController implements Initializable {
 
                 // Create Labels to display the event information
                 Label name = new Label("Event name: ");
+                name.setStyle("-fx-text-fill: #ffffff");
                 TextField nameText = new TextField(matchingEvent.getName());
                 HBox nameBox = new HBox(name, nameText);
 
                 Label location = new Label("Location: ");
+                location.setStyle("-fx-text-fill: #ffffff");
                 TextField locationText = new TextField(matchingEvent.getLocation());
                 HBox locationBox = new HBox(location, locationText);
 
                 Label start = new Label("Start date: ");
+                start.setStyle("-fx-text-fill: #ffffff");
                 TextField startText = new TextField(matchingEvent.getStartDate());
                 HBox startDateBox = new HBox(start, startText);
 
                 Label startTime = new Label("Start time: ");
+                startTime.setStyle("-fx-text-fill: #ffffff");
                 TextField startTimeText = new TextField(matchingEvent.getStartTime());
                 HBox startTimeBox = new HBox(startTime, startTimeText);
 
                 Label end = new Label("End date: ");
+                end.setStyle("-fx-text-fill: #ffffff");
                 TextField endText = new TextField(matchingEvent.getEndDate());
                 HBox endDateBox = new HBox(end, endText);
 
                 Label endTime = new Label("End time: ");
+                endTime.setStyle("-fx-text-fill: #ffffff");
                 TextField endTimeText = new TextField(matchingEvent.getEndTime());
                 HBox endTimeBox = new HBox(endTime, endTimeText);
 
                 Label notes = new Label("Notes: ");
+                notes.setStyle("-fx-text-fill: #ffffff");
                 TextArea notesText = new TextArea(matchingEvent.getNotes());
 
                 Label tickets = new Label("Total tickets: ");
+                tickets.setStyle("-fx-text-fill: #ffffff");
                 TextField ticketsText = new TextField();
                 ticketsText.setText("" + matchingEvent.getTotalTickets());
                 Label vouchers = new Label("Total vouchers: ");
+                vouchers.setStyle("-fx-text-fill: #ffffff");
                 TextField vouchersText = new TextField();
                 vouchersText.setText("" + matchingEvent.getTotalVouchers());
                 HBox ticketBox = new HBox(tickets, ticketsText);
@@ -239,6 +256,7 @@ public class EventMenuController implements Initializable {
 
                 // Add the closeButton to the popup VBox
                 popupVBox.getChildren().add(buttonBox);
+                popupVBox.setStyle("-fx-background-color: #0C2D48");
 
                 // Create a Scene for the popup and set it on the popupStage
                 Scene popupScene = new Scene(popupVBox);
@@ -272,8 +290,12 @@ public class EventMenuController implements Initializable {
     }
 
     public void handleSaveButton(Event event){
-        if(isValidEventEdit(event))
+        if(isValidEventEdit(event)){
             eventModel.updateEditedEvent(event);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Event successfully edited!");
+            alert.showAndWait();
+        }
         eventModel.fetchAllEvents();
         loadData();
     }
