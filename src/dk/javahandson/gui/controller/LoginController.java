@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -29,6 +30,8 @@ public class LoginController implements Initializable {
     private MFXTextField textFieldEmail;
     @FXML
     private MFXButton buttonLogin;
+    @FXML
+    private Label lblWarning;
 
     public void clickLogin(ActionEvent actionEvent) {
         String email = textFieldEmail.getText();
@@ -49,6 +52,7 @@ public class LoginController implements Initializable {
             Stage stage2 = (Stage) n.getScene().getWindow();
             stage2.close();
         }
+        else lblWarning.setText("Incorrect login");
     }
 
     @Override

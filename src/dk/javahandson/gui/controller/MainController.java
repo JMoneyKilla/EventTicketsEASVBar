@@ -1,5 +1,6 @@
 package dk.javahandson.gui.controller;
 
+import dk.javahandson.gui.model.EventModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,13 +18,16 @@ public class MainController implements Initializable {
     @FXML
     private ImageView  imageEASV;
     @FXML
-    private Label lbl;
+    private Label lblWelcome;
     @FXML
     private BorderPane borderPane;
+
+    EventModel eventModel = EventModel.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         imageEASV.setImage(new Image("/Pictures/easv.png"));
+        lblWelcome.setText("Welcome back, "+eventModel.getLoggedInUser().getName()+"!");
     }
 
     public void clickMyEvents(ActionEvent actionEvent) {
