@@ -2,7 +2,6 @@ package dk.javahandson.gui.controller;
 
 import dk.javahandson.be.Event;
 import dk.javahandson.gui.model.EventModel;
-import dk.javahandson.gui.model.UserModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -34,7 +33,7 @@ public class CreateEventController implements Initializable {
     private DatePicker datePickerStart, datePickerEnd;
 
     EventModel modelEvent = EventModel.getInstance();
-    UserModel userModel = UserModel.getInstance();
+
     public void clickSave(ActionEvent actionEvent) {
         try {
             String title = txtFieldEventTitle.getText();
@@ -52,7 +51,7 @@ public class CreateEventController implements Initializable {
             isDateValid()) {
                 Event event = new Event(title, timeStart, timeEnd, location, notes, 0, 0, maxTickets, maxVouchers, dateStart, dateEnd);
                 modelEvent.addEvent(event);
-                //userModel.addUserToEvent(event, userModel.getLoggedInUser());
+                modelEvent.addUserToEvent(event, modelEvent.getLoggedInUser());
                 lblWarning.setText("Event successfully created");
                 clearTextFields();
             }
@@ -62,14 +61,7 @@ public class CreateEventController implements Initializable {
     }
 
     public void clickCancel(ActionEvent actionEvent) {
-
-        System.out.println("Time Start: "+txtFieldTimeStart.getText());
-        System.out.println("Time End: "+txtFieldTimeEnd.getText());
-
-        System.out.println(isTimeValid(txtFieldTimeStart.getText()));
-        System.out.println(isDateValid());
-
-        //clearTextFields();
+        clearTextFields();
     }
 
     private String getFormattedDateFromDatePicker(DatePicker datePicker) {
