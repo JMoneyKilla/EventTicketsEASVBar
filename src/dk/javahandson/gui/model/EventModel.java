@@ -5,7 +5,7 @@ import dk.javahandson.be.User;
 import dk.javahandson.bll.ManagerFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
+
 
 import java.sql.SQLException;
 
@@ -89,5 +89,13 @@ public class EventModel {
     }
     public User getLoggedInUser(){
         return loggedInUser;
+    }
+
+    public void addUserToEvent(Event event, User loggedInUser) {
+        try {
+            bll.addUserToEvent(event, loggedInUser);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

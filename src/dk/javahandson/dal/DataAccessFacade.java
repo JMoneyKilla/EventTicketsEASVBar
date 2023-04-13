@@ -108,8 +108,8 @@ public class DataAccessFacade {
         return userDAO.getPasswordFromUser(user);
     }
 
-    public void updatePassword(User user, String password) throws SQLException {
-        userDAO.updatePassword(user, password);
+    public void updateLogin(User user, String password) throws SQLException {
+        userDAO.updateLogin(user, password);
     }
     public User loginUser(String email) throws SQLException{
         return userDAO.loginUser(email);
