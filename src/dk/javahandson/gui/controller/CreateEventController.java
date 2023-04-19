@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
@@ -54,7 +55,7 @@ public class CreateEventController implements Initializable {
             String timeEnd = txtFieldTimeEnd.getText();
             String notes = txtFieldNotes.getText();
             int maxVouchers = Integer.parseInt(txtFieldMaxVouchers.getText());
-            int maxTickets = Integer.parseInt(txtFieldMaxVouchers.getText());
+            int maxTickets = Integer.parseInt(txtFieldMaxTickets.getText());
             if (!txtFieldEventTitle.getText().isBlank() || !txtFieldEventTitle.getText().isEmpty()
                 || !txtFieldLocation.getText().isBlank() || !txtFieldLocation.getText().isEmpty() ||
             isTimeValid(txtFieldTimeStart.getText()) && isTimeValid(txtFieldTimeEnd.getText()) &&
@@ -76,8 +77,11 @@ public class CreateEventController implements Initializable {
                     ticketModel.addVoucherType(s);
                 }
                 modelEvent.fetchAllEvents();
-                lblSuccess.setText("Event successfully created");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Event successfully created!");
+                alert.showAndWait();
                 clearTextFields();
+                modelEvent.fetchAllEvents();
             }
         }catch (NumberFormatException e){
             lblWarning.setText("Amount must be a number");
@@ -162,6 +166,8 @@ public class CreateEventController implements Initializable {
         lblDate.setText("");
         lblTime.setText("");
         lblWarning.setText("");
+        ticketTypes.clear();
+        voucherTypes.clear();
     }
 
     @Override

@@ -247,12 +247,15 @@ public class EventMenuController implements Initializable {
                 // Create a Button to close the popup
                 Button closeButton = new Button("Close");
                 Button saveButton = new Button("Save");
-                HBox buttonBox = new HBox(closeButton, saveButton);
+                Label spaceLabel = new Label("                            ");
+                Button deleteButton = new Button("Delete Event");
+                HBox buttonBox = new HBox(closeButton, saveButton, spaceLabel, deleteButton);
 
                 closeButton.setOnAction(event -> popupStage.close());
                 saveButton.setOnAction(event -> handleSaveButton(new Event(matchingEvent.getId(), nameText.getText(), startTimeText.getText(),
                         endTimeText.getText(), locationText.getText(), notesText.getText(), matchingEvent.getTicketsSold(), matchingEvent.getVoucherUsed(),
-                        Integer.parseInt(ticketsText.getText()), Integer.parseInt(vouchersText.getText()), startText.getText(), endText.getText())));
+                        Integer.parseInt(ticketsText.getText()), Integer.parseInt(vouchersText.getText()), startText.getText(), endText.getText()), popupStage));
+                deleteButton.setOnAction(event -> handleDeleteButton(matchingEvent, popupStage));
 
                 // Add the closeButton to the popup VBox
                 popupVBox.getChildren().add(buttonBox);
@@ -289,15 +292,25 @@ public class EventMenuController implements Initializable {
         return check == 8;
     }
 
-    public void handleSaveButton(Event event){
+    public void handleSaveButton(Event event, Stage stage){
         if(isValidEventEdit(event)){
             eventModel.updateEditedEvent(event);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Event successfully edited!");
             alert.showAndWait();
+            stage.close();
         }
         eventModel.fetchAllEvents();
         loadData();
+    }
+    public void handleDeleteButton(Event event, Stage stage){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Event successfully deleted!");
+        alert.showAndWait();
+        eventModel.deleteEvent(event);
+        eventModel.fetchAllEvents();
+        loadData();
+        stage.close();
     }
     public void loadData(){
         int row = 0;

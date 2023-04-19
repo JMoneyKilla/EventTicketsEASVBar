@@ -13,19 +13,18 @@ import java.util.List;
 import java.util.UUID;
 
 public class TicketModel {
-
     private static TicketModel instance;
-
     private final ObservableList<Ticket> tickets;
     private ManagerFacade bll = new ManagerFacade();
     private Event selectedEvent;
-
     public static TicketModel getInstance() {
         if (instance == null)
             instance = new TicketModel();
         return instance;
     }
-
+    private TicketModel() {
+        tickets = FXCollections.observableArrayList();
+    }
     public Event getSelectedEvent() {
         return selectedEvent;
     }
@@ -38,9 +37,7 @@ public class TicketModel {
         return tickets;
     }
 
-    private TicketModel() {
-        tickets = FXCollections.observableArrayList();
-    }
+
 
 
     public void fetchAllTickets() {
