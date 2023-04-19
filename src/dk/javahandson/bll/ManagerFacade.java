@@ -70,6 +70,12 @@ public class ManagerFacade {
     public ObservableList getTicketTypes(int id) {
         return ticketManager.getTicketTypes(id);
     }
+    public void addTicketType(String type){
+        ticketManager.addTicketType(type);
+    }
+    public void addVoucherType(String type){
+        ticketManager.addVoucherType(type);
+    }
 
 
     /*

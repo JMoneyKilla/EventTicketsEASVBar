@@ -2,12 +2,16 @@ package dk.javahandson.gui.controller;
 
 import dk.javahandson.be.Event;
 import dk.javahandson.gui.model.EventModel;
+import dk.javahandson.gui.model.TicketModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
@@ -19,6 +23,8 @@ import java.util.ResourceBundle;
 public class CreateEventController implements Initializable {
 
     @FXML
+    private ListView listViewTicketType, listViewVoucherType;
+    @FXML
     private javafx.scene.control.Label lblWarning, lblTime, lblDate, lblSuccess;
     @FXML
     private AnchorPane createEventAnchorPane;
@@ -28,11 +34,15 @@ public class CreateEventController implements Initializable {
     @FXML
     private TextField txtFieldEventTitle, txtFieldLocation,
             txtFieldTimeStart, txtFieldTimeEnd, txtFieldNotes,
-            txtFieldMaxVouchers, txtFieldMaxTickets;
+            txtFieldMaxVouchers, txtFieldMaxTickets, textFieldTicketType, textFieldVoucherType;
     @FXML
     private DatePicker datePickerStart, datePickerEnd;
 
     EventModel modelEvent = EventModel.getInstance();
+    TicketModel ticketModel = TicketModel.getInstance();
+
+    public ObservableList<String> ticketTypes = FXCollections.observableArrayList();
+    public ObservableList<String> voucherTypes = FXCollections.observableArrayList();
 
     public void clickSave(ActionEvent actionEvent) {
         try {
@@ -52,6 +62,20 @@ public class CreateEventController implements Initializable {
                 Event event = new Event(title, timeStart, timeEnd, location, notes, 0, 0, maxTickets, maxVouchers, dateStart, dateEnd);
                 modelEvent.addEvent(event);
                 modelEvent.addUserToEvent(event, modelEvent.getLoggedInUser());
+                if (ticketTypes.size()>0){
+                    for (String s: ticketTypes) {
+                        ticketModel.addTicketType(s);
+                    }
+                }
+                if(voucherTypes.size()>0){
+                    for (String s: voucherTypes) {
+                        ticketModel.addVoucherType(s);
+                    }
+                }
+                for (String s: voucherTypes) {
+                    ticketModel.addVoucherType(s);
+                }
+                modelEvent.fetchAllEvents();
                 lblSuccess.setText("Event successfully created");
                 clearTextFields();
             }
@@ -153,5 +177,23 @@ public class CreateEventController implements Initializable {
                 }
             }
         });
+    }
+
+    public void addTicketType(ActionEvent actionEvent) {
+        if(!textFieldTicketType.getText().isEmpty() && ! textFieldTicketType.getText().isBlank()){
+            String ticketType = textFieldTicketType.getText();
+            ticketTypes.add(ticketType);
+            listViewTicketType.setItems(ticketTypes);
+            textFieldTicketType.clear();
+        }
+    }
+
+    public void addVoucherType(ActionEvent actionEvent) {
+        if(!textFieldVoucherType.getText().isEmpty() && ! textFieldVoucherType.getText().isBlank()){
+            String ticketType = textFieldVoucherType.getText();
+            voucherTypes.add(ticketType);
+            listViewVoucherType.setItems(voucherTypes);
+            textFieldVoucherType.clear();
+        }
     }
 }

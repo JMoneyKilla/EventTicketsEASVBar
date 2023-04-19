@@ -1,5 +1,6 @@
 package dk.javahandson.bll.managers;
 
+import dk.javahandson.be.Event;
 import dk.javahandson.be.Ticket;
 import dk.javahandson.dal.DataAccessFacade;
 import javafx.collections.ObservableList;
@@ -34,4 +35,10 @@ public class TicketManager {
     public ObservableList getTicketTypes(int id) {
         return ticketDAO.getTicketTypes(id);
     }
-}
+    public void addTicketType(String type){
+        ticketDAO.addTicketType(type);
+    }
+    public void addVoucherType(String type){
+        ticketDAO.addVoucherType(type);
+    }
+    }

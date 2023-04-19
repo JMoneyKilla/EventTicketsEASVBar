@@ -92,5 +92,11 @@ public class TicketModel {
     public void createVoucher(Voucher voucher) throws SQLException {
         bll.createVoucher(voucher);
     }
+    public void addTicketType(String type){
+        bll.addTicketType(type);
+    }
+    public void addVoucherType(String type){
+        bll.addVoucherType(type);
+    }
 }
 

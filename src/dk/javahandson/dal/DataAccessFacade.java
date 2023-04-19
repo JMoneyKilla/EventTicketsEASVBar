@@ -71,6 +71,13 @@ public class DataAccessFacade {
     public ObservableList getTicketTypes(int id) {
         return ticketDAO.getTicketTypes(id);
     }
+    public void addTicketType(String type){
+        ticketDAO.addTicketType(type);
+    }
+    public void addVoucherType(String type){
+        ticketDAO.addVoucherType(type);
+    }
+
 
     /*
     Methods used to access UserDAO

@@ -1,5 +1,6 @@
 package dk.javahandson.dal;
 
+import dk.javahandson.be.Event;
 import dk.javahandson.be.Ticket;
 import dk.javahandson.bll.ManagerFacade;
 import javafx.collections.FXCollections;
@@ -21,10 +22,10 @@ public class TicketDAO {
 
         try (Connection con = dbc.getConnection();) {
             String sql = "INSERT INTO Ticket (uuid, event_id, type, customer_name, customer_email, redeemable) VALUES (?,?,?,?,?,?)";
-            String uuid = "0000-aaaa-1111-bbbb"; //this will be generated
+            String uuid = ticket.getUuid();
             String customer = ticket.getCustomer();
             String customerEmail = ticket.getCustomerEmail();
-            String type = "VIP";
+            String type = ticket.getType();
             int eventID = ticket.getEventId();
             Boolean redeemable = true;
             PreparedStatement ps = con.prepareStatement(sql);
@@ -185,5 +186,39 @@ public class TicketDAO {
             throw new RuntimeException(e);
         }
         return ticketTypes;
+    }
+
+    public void addTicketType(String type){
+        String sql = "INSERT INTO TicketType (event_id, ticket_type) VALUES (?,?)";
+        try (Connection connection = dbc.getConnection()){
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, getNextEventId());
+            ps.setString(2, type);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void addVoucherType(String type){
+        String sql = "INSERT INTO VoucherType (event_id, voucher_type) VALUES (?,?)";
+        try (Connection connection = dbc.getConnection()){
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, getNextEventId());
+            ps.setString(2, type);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private int getNextEventId() {
+        try (Connection con = dbc.getConnection()) {
+            ResultSet rs = con.createStatement().executeQuery("SELECT TOP 1 * FROM Event ORDER BY id DESC;");
+            rs.next();
+            int id = rs.getInt("id");
+            int nextID = id;
+            return nextID;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
