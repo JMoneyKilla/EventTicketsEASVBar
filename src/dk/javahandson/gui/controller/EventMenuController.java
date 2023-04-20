@@ -4,6 +4,7 @@ import dk.javahandson.be.Event;
 import dk.javahandson.gui.model.EventModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,6 +34,12 @@ public class EventMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadData();
+        eventModel.getEvents().addListener((ListChangeListener<Event>) c -> {
+            while (c.next()){
+                if(c.wasAdded() || c.wasRemoved())
+                    loadData();
+            }
+        });
     }
 
     public StackPane generateEventPane(Event event){
@@ -180,8 +187,8 @@ public class EventMenuController implements Initializable {
     private void handleEditButton(StackPane eventPane) {
         VBox vBox = (VBox) eventPane.lookup("#vbox");
         HBox hBox = (HBox) vBox.lookup("#hbox");
-        MFXButton viewButton = (MFXButton) hBox.lookup("#editButton");
-        viewButton.setOnAction(e -> {
+        MFXButton editButton = (MFXButton) hBox.lookup("#editButton");
+        editButton.setOnAction(e -> {
             // Retrieve the eventName Label from the eventPane
             Label eventNameLabel = (Label) vBox.lookup("#eventName");
             String eventName = eventNameLabel.getText();
@@ -194,7 +201,7 @@ public class EventMenuController implements Initializable {
                     break;
                 }
             }
-                    Node n = viewButton;
+                    Node n = editButton;
                     Window stage = n.getScene().getWindow();
                     Parent root;
                     try {
@@ -212,102 +219,6 @@ public class EventMenuController implements Initializable {
                         c.printStackTrace();
                     }
 
-      // VBox vBox = (VBox) eventPane.lookup("#vbox");
-      // HBox hBox = (HBox) vBox.lookup("#hbox");
-      // MFXButton viewButton = (MFXButton) hBox.lookup("#editButton");
-      // viewButton.setOnAction(e -> {
-      //     // Retrieve the eventName Label from the eventPane
-      //     Label eventNameLabel = (Label) vBox.lookup("#eventName");
-      //     String eventName = eventNameLabel.getText();
-
-      //     // Search the eventList for an event with a matching name
-      //     Event matchingEvent = eventModel.getEvents().stream().filter(event -> event.getName().equals(eventName)).findFirst().orElse(null);
-
-      //     // If a matching event is found, do something with it
-      //     if (matchingEvent != null) {
-      //         Stage popupStage = new Stage();
-      //         popupStage.initModality(Modality.APPLICATION_MODAL);
-
-      //         // Create a VBox to hold the event information
-      //         VBox popupVBox = new VBox();
-      //         popupVBox.setSpacing(10);
-      //         popupVBox.setPadding(new Insets(10));
-
-      //         // Create Labels to display the event information
-      //         Label name = new Label("Event name: ");
-      //         name.setStyle("-fx-text-fill: #ffffff");
-      //         TextField nameText = new TextField(matchingEvent.getName());
-      //         HBox nameBox = new HBox(name, nameText);
-
-      //         Label location = new Label("Location: ");
-      //         location.setStyle("-fx-text-fill: #ffffff");
-      //         TextField locationText = new TextField(matchingEvent.getLocation());
-      //         HBox locationBox = new HBox(location, locationText);
-
-      //         Label start = new Label("Start date: ");
-      //         start.setStyle("-fx-text-fill: #ffffff");
-      //         TextField startText = new TextField(matchingEvent.getStartDate());
-      //         HBox startDateBox = new HBox(start, startText);
-
-      //         Label startTime = new Label("Start time: ");
-      //         startTime.setStyle("-fx-text-fill: #ffffff");
-      //         TextField startTimeText = new TextField(matchingEvent.getStartTime());
-      //         HBox startTimeBox = new HBox(startTime, startTimeText);
-
-      //         Label end = new Label("End date: ");
-      //         end.setStyle("-fx-text-fill: #ffffff");
-      //         TextField endText = new TextField(matchingEvent.getEndDate());
-      //         HBox endDateBox = new HBox(end, endText);
-
-      //         Label endTime = new Label("End time: ");
-      //         endTime.setStyle("-fx-text-fill: #ffffff");
-      //         TextField endTimeText = new TextField(matchingEvent.getEndTime());
-      //         HBox endTimeBox = new HBox(endTime, endTimeText);
-
-      //         Label notes = new Label("Notes: ");
-      //         notes.setStyle("-fx-text-fill: #ffffff");
-      //         TextArea notesText = new TextArea(matchingEvent.getNotes());
-
-      //         Label tickets = new Label("Total tickets: ");
-      //         tickets.setStyle("-fx-text-fill: #ffffff");
-      //         TextField ticketsText = new TextField();
-      //         ticketsText.setText("" + matchingEvent.getTotalTickets());
-      //         Label vouchers = new Label("Total vouchers: ");
-      //         vouchers.setStyle("-fx-text-fill: #ffffff");
-      //         TextField vouchersText = new TextField();
-      //         vouchersText.setText("" + matchingEvent.getTotalVouchers());
-      //         HBox ticketBox = new HBox(tickets, ticketsText);
-      //         HBox voucherBox = new HBox(vouchers, vouchersText);
-
-
-      //         // Add the Labels to the popup VBox
-      //         popupVBox.getChildren().addAll(nameBox, locationBox, startDateBox, startTimeBox, endDateBox, endTimeBox, notes, notesText, ticketBox, voucherBox);
-
-      //         // Create a Button to close the popup
-      //         Button closeButton = new Button("Close");
-      //         Button saveButton = new Button("Save");
-      //         Label spaceLabel = new Label("                            ");
-      //         Button deleteButton = new Button("Delete Event");
-      //         HBox buttonBox = new HBox(closeButton, saveButton, spaceLabel, deleteButton);
-
-      //         closeButton.setOnAction(event -> popupStage.close());
-      //         saveButton.setOnAction(event -> handleSaveButton(new Event(matchingEvent.getId(), nameText.getText(), startTimeText.getText(),
-      //                 endTimeText.getText(), locationText.getText(), notesText.getText(), matchingEvent.getTicketsSold(), matchingEvent.getVoucherUsed(),
-      //                 Integer.parseInt(ticketsText.getText()), Integer.parseInt(vouchersText.getText()), startText.getText(), endText.getText()), popupStage));
-      //         deleteButton.setOnAction(event -> handleDeleteButton(matchingEvent, popupStage));
-
-      //         // Add the closeButton to the popup VBox
-      //         popupVBox.getChildren().add(buttonBox);
-      //         popupVBox.setStyle("-fx-background-color: #0C2D48");
-
-      //         // Create a Scene for the popup and set it on the popupStage
-      //         Scene popupScene = new Scene(popupVBox);
-      //         popupStage.setScene(popupScene);
-
-      //         // Show the popup
-      //         popupStage.showAndWait();
-      //     }
-      // });
     });}
 
     public boolean isValidEventEdit(Event event){
@@ -343,11 +254,11 @@ public class EventMenuController implements Initializable {
         loadData();
     }
     public void handleDeleteButton(Event event, Stage stage){
+        eventModel.deleteEvent(event);
+        eventModel.fetchAllEvents();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Event successfully deleted!");
         alert.showAndWait();
-        eventModel.deleteEvent(event);
-        eventModel.fetchAllEvents();
         loadData();
         stage.close();
     }

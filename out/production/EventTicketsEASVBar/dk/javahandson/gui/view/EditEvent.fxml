@@ -228,6 +228,11 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#clickSave" styleClass="buttonSmall" stylesheets="@Menu.css" text="Save" />
                         <Button mnemonicParsing="false" onAction="#clickCancel" styleClass="buttonSmall" stylesheets="@Menu.css" text="Cancel" />
+                        <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#clickDelete" styleClass="buttonSmall" stylesheets="@Menu.css" text="Delete">
+                           <HBox.margin>
+                              <Insets left="325.0" />
+                           </HBox.margin>
+                        </Button>
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

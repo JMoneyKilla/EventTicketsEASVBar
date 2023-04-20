@@ -135,7 +135,7 @@ public class UserModel {
             throw new RuntimeException(e);
         }
     }
-    public ObservableList<User> getUsersOnEvent(Event event){
+    public List<User> getUsersOnEvent(Event event){
         try {
             return bll.getUsersOnEvent(event);
         } catch (SQLException e) {

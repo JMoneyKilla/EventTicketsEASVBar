@@ -152,16 +152,13 @@ public class UserDAO {
         }
     }
 
-    public ObservableList<User> getUsersOnEvent(Event event) throws SQLException {
-        ObservableList<User> usersOnEvent = FXCollections.observableArrayList();
-        String sql = "SELECT [id]\n" +
-                "      ,[name]\n" +
-                "      ,[type]\n" +
-                "      ,[email]\n" +
-                "  FROM [CSe2022B_e_14_EASVEvents].[dbo].[User]\n" +
-                "  JOIN UserEvent\n" +
-                "  ON [User].[id] = UserEvent.user_id\n" +
-                "  WHERE UserEvent.event_id =" + event.getId() +";";
+    public List<User> getUsersOnEvent(Event event) throws SQLException {
+        List<User> usersOnEvent = new ArrayList<>();
+        String sql = "SELECT [id], [name], [type], [email]\n" +
+                "FROM [User]\n" +
+                "JOIN UserEvent\n" +
+                "ON [User].[id] = UserEvent.user_id\n" +
+                "WHERE UserEvent.event_id =" + event.getId() +";";
         try (Connection connection = dbc.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -173,6 +170,10 @@ public class UserDAO {
                 User user = new User(id, name, type, email);
                 usersOnEvent.add(user);
             }
+        }
+        for (User u : usersOnEvent
+             ) {
+            System.out.println(u.getName());
         }
         return usersOnEvent;
     }
