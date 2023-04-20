@@ -124,6 +124,9 @@ public class ManagerFacade {
     public boolean validateLogin(String email, String password) throws SQLException {
         return userManager.validateLogin(email, password);
     }
+    public ObservableList<User> getUsersOnEvent(Event event) throws SQLException {
+        return userManager.getUsersOnEvent(event);
+    }
 
     /*
     Methods used to access VoucherManager

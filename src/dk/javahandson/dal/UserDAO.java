@@ -3,6 +3,9 @@ package dk.javahandson.dal;
 
 import dk.javahandson.be.Event;
 import dk.javahandson.be.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -147,6 +150,31 @@ public class UserDAO {
             ps.setInt(2, userId);
             ps.execute();
         }
+    }
+
+    public ObservableList<User> getUsersOnEvent(Event event) throws SQLException {
+        ObservableList<User> usersOnEvent = FXCollections.observableArrayList();
+        String sql = "SELECT [id]\n" +
+                "      ,[name]\n" +
+                "      ,[type]\n" +
+                "      ,[email]\n" +
+                "  FROM [CSe2022B_e_14_EASVEvents].[dbo].[User]\n" +
+                "  JOIN UserEvent\n" +
+                "  ON [User].[id] = UserEvent.user_id\n" +
+                "  WHERE UserEvent.event_id =" + event.getId() +";";
+        try (Connection connection = dbc.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String type = rs.getString("type");
+                String email = rs.getString("email");
+                User user = new User(id, name, type, email);
+                usersOnEvent.add(user);
+            }
+        }
+        return usersOnEvent;
     }
 
 

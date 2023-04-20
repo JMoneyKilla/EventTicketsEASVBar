@@ -3,6 +3,7 @@ package dk.javahandson.bll.managers;
 import dk.javahandson.be.Event;
 import dk.javahandson.be.User;
 import dk.javahandson.dal.DataAccessFacade;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -50,5 +51,8 @@ public class UserManager {
     }
     public boolean validateLogin(String email, String password) throws SQLException {
         return userDAO.validateLogin(email, password);
+    }
+    public ObservableList<User> getUsersOnEvent(Event event) throws SQLException {
+        return userDAO.getUsersOnEvent(event);
     }
     }

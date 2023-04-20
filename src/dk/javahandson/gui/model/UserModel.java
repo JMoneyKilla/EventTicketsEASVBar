@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class UserModel {
     private static UserModel instance;
@@ -134,4 +135,11 @@ public class UserModel {
             throw new RuntimeException(e);
         }
     }
-}
+    public ObservableList<User> getUsersOnEvent(Event event){
+        try {
+            return bll.getUsersOnEvent(event);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    }

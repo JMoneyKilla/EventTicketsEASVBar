@@ -14,6 +14,8 @@ public class EventModel {
     private final ObservableList<Event> events;
     ManagerFacade bll = new ManagerFacade();
     User loggedInUser;
+    Event matchingEvent;
+
     public static EventModel getInstance(){
         if(instance==null)
             instance = new EventModel();
@@ -34,6 +36,14 @@ public class EventModel {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Event getMatchingEvent() {
+        return matchingEvent;
+    }
+
+    public void setMatchingEvent(Event matchingEvent) {
+        this.matchingEvent = matchingEvent;
     }
 
     public ObservableList<Event> getEvents()

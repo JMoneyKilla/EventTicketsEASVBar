@@ -124,6 +124,9 @@ public class DataAccessFacade {
     public boolean validateLogin(String email, String password) throws SQLException {
         return userDAO.validateLogin(email, password);
     }
+    public ObservableList<User> getUsersOnEvent(Event event) throws SQLException {
+        return userDAO.getUsersOnEvent(event);
+    }
 
     /*
     Methods used to access VoucherDAO
