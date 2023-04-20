@@ -23,7 +23,7 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></MFXButton>
-                  <MFXButton buttonType="RAISED" onAction="#clickManageUsers" prefHeight="35.0" prefWidth="130.0" styleClass="buttonMenu" stylesheets="@Menu.css" text="Manage users">
+                  <MFXButton fx:id="buttonManage" buttonType="RAISED" onAction="#clickManageUsers" prefHeight="35.0" prefWidth="130.0" styleClass="buttonMenu" stylesheets="@Menu.css" text="Manage users">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></MFXButton>

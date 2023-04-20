@@ -201,15 +201,19 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </HBox>
+                  <VBox prefHeight="105.0" prefWidth="510.0">
+                     <children>
+                        <Label fx:id="lblDate" prefHeight="17.0" prefWidth="210.0" textFill="WHITE" />
+                        <Label fx:id="lblTime" prefHeight="17.0" prefWidth="156.0" textFill="WHITE" />
+                        <Label fx:id="lblSuccess" prefHeight="17.0" prefWidth="232.0" textFill="WHITE" />
+                        <Label fx:id="lblWarning" prefHeight="17.0" prefWidth="217.0" textFill="WHITE" />
+                     </children>
+                  </VBox>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-            <Label fx:id="lblWarning" layoutX="46.0" layoutY="307.0" prefHeight="17.0" prefWidth="217.0" textFill="WHITE" />
-            <Label fx:id="lblTime" layoutX="251.0" layoutY="142.0" prefHeight="17.0" prefWidth="156.0" textFill="WHITE" />
-            <Label fx:id="lblDate" layoutX="6.0" layoutY="157.0" prefHeight="17.0" prefWidth="210.0" textFill="WHITE" />
-            <Label fx:id="lblSuccess" layoutX="263.0" layoutY="283.0" prefHeight="17.0" prefWidth="232.0" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>

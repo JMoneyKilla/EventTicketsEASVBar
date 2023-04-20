@@ -40,15 +40,15 @@ public class UserModel {
     }
 
 
-    public void createUser(String name, String email, String password)
+    public void createUser(User user, String password)
     {
         try {
-            bll.createUser(new User(name, email));
+            bll.createUser(user);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         try {
-            bll.createLogin(email, password);
+            bll.createLogin(user.getEmail(), password);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

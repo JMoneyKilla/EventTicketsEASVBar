@@ -1,15 +1,20 @@
 package dk.javahandson.gui.controller;
 
 import dk.javahandson.be.User;
+import dk.javahandson.gui.model.EventModel;
 import dk.javahandson.gui.model.UserModel;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -21,6 +26,12 @@ import java.util.regex.Pattern;
 
 public class NewUserMenuController implements Initializable {
 
+    @FXML
+    private Label labelUserType;
+    @FXML
+    private Button buttonCancel;
+    @FXML
+    private ChoiceBox comboUserType;
     @FXML
     private TextField txtFieldFullName, txtFieldEmail, txtFieldPassword;
 
@@ -34,7 +45,10 @@ public class NewUserMenuController implements Initializable {
     private boolean showPassword = false;
     private boolean isEditTrue;
 
+    String type;
+
     UserModel model = UserModel.getInstance();
+    EventModel eventModel = EventModel.getInstance();
 
     public void clickSave(ActionEvent actionEvent) {
         if(!isEditTrue){
@@ -43,7 +57,7 @@ public class NewUserMenuController implements Initializable {
                 !passwordField.getText().isEmpty() || !passwordField.getText().isBlank()
                 && isPasswordValid(passwordField.getText()))
         {
-            model.createUser(txtFieldFullName.getText(), txtFieldEmail.getText(), passwordField.getText());
+            model.createUser(new User(txtFieldFullName.getText(), type, txtFieldEmail.getText()), passwordField.getText());
             clearEverything();
             model.fetchAllUsers();
             lblWarning.setText("User successfully created");
@@ -56,7 +70,7 @@ public class NewUserMenuController implements Initializable {
                 || !txtFieldPassword.getText().isEmpty()
                 && isPasswordValid(txtFieldPassword.getText()))
         {
-            model.createUser(txtFieldFullName.getText(), txtFieldEmail.getText(), txtFieldPassword.getText());
+            model.createUser(new User(txtFieldFullName.getText(), type, txtFieldEmail.getText()), passwordField.getText());
             clearEverything();
             model.fetchAllUsers();
             lblWarning.setText("User successfully created");
@@ -71,31 +85,35 @@ public class NewUserMenuController implements Initializable {
                 || !passwordField.getText().isBlank()
                 && isPasswordValid(passwordField.getText()))
         {
-            model.getSelectedUser().setName(txtFieldFullName.getText());
-            model.getSelectedUser().setEmail(txtFieldEmail.getText());
-            model.updateUser(model.getSelectedUser());
-            model.updateLogin(model.getSelectedUser(), passwordField.getText());
-            clearEverything();
+            User temp = new User(model.getSelectedUser().getId(), txtFieldFullName.getText(), comboUserType.getSelectionModel().getSelectedItem().toString(), txtFieldEmail.getText());
+            model.updateUser(temp);
+            model.updateLogin(temp, passwordField.getText());
             model.fetchAllUsers();
-            Node n = (Node) actionEvent.getSource();
-            Stage stage = (Stage) n.getScene().getWindow();
-            stage.close();
-            model.resetSelectedUser();
-        }
-            else if(isInputValid() && isEmailValid(txtFieldEmail.getText()) &&
-                showPassword && !txtFieldPassword.getText().isBlank()
-                || !txtFieldPassword.getText().isEmpty() && isPasswordValid(txtFieldPassword.getText()))
-            {
-                model.getSelectedUser().setName(txtFieldFullName.getText());
-                model.getSelectedUser().setEmail(txtFieldEmail.getText());
-                model.updateUser(model.getSelectedUser());
-                model.updateLogin(model.getSelectedUser(), txtFieldPassword.getText());
+            if(!eventModel.getLoggedInUser().getType().equals("EventCoordinator")){
                 clearEverything();
-                model.fetchAllUsers();
                 Node n = (Node) actionEvent.getSource();
                 Stage stage = (Stage) n.getScene().getWindow();
                 stage.close();
                 model.resetSelectedUser();
+            }
+        }
+            else if(isInputValid() && isEmailValid(txtFieldEmail.getText()) &&
+                showPassword && !txtFieldPassword.getText().isBlank()
+                || !txtFieldPassword.getText().isEmpty() && isPasswordValid(passwordField.getText()))
+            {
+                User temp = new User(model.getSelectedUser().getId(), txtFieldFullName.getText(), comboUserType.getSelectionModel().getSelectedItem().toString(), txtFieldEmail.getText());
+                model.updateUser(temp);
+                model.updateLogin(temp, passwordField.getText());
+                clearEverything();
+                model.fetchAllUsers();
+                if(!eventModel.getLoggedInUser().getType().equals("EventCoordinator")){
+                    clearEverything();
+                    Node n = (Node) actionEvent.getSource();
+                    Stage stage = (Stage) n.getScene().getWindow();
+                    stage.close();
+                    model.resetSelectedUser();
+                }
+
             }
         }
     }
@@ -110,7 +128,20 @@ public class NewUserMenuController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         txtFieldPassword.setVisible(false);
+        ObservableList<String> userTypes = FXCollections.observableArrayList();
+        userTypes.addAll("Admin", "EventCoordinator");
+        comboUserType.setItems(userTypes);
+        comboUserType.valueProperty().addListener(
+                (observable, oldValue, newValue) -> type = newValue.toString());
+        if(eventModel.getLoggedInUser().getType().equals("EventCoordinator")){
+            comboUserType.setVisible(false);
+            buttonCancel.setVisible(false);
+            buttonCancel.setDisable(true);
+            labelUserType.setVisible(false);
+        }
         if(model.getSelectedUser()!=null) {
+            type = model.getSelectedUser().getType();
+            comboUserType.setValue(type);
             txtFieldFullName.setText(""+model.getSelectedUser().getName());
             txtFieldEmail.setText(""+model.getSelectedUser().getEmail());
             passwordField.setText(""+model.getPasswordFromUser(model.getSelectedUser()));

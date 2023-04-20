@@ -18,9 +18,10 @@ public class User {
     setEmail(email);
     }
 
-    public User(String name, String email)
+    public User(String name, String type, String email)
     {
         setName(name);
+        setType(type);
         setEmail(email);
     }
 
