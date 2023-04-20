@@ -31,7 +31,7 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></MFXButton>
-                  <MFXButton buttonType="RAISED" onAction="#clickSellTickets" prefHeight="35.0" prefWidth="130.0" styleClass="buttonMenu" stylesheets="@Menu.css" text="Sell Tickets">
+                  <MFXButton buttonType="RAISED" onAction="#clickSellTickets" prefHeight="35.0" prefWidth="130.0" styleClass="buttonMenu" stylesheets="@Menu.css" text="Tickets">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin></MFXButton>
