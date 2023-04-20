@@ -171,10 +171,6 @@ public class UserDAO {
                 usersOnEvent.add(user);
             }
         }
-        for (User u : usersOnEvent
-             ) {
-            System.out.println(u.getName());
-        }
         return usersOnEvent;
     }
 

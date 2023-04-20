@@ -51,6 +51,7 @@ public class EditEventController implements Initializable {
     public void clickAddUser(ActionEvent actionEvent) {
         User selectedUser = tableAllUsers.getSelectionModel().getSelectedItem();
         eventUsers.add(selectedUser);
+        allUsers.remove(tableAllUsers.getSelectionModel().getSelectedItem());
     }
 
     public void clickSave(ActionEvent actionEvent) {
@@ -92,6 +93,9 @@ public class EditEventController implements Initializable {
                 alert.setContentText("Event successfully updated!");
                 alert.showAndWait();
                 eventModel.fetchAllEvents();
+                Node n = (Node) actionEvent.getSource();
+                Stage stage = (Stage) n.getScene().getWindow();
+                stage.close();
             }
         }catch (NumberFormatException e){
             lblWarning.setText("Amount must be a number");
