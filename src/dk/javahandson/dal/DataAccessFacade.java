@@ -4,11 +4,15 @@ import dk.javahandson.be.Event;
 import dk.javahandson.be.Ticket;
 import dk.javahandson.be.User;
 import dk.javahandson.be.Voucher;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class DataAccessFacade {
+    /*
+    This is a facade class that contains all DAO's and passthroughs to their methods
+     */
     private EventDAO eventDAO = new EventDAO();
     private TicketDAO ticketDAO = new TicketDAO();
     private UserDAO userDAO = new UserDAO();
@@ -37,6 +41,9 @@ public class DataAccessFacade {
     public int getEventId(String title) throws SQLException {
         return eventDAO.getEventId(title);
     }
+    public Event getEventByEventId(int id) throws SQLException {
+        return eventDAO.getEventByEventId(id);
+    }
     
     /*
     Methods used to access TicketDAO
@@ -58,21 +65,70 @@ public class DataAccessFacade {
         return ticketDAO.getAllTickets();
     }
 
+    public List<Ticket> getTicketsByEventId(int id){
+        return ticketDAO.getTicketsByEventId(id);
+    }
+    public void batchCreateTickets(int records, int eventId, String type) throws SQLException {
+        ticketDAO.batchCreateTickets(records, eventId, type);
+    }
+    public ObservableList getTicketTypes(int id) {
+        return ticketDAO.getTicketTypes(id);
+    }
+    public void addTicketType(String type){
+        ticketDAO.addTicketType(type);
+    }
+    public void addVoucherType(String type){
+        ticketDAO.addVoucherType(type);
+    }
+
+
     /*
     Methods used to access UserDAO
      */
 
+    public List<User> getAllUsers() throws SQLException {
+        return userDAO.getAllUsers();
+    }
+
+    public void createLogin(String username, String password) throws SQLException {
+        userDAO.createLogin(username, password);
+    }
     public void createUser(User user) throws SQLException {
         userDAO.createUser(user);
     }
     public boolean deleteUser(User user) throws SQLException {
         return userDAO.deleteUser(user);
     }
+
+    public boolean deleteUserFromLogin(User user) throws SQLException {
+        return userDAO.deleteFromLoginUser(user);
+    }
+
+    public boolean deleteUserFromUserEvent(User user) throws SQLException {
+        return userDAO.deleteFromUserEvent(user);
+    }
     public void updateUser(User user) throws SQLException {
         userDAO.updateUser(user);
     }
     public void addUserToEvent(Event event, User user) throws SQLException {
         userDAO.addUserToEvent(event, user);
+    }
+
+    public String getPasswordFromUser(User user) throws SQLException {
+        return userDAO.getPasswordFromUser(user);
+    }
+
+    public void updateLogin(User user, String password) throws SQLException {
+        userDAO.updateLogin(user, password);
+    }
+    public User loginUser(String email) throws SQLException{
+        return userDAO.loginUser(email);
+    }
+    public boolean validateLogin(String email, String password) throws SQLException {
+        return userDAO.validateLogin(email, password);
+    }
+    public List<User> getUsersOnEvent(Event event) throws SQLException {
+        return userDAO.getUsersOnEvent(event);
     }
 
     /*
@@ -88,6 +144,7 @@ public class DataAccessFacade {
     public void createVoucher (Voucher voucher) throws SQLException {
         voucherDAO.createVoucher(voucher);
     }
-
-
-}
+    public ObservableList getVoucherTypes(int id) {
+        return voucherDAO.getVoucherTypes(id);
+    }
+    }

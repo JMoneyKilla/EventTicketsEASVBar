@@ -1,7 +1,9 @@
 package dk.javahandson.dal;
 
-import dk.javahandson.be.Ticket;
 import dk.javahandson.be.Voucher;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -66,6 +68,21 @@ public class VoucherDAO {
             ps.execute();
 
         }
+    }
+    public ObservableList getVoucherTypes(int id) {
+        ObservableList voucherTypes = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM VoucherType WHERE event_id = " + id + ";";
+        try (Connection connection = dbc.getConnection()) {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String voucherType = rs.getString("voucher_type");
+                voucherTypes.add(voucherType);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return voucherTypes;
     }
     }
 

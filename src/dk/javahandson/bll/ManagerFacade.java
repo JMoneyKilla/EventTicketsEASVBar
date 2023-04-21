@@ -5,11 +5,15 @@ import dk.javahandson.be.Ticket;
 import dk.javahandson.be.User;
 import dk.javahandson.be.Voucher;
 import dk.javahandson.bll.managers.*;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class ManagerFacade {
+    /*
+    This is a Facade class that contains all the managers and passthroughs to their methods
+     */
     private EventManager eventManager = new EventManager();
     private TicketManager ticketManager = new TicketManager();
     private UserManager userManager = new UserManager();
@@ -57,17 +61,49 @@ public class ManagerFacade {
     public List<Ticket> getAllTickets() throws SQLException {
         return ticketManager.getAllTickets();
     }
+    public List<Ticket> getTicketsByEventId(int id){
+        return ticketManager.getTicketsByEventId(id);
+    }
+    public void batchCreateTickets(int records, int eventId, String type) throws SQLException {
+        ticketManager.batchCreateTickets(records, eventId, type);
+    }
+    public ObservableList getTicketTypes(int id) {
+        return ticketManager.getTicketTypes(id);
+    }
+    public void addTicketType(String type){
+        ticketManager.addTicketType(type);
+    }
+    public void addVoucherType(String type){
+        ticketManager.addVoucherType(type);
+    }
+
 
     /*
     Methods used to access UserManager
      */
 
+    public List<User> getAllUsers() throws SQLException {
+        return userManager.getAllUsers();
+    }
+
+    public void createLogin(String username, String password) throws SQLException {
+        userManager.createLogin(username, password);
+    }
     public void createUser(User user) throws SQLException {
         userManager.createUser(user);
     }
     public boolean deleteUser(User user) throws SQLException {
         return userManager.deleteUser(user);
     }
+
+    public boolean deleteUserFromLogin(User user) throws SQLException {
+        return userManager.deleteUserFromLogin(user);
+    }
+
+    public boolean deleteUserFromUserEvent(User user) throws SQLException {
+        return userManager.deleteUserFromUserEvent(user);
+    }
+
     public void updateUser(User user) throws SQLException {
         userManager.updateUser(user);
     }
@@ -75,6 +111,22 @@ public class ManagerFacade {
         userManager.addUserToEvent(event, user);
     }
 
+    public String getPasswordFromUser(User user) throws SQLException {
+        return userManager.getPasswordFromUser(user);
+    }
+
+    public void updateLogin(User user, String password) throws SQLException {
+        userManager.updateLogin(user, password);
+    }
+    public User loginUser(String email) throws SQLException{
+        return userManager.loginUser(email);
+    }
+    public boolean validateLogin(String email, String password) throws SQLException {
+        return userManager.validateLogin(email, password);
+    }
+    public List<User> getUsersOnEvent(Event event) throws SQLException {
+        return userManager.getUsersOnEvent(event);
+    }
 
     /*
     Methods used to access VoucherManager
@@ -89,4 +141,7 @@ public class ManagerFacade {
     public void createVoucher (Voucher voucher) throws SQLException {
         voucherManager.createVoucher(voucher);
     }
-}
+    public ObservableList getVoucherTypes(int id) {
+        return voucherManager.getVoucherTypes(id);
+    }
+    }

@@ -1,17 +1,20 @@
 package dk.javahandson.gui.model;
 
 import dk.javahandson.be.Event;
+import dk.javahandson.be.User;
 import dk.javahandson.bll.ManagerFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 
 import java.sql.SQLException;
 
 public class EventModel {
     private static EventModel instance;
-
     private final ObservableList<Event> events;
     ManagerFacade bll = new ManagerFacade();
+    User loggedInUser;
+    Event matchingEvent;
 
     public static EventModel getInstance(){
         if(instance==null)
@@ -19,19 +22,28 @@ public class EventModel {
         return instance;
     }
 
-    public EventModel() {
+    private EventModel() {
         events = FXCollections.observableArrayList();
-        fetchAllEvents();
+        if(this.loggedInUser!=null)
+            fetchAllEvents();
     }
 
     public void fetchAllEvents()
     {
         events.clear();
         try {
-            events.addAll(bll.getAllEvents());
+            events.addAll(bll.getCoordinatorEvents(loggedInUser));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Event getMatchingEvent() {
+        return matchingEvent;
+    }
+
+    public void setMatchingEvent(Event matchingEvent) {
+        this.matchingEvent = matchingEvent;
     }
 
     public ObservableList<Event> getEvents()
@@ -39,10 +51,10 @@ public class EventModel {
         return events;
     }
 
-    public void addEvent(String name, String location, String dateStart, String dateEnd, String notes)
+    public void addEvent(Event event)
     {
         try {
-            bll.createEvent(new Event(name, location, dateStart, dateEnd, notes));
+            bll.createEvent(event);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -56,12 +68,40 @@ public class EventModel {
             throw new RuntimeException(e);
         }
     }
-    public int getEventId(String title)
-    {
+    public int getEventId(String title) {
         try {
-           return bll.getEventId(title);
+            return bll.getEventId(title);
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
     }
-}
+    public void updateTicketsSold(Event event){
+        event.setTicketsSold(event.getTicketsSold()+1);
+        try {
+            bll.updateEvent(event);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void updateEditedEvent(Event event){
+        try{
+            bll.updateEvent(event);
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+    public void setLoggedInUser(User user){
+        this.loggedInUser = user;
+    }
+    public User getLoggedInUser(){
+        return loggedInUser;
+    }
+
+    public void addUserToEvent(Event event, User loggedInUser) {
+        try {
+            bll.addUserToEvent(event, loggedInUser);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

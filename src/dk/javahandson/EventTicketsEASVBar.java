@@ -14,7 +14,7 @@ public class EventTicketsEASVBar extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gui/view/Main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/javahandson/gui/view/Login.fxml"));
         Parent root = loader.load();
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
