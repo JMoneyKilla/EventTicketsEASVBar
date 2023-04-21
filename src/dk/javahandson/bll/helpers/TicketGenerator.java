@@ -8,22 +8,23 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import dk.javahandson.be.Event;
 import dk.javahandson.be.Ticket;
 import dk.javahandson.be.Voucher;
-import dk.javahandson.bll.ManagerFacade;
 
-import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.Random;
 
 public class TicketGenerator{
 
+    /**
+     * Creates an image of completed ticket
+     * @param ticket Ticket with uuid you want to create qqr code for
+     * @param event Event that the ticket is being made for
+     * @throws SQLException
+     */
     public void createCompleteTicket(Ticket ticket, Event event) throws SQLException {
         String uuid = ticket.getUuid();
         String customer = ticket.getCustomer();
@@ -31,6 +32,12 @@ public class TicketGenerator{
         createImageToSend(createQRCode(uuid, customer, eventId), event, customer);
     }
 
+    /**
+     * Creates an image of completed voucher
+     * @param voucher
+     * @param event
+     * @throws SQLException
+     */
     public void createCompleteVoucher(Voucher voucher, Event event) throws SQLException {
         Random rd = new Random();
         String uuid = voucher.getUuid();
@@ -39,6 +46,13 @@ public class TicketGenerator{
         createImageToSend(createQRCode(uuid, voucherName, eventId), event, voucherName);
     }
 
+    /**
+     *
+     * @param uuid unique id used for qr code generation
+     * @param custEvent string created from customer and event name to generate file name
+     * @param eventID also used for generating file name
+     * @return File of qr code
+     */
     public File createQRCode(String uuid, String custEvent, int eventID) {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = null;
@@ -64,15 +78,12 @@ public class TicketGenerator{
         return qrFile;
     }
 
-    public static void main(String[] args) throws SQLException {
-        Ticket ticket = new Ticket("550e8400-e29b-41d4-a716-446655440000", 19, "VIP", "Julian", "julian@mail.dk");
-        Event event = new Event(19, "Gigantic Balloon Party", "15:30", "19:00", "Gl Vardevej 78F", "crazy", 0, 0, 0, 0,
-                "29-03-2023", "29-03-2023");
-        TicketGenerator ticketGenerator = new TicketGenerator();
-        ticketGenerator.createCompleteTicket(ticket, event);
-    }
-
-
+    /**
+     * creates final Image of ticket/voucher and puts it into the out folder
+     * @param qrFile file with qr code generated from uuid
+     * @param event used to fill information out on ticket/voucher image
+     * @param customerName name of customer
+     */
     public void createImageToSend(File qrFile, Event event, String customerName) {
         String eventName = event.getName();
         String dateStart = event.getStartDate();

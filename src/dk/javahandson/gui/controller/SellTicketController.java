@@ -1,30 +1,23 @@
 package dk.javahandson.gui.controller;
 
 import dk.javahandson.be.Event;
-import dk.javahandson.be.Ticket;
 import dk.javahandson.gui.model.EventModel;
 import dk.javahandson.gui.model.TicketModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,13 +28,17 @@ public class SellTicketController implements Initializable {
     private AnchorPane eventPane;
     private TicketModel ticketModel = TicketModel.getInstance();
     private EventModel eventModel = EventModel.getInstance();
-    private Event selectedEvent;
-    private Ticket selectedTicket;
 
+    /*
+    Sell Ticket uses the same structure of the event menu controller to generate the window for the user
+    with different event tiles
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadData();
     }
+
+
     public StackPane generateEventPane(Event event){
         StackPane stackPane = new StackPane();
 
@@ -131,6 +128,9 @@ public class SellTicketController implements Initializable {
             }
         }
     }
+    /*
+    Adds action event to sell button on event tile which will open up a sell ticket popup.
+     */
     private void handleSellButton(StackPane eventPane) {
         VBox vBox = (VBox) eventPane.lookup("#vbox");
         HBox hBox = (HBox) vBox.lookup("#hbox");

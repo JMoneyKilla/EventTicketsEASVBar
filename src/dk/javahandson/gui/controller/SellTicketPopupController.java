@@ -5,7 +5,6 @@ import dk.javahandson.be.Voucher;
 import dk.javahandson.bll.helpers.EmailHandler;
 import dk.javahandson.bll.helpers.TicketGenerator;
 import dk.javahandson.gui.model.TicketModel;
-import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,16 +14,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ResourceBundle;
 
 public class SellTicketPopupController implements Initializable {
-    @FXML
-    private MFXButton sellButton, cancelButton;
     @FXML
     private ComboBox ticketVoucherBox, typeBox;
     @FXML
@@ -36,6 +32,11 @@ public class SellTicketPopupController implements Initializable {
     public boolean isTicket = false;
     public boolean isVoucher = false;
 
+    /*
+    Checks if you are selling a ticket or voucher then generates an image with a qr code,
+    updates the database to add a ticket/voucher and opens an email for the event coordinator
+    to send the customer their ticket/voucher
+     */
     public void clickSell(ActionEvent actionEvent) throws SQLException {
         if(isTicket){
             Ticket ticket = new Ticket(ticketModel.generateTicketUUID(), ticketModel.getSelectedEvent().getId(),
@@ -48,7 +49,7 @@ public class SellTicketPopupController implements Initializable {
             Node n = (Node) actionEvent.getSource();
             Stage stage = (Stage) n.getScene().getWindow();
             stage.close();
-        //emailHandler.openEmail(textFieldEmail.getText(), ticketModel.getSelectedEvent().getName(), "Welcome to the Party");
+            emailHandler.openEmail(textFieldEmail.getText(), ticketModel.getSelectedEvent().getName());
         }
         if(isVoucher){
             Voucher voucher = new Voucher(ticketModel.generateTicketUUID(), ticketModel.getSelectedEvent().getId(),
@@ -61,6 +62,7 @@ public class SellTicketPopupController implements Initializable {
             Node n = (Node) actionEvent.getSource();
             Stage stage = (Stage) n.getScene().getWindow();
             stage.close();
+            emailHandler.openEmail(textFieldEmail.getText(), ticketModel.getSelectedEvent().getName());
         }
 
     }

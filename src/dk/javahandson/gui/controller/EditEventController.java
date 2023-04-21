@@ -5,8 +5,6 @@ import dk.javahandson.be.User;
 import dk.javahandson.gui.model.EventModel;
 import dk.javahandson.gui.model.TicketModel;
 import dk.javahandson.gui.model.UserModel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,12 +13,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.chrono.Chronology;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -37,9 +33,11 @@ public class EditEventController implements Initializable {
     @FXML
     private DatePicker datePickerStart, datePickerEnd;
     @FXML
-    private AnchorPane createEventAnchorPane;
+    private javafx.scene.control.Label lblWarning;
     @FXML
-    private javafx.scene.control.Label lblWarning, lblTime, lblDate, lblSuccess;
+    private javafx.scene.control.Label lblTime;
+    @FXML
+    private javafx.scene.control.Label lblDate;
     EventModel eventModel = EventModel.getInstance();
     UserModel userModel = UserModel.getInstance();
     TicketModel ticketModel = TicketModel.getInstance();
@@ -48,12 +46,18 @@ public class EditEventController implements Initializable {
     public ObservableList<String> ticketTypes = FXCollections.observableArrayList();
     public ObservableList<String> voucherTypes = FXCollections.observableArrayList();
 
+    /*
+    Adds user to Listview to be added as event coordinator
+     */
     public void clickAddUser(ActionEvent actionEvent) {
         User selectedUser = tableAllUsers.getSelectionModel().getSelectedItem();
         eventUsers.add(selectedUser);
         allUsers.remove(tableAllUsers.getSelectionModel().getSelectedItem());
     }
 
+    /*
+    Updates event in program and database with new data
+     */
     public void clickSave(ActionEvent actionEvent) {
         try {
             String title = txtFieldEventTitle.getText();

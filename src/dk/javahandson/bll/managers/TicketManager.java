@@ -1,6 +1,5 @@
 package dk.javahandson.bll.managers;
 
-import dk.javahandson.be.Event;
 import dk.javahandson.be.Ticket;
 import dk.javahandson.dal.DataAccessFacade;
 import javafx.collections.ObservableList;

@@ -1,8 +1,6 @@
 package dk.javahandson.dal;
 
-import dk.javahandson.be.Event;
 import dk.javahandson.be.Ticket;
-import dk.javahandson.bll.ManagerFacade;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -140,6 +138,7 @@ public class TicketDAO {
         return uuid.toString();
     }
 
+   //Not currently used but at one point that it would be helpful to have a method to create many tickets at once.
     public void batchCreateTickets(int records, int eventId, String type) {
 
         PreparedStatement preparedStatement;

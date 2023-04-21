@@ -3,8 +3,6 @@ package dk.javahandson.dal;
 
 import dk.javahandson.be.Event;
 import dk.javahandson.be.User;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

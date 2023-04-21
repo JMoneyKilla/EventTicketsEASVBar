@@ -13,9 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
+
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -26,12 +25,7 @@ public class CreateEventController implements Initializable {
     @FXML
     private ListView listViewTicketType, listViewVoucherType;
     @FXML
-    private javafx.scene.control.Label lblWarning, lblTime, lblDate, lblSuccess;
-    @FXML
-    private AnchorPane createEventAnchorPane;
-    @FXML
-    private VBox ticketsVBox;
-
+    private javafx.scene.control.Label lblWarning, lblTime, lblDate;
     @FXML
     private TextField txtFieldEventTitle, txtFieldLocation,
             txtFieldTimeStart, txtFieldTimeEnd, txtFieldNotes,
@@ -45,6 +39,9 @@ public class CreateEventController implements Initializable {
     public ObservableList<String> ticketTypes = FXCollections.observableArrayList();
     public ObservableList<String> voucherTypes = FXCollections.observableArrayList();
 
+   /*
+   Creates new event using data from input fields and adds it to the database and updates the program
+    */
     public void clickSave(ActionEvent actionEvent) {
         try {
             String title = txtFieldEventTitle.getText();
@@ -93,9 +90,9 @@ public class CreateEventController implements Initializable {
 
     public void clickCancel(ActionEvent actionEvent) {
         clearTextFields();
-
     }
 
+    //Takes the date from DatePicker and returns a formatted date String in yy-mm-dd
     private String getFormattedDateFromDatePicker(DatePicker datePicker) {
         String date = null;
         if(datePicker.getValue()!=null){
@@ -110,6 +107,7 @@ public class CreateEventController implements Initializable {
         return date;
     }
 
+    //Check that date in DatePicker is in a valid format
     public boolean isDateValid() {
         if(datePickerStart.getEditor().getText().isEmpty() || datePickerEnd.getEditor().getText().isBlank()
         || datePickerEnd.getEditor().getText().isEmpty() || datePickerEnd.getEditor().getText().isBlank()){
@@ -134,6 +132,9 @@ public class CreateEventController implements Initializable {
         return true;
     }
 
+    /*
+    Checks that data inputed in time fields are of a valid format
+     */
     private boolean isTimeValid(String str){
         if(txtFieldTimeStart.getText().isBlank() || txtFieldTimeStart.getText().isEmpty()){
             lblTime.setText("Please input time start");
@@ -153,6 +154,9 @@ public class CreateEventController implements Initializable {
         return true;}
     }
 
+    /*
+    Clears all data fields
+     */
     public void clearTextFields(){
         txtFieldEventTitle.clear();
         txtFieldLocation.clear();
@@ -185,6 +189,9 @@ public class CreateEventController implements Initializable {
         });
     }
 
+    /*
+    Adds ticket type to Listview
+     */
     public void addTicketType(ActionEvent actionEvent) {
         if(!textFieldTicketType.getText().isEmpty() && ! textFieldTicketType.getText().isBlank()){
             String ticketType = textFieldTicketType.getText();
@@ -194,6 +201,9 @@ public class CreateEventController implements Initializable {
         }
     }
 
+    /*
+    Adds voucher type to Listview
+     */
     public void addVoucherType(ActionEvent actionEvent) {
         if(!textFieldVoucherType.getText().isEmpty() && ! textFieldVoucherType.getText().isBlank()){
             String ticketType = textFieldVoucherType.getText();

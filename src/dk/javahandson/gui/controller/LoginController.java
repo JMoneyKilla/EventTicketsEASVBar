@@ -1,6 +1,5 @@
 package dk.javahandson.gui.controller;
 
-import dk.javahandson.be.User;
 import dk.javahandson.gui.model.EventModel;
 import dk.javahandson.gui.model.UserModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -15,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +31,9 @@ public class LoginController implements Initializable {
     @FXML
     private Label lblWarning;
 
+    /*
+    validates login information and sets logged in user on the event model
+     */
     public void clickLogin(ActionEvent actionEvent) {
         String email = textFieldEmail.getText();
         String password = textFieldPassword.getText();

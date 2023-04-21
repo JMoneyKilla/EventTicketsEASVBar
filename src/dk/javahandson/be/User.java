@@ -11,6 +11,13 @@ public class User {
     private StringProperty type = new SimpleStringProperty();
     private StringProperty email = new SimpleStringProperty();
 
+    /**
+     * Constructor of User when user id is known
+     * @param id
+     * @param name
+     * @param type
+     * @param email
+     */
     public User(int id, String name,String type, String email){
     setId(id);
     setName(name);
@@ -18,6 +25,12 @@ public class User {
     setEmail(email);
     }
 
+    /**
+     * Constructor for user when user id is not known
+     * @param name
+     * @param type
+     * @param email
+     */
     public User(String name, String type, String email)
     {
         setName(name);

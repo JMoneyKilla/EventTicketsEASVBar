@@ -20,6 +20,7 @@ public class Ticket {
         setCustomerEmail(customerEmail);
     }
 
+    //Not used in program currently but is there for future implementation
     public void sellTicket(Ticket ticket, String customer, String customerEmail){
         ticket.setCustomer(customer);
         ticket.setCustomerEmail(customerEmail);

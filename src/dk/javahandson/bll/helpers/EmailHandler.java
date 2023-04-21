@@ -6,12 +6,14 @@ import java.net.URI;
 
 public class EmailHandler {
 
-    public void openEmail(String recipiente, String event){
+
+    //Began implementation but never got working product
+    public void openEmail(String recipient, String event){
         try {
             String body = "Thank you for buying tickets for " + event + ". We hope you enjoy the event!";
             String subject = "Event tickets for" + event;
             Desktop desktop = Desktop.getDesktop();
-            URI uri = URI.create("mailto:" + recipiente + "?subject=" + subject + "&body=" + body);
+            URI uri = URI.create("mailto:" + recipient + "?subject=" + subject + "&body=" + body);
             desktop.mail(uri);
 
     } catch (IOException e) {

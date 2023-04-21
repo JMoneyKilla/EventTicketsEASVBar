@@ -3,7 +3,6 @@ package dk.javahandson.gui.controller;
 import dk.javahandson.be.Event;
 import dk.javahandson.gui.model.EventModel;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +11,13 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Paint;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -42,6 +43,11 @@ public class EventMenuController implements Initializable {
         });
     }
 
+    /**
+     * Generates a stackpane which will be used as visual tile for an event that the user can interact with
+     * @param event
+     * @return
+     */
     public StackPane generateEventPane(Event event){
         StackPane stackPane = new StackPane();
 
@@ -127,6 +133,10 @@ public class EventMenuController implements Initializable {
 
         return stackPane;
     }
+
+    /*
+    Finds the view button on the StackPane and adds an action event to open up view window when clicked
+     */
     private void handleViewButton(StackPane eventPane) {
         VBox vBox = (VBox) eventPane.lookup("#vbox");
         HBox hBox = (HBox) vBox.lookup("#hbox");
@@ -184,6 +194,10 @@ public class EventMenuController implements Initializable {
             }
         });
     }
+    /*
+    Finds edit button on provided StackPane and adds action event to it to open up the edit event
+    window
+     */
     private void handleEditButton(StackPane eventPane) {
         VBox vBox = (VBox) eventPane.lookup("#vbox");
         HBox hBox = (HBox) vBox.lookup("#hbox");
@@ -221,47 +235,10 @@ public class EventMenuController implements Initializable {
 
     });}
 
-    public boolean isValidEventEdit(Event event){
-        int check = 0;
-        if(!event.getName().isEmpty() && !event.getName().isBlank())
-            check++;
-        if(event.getId()>0)
-            check++;
-        if(!event.getStartDate().isEmpty() && !event.getStartDate().isBlank())
-            check++;
-        if(!event.getStartTime().isEmpty() && !event.getStartTime().isBlank())
-            check++;
-        if(!event.getEndDate().isEmpty() && !event.getEndDate().isBlank())
-            check++;
-        if(!event.getEndTime().isEmpty() && !event.getEndTime().isBlank())
-            check++;
-        if(!event.getName().isEmpty() && !event.getName().isBlank())
-            check++;
-        if(!event.getLocation().isEmpty() && !event.getLocation().isBlank())
-            check++;
-        return check == 8;
-    }
-
-    public void handleSaveButton(Event event, Stage stage){
-        if(isValidEventEdit(event)){
-            eventModel.updateEditedEvent(event);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Event successfully edited!");
-            alert.showAndWait();
-            stage.close();
-        }
-        eventModel.fetchAllEvents();
-        loadData();
-    }
-    public void handleDeleteButton(Event event, Stage stage){
-        eventModel.deleteEvent(event);
-        eventModel.fetchAllEvents();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Event successfully deleted!");
-        alert.showAndWait();
-        loadData();
-        stage.close();
-    }
+    /*
+    Generates StackPanes for each event that the logged in user is a part of and populates the window
+    with the event tiles
+     */
     public void loadData(){
         int row = 0;
         int col = 0;

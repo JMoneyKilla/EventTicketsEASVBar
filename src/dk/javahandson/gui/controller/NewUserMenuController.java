@@ -3,8 +3,6 @@ package dk.javahandson.gui.controller;
 import dk.javahandson.be.User;
 import dk.javahandson.gui.model.EventModel;
 import dk.javahandson.gui.model.UserModel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,12 +10,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -50,6 +44,9 @@ public class NewUserMenuController implements Initializable {
     UserModel model = UserModel.getInstance();
     EventModel eventModel = EventModel.getInstance();
 
+    /*
+    Validates provided data and creates new User if data is valid
+     */
     public void clickSave(ActionEvent actionEvent) {
         if(!isEditTrue){
         if(isEmailValid(txtFieldEmail.getText())
@@ -151,6 +148,9 @@ public class NewUserMenuController implements Initializable {
 
     }
 
+    /*
+    Checks Database to ensure unique username is being created
+     */
     public boolean isUserNameAvailable(String str)
     {
 
@@ -192,6 +192,9 @@ public class NewUserMenuController implements Initializable {
         }
     }
 
+    /*
+    Checks availability of username
+     */
     public void clickCheckAvailability(ActionEvent actionEvent) {
         if(isEmailValid(txtFieldEmail.getText())){
         if(isUserNameAvailable(txtFieldEmail.getText()))
@@ -209,6 +212,9 @@ public class NewUserMenuController implements Initializable {
         }
     }
 
+    /*
+    Checks if email entered is valid email
+     */
     private boolean isEmailValid(String str)
     {
         String email_regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
@@ -219,6 +225,9 @@ public class NewUserMenuController implements Initializable {
             return false;}
     }
 
+    /*
+    Checks for valid password input
+     */
     private boolean isPasswordValid(String str)
     {
         Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
@@ -237,6 +246,9 @@ public class NewUserMenuController implements Initializable {
         return true;
     }
 
+    /*
+    Checks all data, returns true if all data is valid
+     */
     public boolean isInputValid()
     {
         if(!txtFieldEmail.getText().isBlank() || !txtFieldEmail.getText().isEmpty() ||

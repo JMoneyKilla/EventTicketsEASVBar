@@ -3,7 +3,6 @@ package dk.javahandson.bll.managers;
 import dk.javahandson.be.Event;
 import dk.javahandson.be.User;
 import dk.javahandson.dal.DataAccessFacade;
-import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 import java.util.List;

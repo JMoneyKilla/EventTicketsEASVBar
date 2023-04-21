@@ -19,6 +19,21 @@ public class Event {
     private IntegerProperty totalTickets = new SimpleIntegerProperty();
     private IntegerProperty totalVouchers = new SimpleIntegerProperty();
 
+    /**
+     * Constructor for Event when you know the event id
+     * @param id
+     * @param name
+     * @param startTime
+     * @param endTime
+     * @param location
+     * @param notes
+     * @param ticketsSold
+     * @param voucherUsed
+     * @param totalTickets
+     * @param totalVouchers
+     * @param startDate
+     * @param endDate
+     */
     public Event(int id,String name,String startTime, String endTime, String location, String notes,
                  int ticketsSold, int voucherUsed, int totalTickets, int totalVouchers, String startDate, String endDate){
     setId(id);
@@ -34,6 +49,21 @@ public class Event {
     setStartDate(startDate);
     setEndDate(endDate);
     }
+
+    /**
+     * Constructor for event when event id is not known
+     * @param name
+     * @param startTime
+     * @param endTime
+     * @param location
+     * @param notes
+     * @param ticketsSold
+     * @param voucherUsed
+     * @param totalTickets
+     * @param totalVouchers
+     * @param startDate
+     * @param endDate
+     */
     public Event(String name,String startTime, String endTime, String location, String notes,
                  int ticketsSold, int voucherUsed, int totalTickets, int totalVouchers, String startDate, String endDate){
         setName(name);

@@ -39,6 +39,12 @@ public class EventDAO {
         return allEvents;
     }
 
+    /**
+     *
+     * @param u User you are searching events for
+     * @return List of Events that the User is a event coordinator for
+     * @throws SQLException
+     */
     public List<Event> getCoordinatorEvents(User u) throws SQLException {
         List<Event> coordinatorEvents = new ArrayList<>();
         int userId = u.getId();
@@ -106,14 +112,6 @@ public class EventDAO {
             ps.setInt(11, totalVouchers);
             ps.execute();
         }
-    }
-
-    public static void main(String[] args) throws SQLException {
-        Event event = new Event(145,"Movies Under the Stars", "19:00", "00:00", "Stormegade 78, Esbjerg",
-                "Watch Dumb and Dumber 1 & 2 outside on a projector screen", 0, 0, 0, 0,
-                "07-04-2023", "08-04-2023");
-        DataAccessFacade dataAccessFacade = new DataAccessFacade();
-        dataAccessFacade.updateEvent(event);
     }
 
     public boolean deleteEvent(Event event) throws SQLException {

@@ -1,6 +1,5 @@
 package dk.javahandson.dal;
 
-import dk.javahandson.be.Ticket;
 import dk.javahandson.be.Voucher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

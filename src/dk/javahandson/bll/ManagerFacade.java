@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ManagerFacade {
+    /*
+    This is a Facade class that contains all the managers and passthroughs to their methods
+     */
     private EventManager eventManager = new EventManager();
     private TicketManager ticketManager = new TicketManager();
     private UserManager userManager = new UserManager();
@@ -37,9 +40,6 @@ public class ManagerFacade {
     }
     public int  getEventId(String title) throws SQLException {
         return eventManager.getEventId(title);
-    }
-    public Event getEventByEventId(int id) throws SQLException {
-        return eventManager.getEventByEventId(id);
     }
 
     /*

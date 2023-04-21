@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class DataAccessFacade {
+    /*
+    This is a facade class that contains all DAO's and passthroughs to their methods
+     */
     private EventDAO eventDAO = new EventDAO();
     private TicketDAO ticketDAO = new TicketDAO();
     private UserDAO userDAO = new UserDAO();
