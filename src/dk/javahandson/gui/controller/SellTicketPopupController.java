@@ -49,7 +49,7 @@ public class SellTicketPopupController implements Initializable {
             Node n = (Node) actionEvent.getSource();
             Stage stage = (Stage) n.getScene().getWindow();
             stage.close();
-        //emailHandler.openEmail(textFieldEmail.getText(), ticketModel.getSelectedEvent().getName(), "Welcome to the Party");
+            emailHandler.openEmail(textFieldEmail.getText(), ticketModel.getSelectedEvent().getName());
         }
         if(isVoucher){
             Voucher voucher = new Voucher(ticketModel.generateTicketUUID(), ticketModel.getSelectedEvent().getId(),
@@ -62,7 +62,7 @@ public class SellTicketPopupController implements Initializable {
             Node n = (Node) actionEvent.getSource();
             Stage stage = (Stage) n.getScene().getWindow();
             stage.close();
-            //emailHandler.openEmail(textFieldEmail.getText(), ticketModel.getSelectedEvent().getName());
+            emailHandler.openEmail(textFieldEmail.getText(), ticketModel.getSelectedEvent().getName());
         }
 
     }
